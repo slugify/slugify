@@ -15,7 +15,7 @@ Here's the dependency information for Maven:
     <dependency>
 		<groupId>com.github.slugify</groupId>
 		<artifactId>slugify</artifactId>
-		<version>1.0</version>
+		<version>1.0-RELEASE</version>
     </dependency>
 
 Now you're able to use it:
