@@ -43,6 +43,7 @@ public class Slugify
 			return "";
 		}
 
+		ret = ret.replace( "ı", "i" );
 		ret = ret.replace( "ß", "ss" );
 		return Normalizer.normalize( ret, Normalizer.Form.NFD )
 				.replaceAll( "[^\\p{ASCII}]", "")
