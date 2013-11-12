@@ -1,35 +1,43 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.github.slugify</groupId>
-	<artifactId>slugify</artifactId>
-	<version>1.1-SNAPSHOT</version>
+	<artifactId>slugify-parent</artifactId>
+	<version>2.0.0-SNAPSHOT</version>
 
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 
-	<name>Slugify</name>
+	<name>Slugify - Parent</name>
 	<description>SEO-friendly URLs with Slugify</description>
 	<url>https://github.com/slugify</url>
 
-	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>7</version>
-	</parent>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
 
 	<licenses>
 		<license>
-			<name>GNU General Public License (GPL)</name>
-			<url>http://www.gnu.org/licenses/gpl.html</url>
+			<name>Apache License</name>
+			<url>http://www.apache.org/licenses/</url>
+			<distribution>repo</distribution>
 		</license>
 	</licenses>
 
 	<scm>
 		<developerConnection>scm:git:git@github.com:slugify/slugify.git</developerConnection>
-		<connection>scm:git:git@github.com:slugify/slugify.git</connection>
-		<url>git@github.com:slugify/slugify.git</url>
+		<connection>scm:git:git://github.com/slugify/slugify.git</connection>
+		<url>http://github.com/slugify/slugify</url>
+		<tag>HEAD</tag>
 	</scm>
+
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/slugify/slugify/issues</url>
+	</issueManagement>
 
 	<developers>
 		<developer>
@@ -39,31 +47,51 @@
 		</developer>
 	</developers>
 
-	<dependencies>
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.6</version>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.10</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.github.slugify</groupId>
+				<artifactId>slugify</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.slugify</groupId>
+				<artifactId>slugify-integration-jstl</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.11</version>
+				<scope>test</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<modules>
+		<module>core</module>
+		<module>jstl</module>
+	</modules>
+
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
 
 	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 </project>

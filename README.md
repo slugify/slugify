@@ -5,22 +5,33 @@ SEO-friendly URLs with Slugify
 
 Notice
 ------
-If you want to use it directly in your JSP, take a look at [slugify-taglib][1]
+If you want to use it directly in your JSP, take a look into [jstl][1]
 
 Usage
 -----
-If you want to use Slugify in your Java code you need the library itself.
+If you want to use Slugify in your Java code you only need the library itself.
 Here's the dependency information for Maven:
 
     <dependency>
 		<groupId>com.github.slugify</groupId>
 		<artifactId>slugify</artifactId>
-		<version>1.0-RELEASE</version>
+		<version>2.0.0-RELEASE</version>
     </dependency>
 
 Now you're able to use it:
 
+    Slugify slg = new Slugify();
     // Result: hello-world
-    String s = Slugify.slugify( "Hello, world!" );
+    String s = slg.slugify("Hello, world!");
 
-[1]: http://github.com/slugify/slugify-taglib
+You can set custom replacements for Slugify:
+
+    Slugify slg = new Slugify();
+    slg.setCustomReplacements(new HashMap<String, String>() {{
+    	put("ß", "ss");
+    }});
+
+    // Result: dass
+    String s = slg.slugify("daß");
+
+[1]: http://github.com/slugify/slugify/tree/master/jstl
