@@ -18,28 +18,26 @@ package com.github.slugify;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.UnsupportedEncodingException;
-
 import org.junit.Test;
 
 public class SlugifyTest
 {
 	@Test
-	public void testBasic() throws UnsupportedEncodingException
+	public void testBasic()
 	{
 		String s = "Hello world";
 		assertEquals( "hello-world", Slugify.slugify( s ) );
 	}
 
 	@Test
-	public void testSpaces() throws UnsupportedEncodingException
+	public void testSpaces()
 	{
 		String s = "\tHello  \t world ";
 		assertEquals( "hello-world", Slugify.slugify( s ) );
 	}
 
 	@Test
-	public void testPrintableASCII() throws UnsupportedEncodingException
+	public void testPrintableASCII()
 	{
 		String s = " !\"#$%&'()*+,-./0123456789:;<=>?@"
 				+ "ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`"
@@ -53,7 +51,7 @@ public class SlugifyTest
 	}
 
 	@Test
-	public void testExtendedASCII() throws UnsupportedEncodingException
+	public void testExtendedASCII()
 	{
 		String s = "€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘”•–—˜™š›œžŸ¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶"
 				+ "·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæç"
