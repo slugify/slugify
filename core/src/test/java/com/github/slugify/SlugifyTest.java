@@ -3,6 +3,7 @@ package com.github.slugify;
 import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
+import java.util.Locale;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -14,11 +15,11 @@ public class SlugifyTest {
 	@BeforeClass
 	@SuppressWarnings("serial")
 	public static void setupSlugify() {
-		slg1 = new Slugify();
-		slg2 = new Slugify();
+		slg1 = new Slugify(new Locale("en"));
+		slg2 = new Slugify(new Locale("de"));
 
 		slg2.setCustomReplacements(new HashMap<String, String>() {{
-			put("ß", "ss");
+			put("leet", "1337");
 		}});
 	}
 
@@ -60,7 +61,13 @@ public class SlugifyTest {
 
 	@Test
 	public void testCustomReplacements() {
-		String s = "Daß";
-		assertEquals("Dass", slg2.slugify(s));
+		String s = "Hello leet!";
+		assertEquals("Hello-1337", slg2.slugify(s));
+	}
+
+	@Test
+	public void testLocaleReplacements() {
+		String s = "ÄÖÜäöüß";
+		assertEquals("AeOeUeaeoeuess", slg2.slugify(s));
 	}
 }
