@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.github.slugify</groupId>
 		<artifactId>slugify-parent</artifactId>
-		<version>2.0.1-SNAPSHOT</version>
+		<version>2.0.1-RELEASE</version>
 	</parent>
 
 	<artifactId>slugify</artifactId>
