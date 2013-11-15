@@ -15,10 +15,8 @@ public class Slugify {
 	}
 
 	public Slugify(final Locale locale) {
-		System.out.println("Slugify(" + locale.toString() + ")");
-		setBundle(ResourceBundle.getBundle("com.github.slugify.i18n.Replacements", locale));
+		setBundle(ResourceBundle.getBundle("replacements", locale));
 		setLocale(locale);
-
 	}
 
 	public String slugify(String input) {
@@ -35,8 +33,10 @@ public class Slugify {
 			}
 		}
 
-		for (String key : bundle.keySet()) {
-			input = input.replace(key, bundle.getString(key));
+		if (getLocale().equals(getBundle().getLocale())) {
+			for (String key : bundle.keySet()) {
+				input = input.replace(key, bundle.getString(key));
+			}
 		}
 
 		return Normalizer.normalize(input, Normalizer.Form.NFD)
@@ -58,7 +58,6 @@ public class Slugify {
 	}
 
 	public void setBundle(ResourceBundle bundle) {
-		System.out.println("set bundle (locale: " + bundle.getLocale().toString() + ")");
 		this.bundle = bundle;
 	}
 
@@ -67,7 +66,6 @@ public class Slugify {
 	}
 
 	public void setLocale(Locale locale) {
-		System.out.println("set locale to " + locale.toString());
 		this.locale = locale;
 	}
 }
