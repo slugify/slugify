@@ -21,7 +21,7 @@ Here's the dependency information for Maven:
 Now you're able to use it:
 
     Slugify slg = new Slugify();
-    // Result: hello-world
+    // Result: Hello-world
     String s = slg.slugify("Hello, world!");
 
 You can set custom replacements for Slugify:
@@ -31,7 +31,7 @@ You can set custom replacements for Slugify:
     	put("foo", "bar");
     }});
 
-    // Result: Hello bar
+    // Result: Hello-bar
     String s = slg.slugify("Hello foo");
 
 [1]: http://github.com/slugify/slugify/tree/master/jstl
