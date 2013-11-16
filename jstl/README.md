@@ -9,7 +9,7 @@ Here's the dependency information for Maven:
     <dependency>
 		<groupId>com.github.slugify</groupId>
 		<artifactId>slugify-integration-jstl</artifactId>
-		<version>2.0.1-RELEASE</version>
+		<version>2.0.2</version>
     </dependency>
 
 Now you're able to use it:
