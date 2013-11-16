@@ -3,6 +3,7 @@ package com.github.slugify;
 import java.text.Normalizer;
 import java.util.Locale;
 import java.util.Map;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 public class Slugify {
@@ -35,7 +36,9 @@ public class Slugify {
 
 		if (getLocale().equals(getBundle().getLocale())) {
 			for (String key : bundle.keySet()) {
-				input = input.replace(key, bundle.getString(key));
+				try {
+					input = input.replace(key, bundle.getString(key));
+				} catch (MissingResourceException e) {}
 			}
 		}
 
