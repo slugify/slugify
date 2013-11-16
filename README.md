@@ -15,7 +15,7 @@ Here's the dependency information for Maven:
     <dependency>
 		<groupId>com.github.slugify</groupId>
 		<artifactId>slugify</artifactId>
-		<version>2.0.0</version>
+		<version>2.0.1-RELEASE</version>
     </dependency>
 
 Now you're able to use it:
@@ -28,10 +28,10 @@ You can set custom replacements for Slugify:
 
     Slugify slg = new Slugify();
     slg.setCustomReplacements(new HashMap<String, String>() {{
-    	put("ß", "ss");
+    	put("foo", "bar");
     }});
 
-    // Result: dass
-    String s = slg.slugify("daß");
+    // Result: Hello bar
+    String s = slg.slugify("Hello foo");
 
 [1]: http://github.com/slugify/slugify/tree/master/jstl
