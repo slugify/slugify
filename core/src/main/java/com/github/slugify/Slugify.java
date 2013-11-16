@@ -16,7 +16,6 @@ public class Slugify {
 	}
 
 	public Slugify(final Locale locale) {
-		setBundle(ResourceBundle.getBundle("replacements", locale));
 		setLocale(locale);
 	}
 
@@ -34,11 +33,9 @@ public class Slugify {
 			}
 		}
 
-		if (getLocale().equals(getBundle().getLocale())) {
+		if (getBundle() != null && getLocale().equals(getBundle().getLocale())) {
 			for (String key : bundle.keySet()) {
-				try {
-					input = input.replace(key, bundle.getString(key));
-				} catch (MissingResourceException e) {}
+				input = input.replace(key, bundle.getString(key));
 			}
 		}
 
@@ -70,5 +67,9 @@ public class Slugify {
 
 	public void setLocale(Locale locale) {
 		this.locale = locale;
+
+		try {
+			setBundle(ResourceBundle.getBundle("replacements", locale));
+		} catch (MissingResourceException e) {}
 	}
 }
