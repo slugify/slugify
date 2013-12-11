@@ -41,8 +41,9 @@ public class Slugify {
 
 		return Normalizer.normalize(input, Normalizer.Form.NFD)
 				.replaceAll("[^\\p{ASCII}]", "")
-				.replaceAll("[^a-zA-Z0-9 ]", "")
-				.replaceAll("\\s+", "-");
+				.replaceAll("[^\\w+]", "-")
+				.replaceAll("\\s+", "-")
+				.replaceAll("[-]+", "-");
 	}
 
 	public Map<String, String> getCustomReplacements() {
