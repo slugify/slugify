@@ -33,7 +33,7 @@ public class Slugify {
 			}
 		}
 
-		if (getBundle() != null && getLocale().equals(getBundle().getLocale())) {
+		if (getBundle() != null && getLocale().getLanguage().equals(getBundle().getLocale().getLanguage())) {
 			for (String key : bundle.keySet()) {
 				input = input.replace(key, bundle.getString(key));
 			}
