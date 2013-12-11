@@ -41,8 +41,8 @@ public class SlugifyTest {
 				+ "ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`"
 				+ "abcdefghijklmnopqrstuvwxyz{|}~";
 
-		String expected = "0123456789"
-				+ "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+		String expected = "+-0123456789-"
+				+ "ABCDEFGHIJKLMNOPQRSTUVWXYZ-_-"
 				+ "abcdefghijklmnopqrstuvwxyz";
 
 		assertEquals(expected, slg1.slugify(s));

@@ -43,7 +43,9 @@ public class Slugify {
 				.replaceAll("[^\\p{ASCII}]", "")
 				.replaceAll("[^\\w+]", "-")
 				.replaceAll("\\s+", "-")
-				.replaceAll("[-]+", "-");
+				.replaceAll("[-]+", "-")
+				.replaceAll("^-", "")
+				.replaceAll("-$", "");
 	}
 
 	public Map<String, String> getCustomReplacements() {
