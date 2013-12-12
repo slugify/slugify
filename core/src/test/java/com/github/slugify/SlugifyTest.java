@@ -16,7 +16,7 @@ public class SlugifyTest {
 	@SuppressWarnings("serial")
 	public static void setupSlugify() {
 		slg1 = new Slugify(new Locale("en"));
-		slg2 = new Slugify(new Locale("de"));
+		slg2 = new Slugify(false, new Locale("de"));
 
 		slg2.setCustomReplacements(new HashMap<String, String>() {{
 			put("leet", "1337");
@@ -26,13 +26,13 @@ public class SlugifyTest {
 	@Test
 	public void testBasic() {
 		String s = "Hello world";
-		assertEquals("Hello-world", slg1.slugify(s));
+		assertEquals("hello-world", slg1.slugify(s));
 	}
 
 	@Test
 	public void testSpaces() {
 		String s = "\tHello  \t world ";
-		assertEquals("Hello-world", slg1.slugify(s));
+		assertEquals("hello-world", slg1.slugify(s));
 	}
 
 	@Test
@@ -42,7 +42,7 @@ public class SlugifyTest {
 				+ "abcdefghijklmnopqrstuvwxyz{|}~";
 
 		String expected = "+-0123456789-"
-				+ "ABCDEFGHIJKLMNOPQRSTUVWXYZ-_-"
+				+ "abcdefghijklmnopqrstuvwxyz-_-"
 				+ "abcdefghijklmnopqrstuvwxyz";
 
 		assertEquals(expected, slg1.slugify(s));
@@ -54,7 +54,7 @@ public class SlugifyTest {
 				+ "·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæç"
 				+ "èéêëìíîïðñòóôõö÷øùúûüýþÿ";
 
-		String expected = "SZszYAAAAAACEEEEIIIINOOOOOUUUUYaaaaaaceeeeiiiinooooouuuuyy";
+		String expected = "szszyaaaaaaceeeeiiiinooooouuuuyaaaaaaceeeeiiiinooooouuuuyy";
 
 		assertEquals(expected, slg1.slugify(s));
 	}
