@@ -15,5 +15,5 @@ Here's the dependency information for Maven:
 Now you're able to use it:
 
     <%@ taglib prefix="slg" uri="http://github.com/slugify" %>
-    <!-- Result: Hello-world -->
+    <!-- Result: hello-world -->
     ${slg:slugify('Hello, world!')}
