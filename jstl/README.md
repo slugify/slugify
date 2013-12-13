@@ -17,3 +17,10 @@ Now you're able to use it:
     <%@ taglib prefix="slg" uri="http://github.com/slugify" %>
     <!-- Result: hello-world -->
     ${slg:slugify('Hello, world!')}
+
+You can configure Slugify this way (both attributes are optional and can have Boolean/Locale or String as value):
+
+    <%@ taglib prefix="slg" uri="http://github.com/slugify" %>
+    <slg:init lowerCase="false" locale="en" />
+    <!-- Result: Hello-world -->
+    ${slg:slugify('Hello, world!')}

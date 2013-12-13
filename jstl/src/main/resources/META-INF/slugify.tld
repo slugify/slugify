@@ -12,6 +12,23 @@
 	<short-name>slg</short-name>
 	<uri>http://github.com/slugify</uri>
 
+	<tag>
+		<description>Initialize Slugify</description>
+		<name>init</name>
+		<tag-class>com.github.slugify.InitSlugifyTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>lowerCase</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>locale</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
 	<function>
 		<name>slugify</name>
 		<function-class>com.github.slugify.Functions</function-class>
