@@ -18,9 +18,14 @@ Now you're able to use it:
     <!-- Result: hello-world -->
     ${slg:slugify('Hello, world!')}
 
-You can configure Slugify this way (both attributes are optional and can have Boolean/Locale or String as value):
+You can configure Slugify this way (JSTL; both attributes are optional and can have Boolean/Locale or String as value):
 
     <%@ taglib prefix="slg" uri="http://github.com/slugify" %>
     <slg:init lowerCase="false" locale="en" />
     <!-- Result: Hello-world -->
     ${slg:slugify('Hello, world!')}
+
+Or this way (Java):
+
+    InitSlugifyTag.getSlugify().setLowerCase(false);
+    InitSlugifyTag.getSlugify().setLocale(Locale.US);
