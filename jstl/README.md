@@ -28,4 +28,4 @@ You can configure Slugify this way (JSTL; both attributes are optional and can h
 Or this way (Java):
 
     InitSlugifyTag.getSlugify().setLowerCase(false);
-    InitSlugifyTag.getSlugify().setLocale(Locale.US);
+    InitSlugifyTag.getSlugify().setLocale(Locale.ENGLISH);
