@@ -15,8 +15,8 @@ public class SlugifyTest {
 	@BeforeClass
 	@SuppressWarnings("serial")
 	public static void setupSlugify() {
-		slg1 = new Slugify(new Locale("en"));
-		slg2 = new Slugify(false, new Locale("de"));
+		slg1 = new Slugify(Locale.ENGLISH);
+		slg2 = new Slugify(false, Locale.GERMAN);
 
 		slg2.setCustomReplacements(new HashMap<String, String>() {{
 			put("leet", "1337");
