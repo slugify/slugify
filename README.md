@@ -1,4 +1,4 @@
-Slugify [![Build Status](https://secure.travis-ci.org/slugify/slugify.png?branch=master)](http://travis-ci.org/slugify/slugify)
+Slugify [![Build Status](https://secure.travis-ci.org/slugify/slugify.svg?branch=master)](http://travis-ci.org/slugify/slugify)
 =======
 
 SEO-friendly URLs with Slugify
@@ -15,7 +15,7 @@ Here's the dependency information for Maven:
     <dependency>
 		<groupId>com.github.slugify</groupId>
 		<artifactId>slugify</artifactId>
-		<version>2.1.2</version>
+		<version>2.1.3</version>
     </dependency>
 
 Now you're able to use it:

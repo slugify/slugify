@@ -1,32 +1,27 @@
 package com.github.slugify;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.Normalizer;
-import java.util.Locale;
 import java.util.Map;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import java.util.Map.Entry;
+import java.util.Properties;
 
 public class Slugify {
+	private final Properties replacements = new Properties();
+
 	private Map<String, String> customReplacements;
-	private ResourceBundle bundle;
 	private boolean lowerCase;
-	private Locale locale;
 
-	public Slugify() {
-		this(true, Locale.getDefault());
+	public Slugify() throws IOException {
+		this(true);
 	}
 
-	public Slugify(final boolean lowerCase) {
-		this(lowerCase, Locale.getDefault());
-	}
-
-	public Slugify(final Locale locale) {
-		this(true, locale);
-	}
-
-	public Slugify(final boolean lowerCase, final Locale locale) {
+	public Slugify(final boolean lowerCase) throws IOException {
+		InputStream replacementsStream = getClass().getClassLoader().getResourceAsStream("replacements.properties");
+		replacements.load(replacementsStream);
+		replacementsStream.close();
 		setLowerCase(lowerCase);
-		setLocale(locale);
 	}
 
 	public String slugify(String input) {
@@ -38,15 +33,13 @@ public class Slugify {
 
 		Map<String, String> customReplacements = getCustomReplacements();
 		if (customReplacements != null) {
-			for (Map.Entry<String, String> entry : customReplacements.entrySet()) {
+			for (Entry<String, String> entry : customReplacements.entrySet()) {
 				input = input.replace(entry.getKey(), entry.getValue());
 			}
 		}
 
-		if (getBundle() != null && getLocale().getLanguage().equals(getBundle().getLocale().getLanguage())) {
-			for (String key : bundle.keySet()) {
-				input = input.replace(key, bundle.getString(key));
-			}
+		for (Entry<Object, Object> e : replacements.entrySet()) {
+			input = input.replace((String) e.getKey(), (String) e.getValue());
 		}
 
 		input = Normalizer.normalize(input, Normalizer.Form.NFD)
@@ -58,7 +51,7 @@ public class Slugify {
 				.replaceAll("-$", "");
 
 		if (getLowerCase()) {
-			input = input.toLowerCase(getLocale());
+			input = input.toLowerCase();
 		}
 
 		return input;
@@ -72,31 +65,11 @@ public class Slugify {
 		this.customReplacements = customReplacements;
 	}
 
-	public ResourceBundle getBundle() {
-		return bundle;
-	}
-
-	public void setBundle(ResourceBundle bundle) {
-		this.bundle = bundle;
-	}
-
 	public boolean getLowerCase() {
 		return lowerCase;
 	}
 
 	public void setLowerCase(boolean lowerCase) {
 		this.lowerCase = lowerCase;
-	}
-
-	public Locale getLocale() {
-		return locale;
-	}
-
-	public void setLocale(Locale locale) {
-		this.locale = locale;
-
-		try {
-			setBundle(ResourceBundle.getBundle("replacements", locale));
-		} catch (MissingResourceException e) {}
 	}
 }

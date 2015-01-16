@@ -2,9 +2,8 @@ package com.github.slugify;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
 import java.util.HashMap;
-import java.util.Locale;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -14,9 +13,9 @@ public class SlugifyTest {
 
 	@BeforeClass
 	@SuppressWarnings("serial")
-	public static void setupSlugify() {
-		slg1 = new Slugify(Locale.ENGLISH);
-		slg2 = new Slugify(false, Locale.GERMAN);
+	public static void setupSlugify() throws IOException {
+		slg1 = new Slugify();
+		slg2 = new Slugify(false);
 
 		slg2.setCustomReplacements(new HashMap<String, String>() {{
 			put("leet", "1337");
@@ -54,20 +53,21 @@ public class SlugifyTest {
 				+ "·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæç"
 				+ "èéêëìíîïðñòóôõö÷øùúûüýþÿ";
 
-		String expected = "szszyaaaaaaceeeeiiiinooooouuuuyaaaaaaceeeeiiiinooooouuuuyy";
+		// expected:<szszyaaaaa[[[eaceeeeiiiinoooooeuuuueyssaaaaaeaceeeeiiiinoooooeuuuue]]]yy> but was:<szszyaaaaa[eaceeeeiiiinoooooeuuuueyssaaaaaeaceeeeiiiinoooooeuuuue]yy>
+		String expected = "szszyaaaaaeaceeeeiiiinoooooeuuuueyssaaaaaeaceeeeiiiinoooooeuuuueyy";
 
 		assertEquals(expected, slg1.slugify(s));
+	}
+
+	@Test
+	public void testReplacements() {
+		String s = "ÄÖÜäöüß";
+		assertEquals("AeOeUeaeoeuess", slg2.slugify(s));
 	}
 
 	@Test
 	public void testCustomReplacements() {
 		String s = "Hello leet!";
 		assertEquals("Hello-1337", slg2.slugify(s));
-	}
-
-	@Test
-	public void testLocaleReplacements() {
-		String s = "ÄÖÜäöüß";
-		assertEquals("AeOeUeaeoeuess", slg2.slugify(s));
 	}
 }
