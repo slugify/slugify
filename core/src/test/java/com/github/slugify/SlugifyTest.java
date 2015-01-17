@@ -53,7 +53,6 @@ public class SlugifyTest {
 				+ "·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæç"
 				+ "èéêëìíîïðñòóôõö÷øùúûüýþÿ";
 
-		// expected:<szszyaaaaa[[[eaceeeeiiiinoooooeuuuueyssaaaaaeaceeeeiiiinoooooeuuuue]]]yy> but was:<szszyaaaaa[eaceeeeiiiinoooooeuuuueyssaaaaaeaceeeeiiiinoooooeuuuue]yy>
 		String expected = "szszyaaaaaeaceeeeiiiinoooooeuuuueyssaaaaaeaceeeeiiiinoooooeuuuueyy";
 
 		assertEquals(expected, slg1.slugify(s));
