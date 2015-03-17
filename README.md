@@ -12,32 +12,42 @@ Usage
 If you want to use Slugify in your Java code you only need the library itself.
 Here's the dependency information for Maven:
 
-    <dependency>
-		<groupId>com.github.slugify</groupId>
-		<artifactId>slugify</artifactId>
-		<version>2.1.3</version>
-    </dependency>
+```xml
+<dependency>
+	<groupId>com.github.slugify</groupId>
+	<artifactId>slugify</artifactId>
+	<version>2.1.3</version>
+</dependency>
+```
 
 Now you're able to use it:
 
-    Slugify slg = new Slugify();
-    // Result: hello-world
-    String s = slg.slugify("Hello, world!");
+```java
+Slugify slg = new Slugify();
+String result = slg.slugify("Hello, world!");
+// result: hello-world
+```
 
 You can set custom replacements for Slugify:
 
-    Slugify slg = new Slugify();
-    slg.setCustomReplacements(new HashMap<String, String>() {{
-    	put("foo", "bar");
-    }});
+```java
+Slugify slg = new Slugify();
+slg.setCustomReplacements(new HashMap<String, String>() {{
+    put("foo", "bar");
+}});
+```
 
-    // Result: hello-bar
-    String s = slg.slugify("Hello foo");
+```java
+String result = slg.slugify("Hello foo");
+// result: hello-bar
+```
 
 Or if you want case sensitivity:
 
-    Slugify slg = new Slugify(false);
-    // Result: Hello-World
-    String s = slg.slugify("Hello, World!");
+```java
+Slugify slg = new Slugify(false);
+String result = slg.slugify("Hello, World!");
+// result: Hello-World
+```
 
 [1]: http://github.com/slugify/slugify/tree/master/jstl
