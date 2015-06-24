@@ -69,4 +69,10 @@ public class SlugifyTest {
 		String s = "Hello leet!";
 		assertEquals("Hello-1337", slg2.slugify(s));
 	}
+
+	@Test
+	public void testUncapitaliationLocale() {
+		String s = "ALTINDAĞ";
+		assertEquals("altindag", slg1.slugify(s));
+	}
 }
