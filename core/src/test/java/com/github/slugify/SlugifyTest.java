@@ -71,7 +71,7 @@ public class SlugifyTest {
 	}
 
 	@Test
-	public void testUncapitaliationLocale() {
+	public void testLowercaseLocale() {
 		String s = "ALTINDAĞ";
 		assertEquals("altindag", slg1.slugify(s));
 	}
