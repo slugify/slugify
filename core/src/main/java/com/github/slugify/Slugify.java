@@ -3,6 +3,7 @@ package com.github.slugify;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.Normalizer;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
@@ -51,7 +52,7 @@ public class Slugify {
 				.replaceAll("-$", "");
 
 		if (getLowerCase()) {
-			input = input.toLowerCase();
+			input = input.toLowerCase(Locale.ENGLISH);
 		}
 
 		return input;
