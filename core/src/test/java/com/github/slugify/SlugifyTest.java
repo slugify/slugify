@@ -69,4 +69,9 @@ public class SlugifyTest {
 		String s = "Hello leet!";
 		assertEquals("Hello-1337", slg2.slugify(s));
 	}
+        @Test
+        public void testCyrillic() {
+          String s = "Смысловые галлюцинации";
+          assertEquals("smyslovye-gallyutsinatsii", slg1.slugify(s));
+        }
 }
