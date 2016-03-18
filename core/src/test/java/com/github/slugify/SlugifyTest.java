@@ -51,9 +51,10 @@ public class SlugifyTest {
 	public void testExtendedASCII() {
 		String s = "€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘”•–—˜™š›œžŸ¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶"
 				+ "·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæç"
-				+ "èéêëìíîïðñòóôõö÷øùúûüýþÿ";
+				+ "èéêëìíîïðñòóôõö÷øùúûüýþÿ"
+                                + "ĄĆĘŁŃÓŚŹŻąćęłńóśźż";
 
-		String expected = "szszyaaaaaeaceeeeiiiinoooooeuuuueyssaaaaaeaceeeeiiiinoooooeuuuueyy";
+		String expected = "szszyaaaaaeaceeeeiiiinoooooeuuuueyssaaaaaeaceeeeiiiinoooooeuuuueyyacelnoszzacelnoszz";
 
 		assertEquals(expected, slg1.slugify(s));
 	}
