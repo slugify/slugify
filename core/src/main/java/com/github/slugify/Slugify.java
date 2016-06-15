@@ -39,7 +39,7 @@ public class Slugify {
 		}
 
 		for (Entry<Object, Object> e : replacements.entrySet()) {
-			input = input.replace((String) e.getKey(), (String) e.getValue());
+			input = input.replace(e.getKey().toString(), e.getValue().toString());
 		}
 
 		input = Normalizer.normalize(input, Normalizer.Form.NFD)
