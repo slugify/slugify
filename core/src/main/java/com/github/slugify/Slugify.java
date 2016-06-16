@@ -47,8 +47,7 @@ public class Slugify {
 				.replaceAll("[^\\w+]", "-")
 				.replaceAll("\\s+", "-")
 				.replaceAll("--+", "-")
-				.replaceAll("^-", "")
-				.replaceAll("-$", "");
+				.replaceAll("^-|-$", "");
 
 		if (getLowerCase()) {
 			input = input.toLowerCase();
