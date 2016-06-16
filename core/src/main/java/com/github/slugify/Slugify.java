@@ -44,9 +44,7 @@ public class Slugify {
 
 		input = Normalizer.normalize(input, Normalizer.Form.NFD)
 				.replaceAll("[^\\p{ASCII}]", "")
-				.replaceAll("[^\\w+]", "-")
-				.replaceAll("\\s+", "-")
-				.replaceAll("--+", "-")
+				.replaceAll("(?:[^\\w+]|\\s)+", "-")
 				.replaceAll("^-|-$", "");
 
 		if (getLowerCase()) {
