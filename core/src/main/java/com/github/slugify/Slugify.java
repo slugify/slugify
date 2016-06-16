@@ -43,7 +43,7 @@ public class Slugify {
 		}
 
 		input = Normalizer.normalize(input, Normalizer.Form.NFD)
-				.replaceAll("[^\\p{ASCII}]", "")
+				.replaceAll("[^\\p{ASCII}]+", "")
 				.replaceAll("(?:[^\\w+]|\\s)+", "-")
 				.replaceAll("^-|-$", "");
 
