@@ -42,10 +42,7 @@ public class Slugify {
 			input = input.replace(e.getKey().toString(), e.getValue().toString());
 		}
 
-		input = Normalizer.normalize(input, Normalizer.Form.NFD)
-				.replaceAll("[^\\p{ASCII}]+", "")
-				.replaceAll("(?:[^\\w+]|\\s)+", "-")
-				.replaceAll("^-|-$", "");
+		input = normalize(input);
 
 		if (getLowerCase()) {
 			input = input.toLowerCase();
@@ -53,7 +50,15 @@ public class Slugify {
 
 		return input;
 	}
-
+	
+	protected String normalize(String input) {
+	    input = Normalizer.normalize(input, Normalizer.Form.NFD)
+	    		.replaceAll("[^\\p{ASCII}]+", "")
+	    		.replaceAll("(?:[^\\w+]|\\s)+", "-")
+	    		.replaceAll("^-|-$", "");
+	    return input;
+	}
+	
 	public Map<String, String> getCustomReplacements() {
 		return customReplacements;
 	}
