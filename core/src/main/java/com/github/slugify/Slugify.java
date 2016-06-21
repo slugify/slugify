@@ -52,7 +52,7 @@ public class Slugify {
 	}
 	
 	protected String normalize(String input) {
-	    input = Normalizer.normalize(input, Normalizer.Form.NFD)
+	    input = Normalizer.normalize(input, Normalizer.Form.NFKD)
 	    		.replaceAll("[^\\p{ASCII}]+", "")
 	    		.replaceAll("(?:[^\\w+]|\\s)+", "-")
 	    		.replaceAll("^-|-$", "");
