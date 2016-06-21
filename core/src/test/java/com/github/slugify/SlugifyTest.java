@@ -54,7 +54,7 @@ public class SlugifyTest {
 				+ "èéêëìíîïðñòóôõö÷øùúûüýþÿ"
                                 + "ĄĆĘŁŃÓŚŹŻąćęłńóśźż";
 
-		String expected = "szszyaaaaaeaceeeeiiiinoooooeuuuueyssaaaaaeaceeeeiiiinoooooeuuuueyyacelnoszzacelnoszz";
+		String expected = "sz-tmszy-a-23-1o141234aaaaaeaceeeeiiiinoooooeuuuueyssaaaaaeaceeeeiiiinoooooeuuuueyyacelnoszzacelnoszz";
 
 		assertEquals(expected, slg1.slugify(s));
 	}
