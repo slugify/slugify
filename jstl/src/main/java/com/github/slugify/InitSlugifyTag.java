@@ -21,7 +21,7 @@ public class InitSlugifyTag extends SimpleTagSupport {
 	public void setLowerCase(Object obj) {
 		boolean lowerCase = true;
 		if (Boolean.class.isInstance(obj)) {
-			lowerCase = (boolean) obj;
+			lowerCase = (Boolean) obj;
 		} else if (String.class.isInstance(obj)) {
 			lowerCase = Boolean.valueOf(obj.toString());
 		} else {
