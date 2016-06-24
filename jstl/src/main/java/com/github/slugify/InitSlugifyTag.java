@@ -18,12 +18,12 @@ public class InitSlugifyTag extends SimpleTagSupport {
 		return slugify;
 	}
 
-	public void setLowerCase(Object o) throws IOException {
+	public void setLowerCase(Object obj) {
 		boolean lowerCase = true;
-		if (o instanceof Boolean) {
-			lowerCase = (Boolean) o;
-		} else if (o instanceof String) {
-			lowerCase = Boolean.valueOf((String) o);
+		if (Boolean.class.isInstance(obj)) {
+			lowerCase = (boolean) obj;
+		} else if (String.class.isInstance(obj)) {
+			lowerCase = Boolean.valueOf(obj.toString());
 		} else {
 			throw new RuntimeException("Wrong instance of lowerCase");
 		}
