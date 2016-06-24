@@ -6,11 +6,11 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 public class InitSlugifyTag extends SimpleTagSupport {
 	private static Slugify slugify = null;
 
-	public InitSlugifyTag() throws IOException {
+	public InitSlugifyTag() {
 		slugify = getSlugify();
 	}
 
-	public static synchronized Slugify getSlugify() throws IOException {
+	public static synchronized Slugify getSlugify() {
 		if (slugify == null) {
 			slugify = new Slugify();
 		}
