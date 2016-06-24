@@ -28,7 +28,7 @@
 	<scm>
 		<developerConnection>scm:git:git@github.com:slugify/slugify.git</developerConnection>
 		<connection>scm:git:git://github.com/slugify/slugify.git</connection>
-		<url>http://github.com/slugify/slugify</url>
+		<url>https://github.com/slugify/slugify</url>
 		<tag>HEAD</tag>
 	</scm>
 
@@ -67,7 +67,7 @@
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
-				<version>4.11</version>
+				<version>4.12</version>
 				<scope>test</scope>
 			</dependency>
 		</dependencies>
