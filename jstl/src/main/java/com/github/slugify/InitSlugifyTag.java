@@ -6,11 +6,11 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 public class InitSlugifyTag extends SimpleTagSupport {
 	private static Slugify slugify = null;
 
-	public InitSlugifyTag() {
+	public InitSlugifyTag() throws IOException {
 		slugify = getSlugify();
 	}
 
-	public static synchronized Slugify getSlugify() {
+	public static synchronized Slugify getSlugify() throws IOException {
 		if (slugify == null) {
 			slugify = new Slugify();
 		}
@@ -18,7 +18,7 @@ public class InitSlugifyTag extends SimpleTagSupport {
 		return slugify;
 	}
 
-	public void setLowerCase(Object obj) {
+	public void setLowerCase(Object obj) throws IOException {
 		boolean lowerCase = true;
 		if (Boolean.class.isInstance(obj)) {
 			lowerCase = (Boolean) obj;
