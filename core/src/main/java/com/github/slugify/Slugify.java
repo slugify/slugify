@@ -1,77 +1,99 @@
 package com.github.slugify;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.text.Normalizer;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 
 public class Slugify {
-	private final Properties replacements = new Properties();
+    private static final String BUILTIN_REPLACEMENTS_FILENAME = "replacements.properties";
+    private final Properties replacements = new Properties();
+    private final Map<String, String> customReplacements = new HashMap<String, String>();
+    private boolean lowerCase;
 
-	private Map<String, String> customReplacements;
-	private boolean lowerCase;
+    public Slugify() {
+        this(true);
+    }
 
-	public Slugify() throws IOException {
-		this(true);
-	}
+    public Slugify(boolean lowerCase) {
+        this.lowerCase = lowerCase;
+        loadReplacements(BUILTIN_REPLACEMENTS_FILENAME);
+    }
 
-	public Slugify(final boolean lowerCase) throws IOException {
-		InputStream replacementsStream = getClass().getClassLoader().getResourceAsStream("replacements.properties");
-		replacements.load(replacementsStream);
-		replacementsStream.close();
-		setLowerCase(lowerCase);
-	}
+    public Slugify withCustomReplacement(String from, String to) {
+        this.customReplacements.put(from, to);
+        return this;
+    }
 
-	public String slugify(String input) {
-		if (input == null) {
-			return "";
-		}
+    public Slugify withCustomReplacements(Map<String, String> customReplacements) {
+        this.customReplacements.putAll(customReplacements);
+        return this;
+    }
 
-		input = input.trim();
+    public Slugify withLowerCase(boolean lowerCase) {
+        this.lowerCase = !lowerCase;
+        return this;
+    }
 
-		Map<String, String> customReplacements = getCustomReplacements();
-		if (customReplacements != null) {
-			for (Entry<String, String> entry : customReplacements.entrySet()) {
-				input = input.replace(entry.getKey(), entry.getValue());
-			}
-		}
+    public String slugify(String input) {
+        if (isNullOrBlank(input)) {
+            return "";
+        }
 
-		for (Entry<Object, Object> e : replacements.entrySet()) {
-			input = input.replace(e.getKey().toString(), e.getValue().toString());
-		}
+        input = input.trim();
+        input = customReplacements(input);
+        input = builtInReplacements(input);
+        input = normalize(input);
 
-		input = normalize(input);
+        if (lowerCase) {
+            input = input.toLowerCase();
+        }
 
-		if (getLowerCase()) {
-			input = input.toLowerCase();
-		}
+        return input;
+    }
 
-		return input;
-	}
-	
-	protected String normalize(String input) {
-	    input = Normalizer.normalize(input, Normalizer.Form.NFKD)
-	    		.replaceAll("[^\\p{ASCII}]+", "")
-	    		.replaceAll("(?:[^\\w+]|\\s)+", "-")
-	    		.replaceAll("^-|-$", "");
-	    return input;
-	}
-	
-	public Map<String, String> getCustomReplacements() {
-		return customReplacements;
-	}
+    public Map<String, String> getCustomReplacements() {
+        return customReplacements;
+    }
 
-	public void setCustomReplacements(Map<String, String> customReplacements) {
-		this.customReplacements = customReplacements;
-	}
+    private String customReplacements(String input) {
+        Map<String, String> customReplacements = getCustomReplacements();
+        for (Entry<String, String> entry : customReplacements.entrySet()) {
+            input = input.replace(entry.getKey(), entry.getValue());
+        }
+        return input;
+    }
 
-	public boolean getLowerCase() {
-		return lowerCase;
-	}
+    private String builtInReplacements(String input) {
+        for (Entry<Object, Object> e : replacements.entrySet()) {
+            input = input.replace(e.getKey().toString(), e.getValue().toString());
+        }
+        return input;
+    }
 
-	public void setLowerCase(boolean lowerCase) {
-		this.lowerCase = lowerCase;
-	}
+    Slugify loadReplacements(final String resourceFileName) {
+        try {
+            InputStream replacementsStream = getClass().getClassLoader().getResourceAsStream(resourceFileName);
+            replacements.load(replacementsStream);
+            replacementsStream.close();
+            return this;
+        } catch (Exception e) {
+            replacements.clear();
+            return this;
+        }
+    }
+
+    private boolean isNullOrBlank(final String string) {
+        return string == null || string.trim().length() == 0;
+    }
+
+    private String normalize(String input) {
+        input = Normalizer.normalize(input, Normalizer.Form.NFKD)
+                .replaceAll("[^\\p{ASCII}]+", "")
+                .replaceAll("(?:[^\\w+]|\\s|\\+)+", "-")
+                .replaceAll("^-|-$", "");
+        return input;
+    }
 }
