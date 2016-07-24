@@ -87,13 +87,13 @@ public class SlugifyTest {
     @Test
     public void shouldNotUseBuiltInReplacements() {
         //given
-        String string = "ÄÖÜäöüß";
+        String string = "ałłłłłła";
 
         //when
         String result = new Slugify().loadReplacements("non-existing-file").slugify(string);
 
         //when
-        assertEquals("aouaou", result);
+        assertEquals("aa", result);
     }
 
     @Test
@@ -111,7 +111,7 @@ public class SlugifyTest {
     @Test
     public void shouldReplaceCharactersAccordingToCustomReplacements() {
         //given
-        String string = "This is awesome!";
+        String string = "this is awesome!";
         HashMap<String, String> customReplacements = new HashMap<String, String>() {{
             put("this", "that");
         }};
@@ -120,7 +120,7 @@ public class SlugifyTest {
         String result = new Slugify().withCustomReplacements(customReplacements).slugify(string);
 
         //when
-        assertEquals("this-is-awesome", result);
+        assertEquals("that-is-awesome", result);
     }
 
     @Test
