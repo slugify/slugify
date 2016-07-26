@@ -172,7 +172,7 @@ public class SlugifyTest {
         String result = new Slugify().withLowerCase(false).slugify(string);
 
         //then
-        assertEquals("hello-world", result);
+        assertEquals("Hello-world", result);
     }
 
     @Test

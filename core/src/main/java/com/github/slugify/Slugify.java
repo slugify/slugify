@@ -33,7 +33,7 @@ public class Slugify {
     }
 
     public Slugify withLowerCase(boolean lowerCase) {
-        this.lowerCase = !lowerCase;
+        this.lowerCase = lowerCase;
         return this;
     }
 
