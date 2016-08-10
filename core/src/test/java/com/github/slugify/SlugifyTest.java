@@ -2,7 +2,6 @@ package com.github.slugify;
 
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 public class SlugifyTest {
 
     @Test
-    public void shouldReturnSlugifiedString() throws IOException {
+    public void shouldReturnSlugifiedString() {
         //given
         String string = "Hello world";
 
@@ -82,18 +81,6 @@ public class SlugifyTest {
 
         //when
         assertEquals("aeoeueaeoeuess", result);
-    }
-
-    @Test
-    public void shouldNotUseBuiltInReplacements() {
-        //given
-        String string = "ałłłłłła";
-
-        //when
-        String result = new Slugify().loadReplacements("non-existing-file").slugify(string);
-
-        //when
-        assertEquals("aa", result);
     }
 
     @Test

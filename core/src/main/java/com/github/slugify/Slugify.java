@@ -9,7 +9,7 @@ import java.util.Properties;
 
 public class Slugify {
     private static final String BUILTIN_REPLACEMENTS_FILENAME = "replacements.properties";
-    private final Properties replacements = new Properties();
+    private static final Properties replacements = new Properties();
     private final Map<String, String> customReplacements = new HashMap<String, String>();
     private boolean lowerCase;
 
@@ -73,15 +73,15 @@ public class Slugify {
         return input;
     }
 
-    Slugify loadReplacements(final String resourceFileName) {
+    private Slugify loadReplacements(final String resourceFileName) {
+        if (replacements.size() > 0) return this;
         try {
             InputStream replacementsStream = getClass().getClassLoader().getResourceAsStream(resourceFileName);
             replacements.load(replacementsStream);
             replacementsStream.close();
             return this;
         } catch (Exception e) {
-            replacements.clear();
-            return this;
+            throw new RuntimeException("replacements.properties not loaded!", e);
         }
     }
 
