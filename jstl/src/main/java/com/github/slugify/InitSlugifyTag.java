@@ -3,29 +3,29 @@ package com.github.slugify;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 public class InitSlugifyTag extends SimpleTagSupport {
-    private static Slugify slugify = null;
+	private static Slugify slugify = null;
 
-    public InitSlugifyTag() {
-        slugify = getSlugify();
-    }
+	public InitSlugifyTag() {
+		slugify = getSlugify();
+	}
 
-    public static synchronized Slugify getSlugify() {
-        if (slugify == null) {
-            slugify = new Slugify();
-        }
-        return slugify;
-    }
+	public static synchronized Slugify getSlugify() {
+		if (slugify == null) {
+			slugify = new Slugify();
+		}
+		return slugify;
+	}
 
-    public void setLowerCase(Object obj) {
-        boolean lowerCase = true;
-        if (Boolean.class.isInstance(obj)) {
-            lowerCase = (Boolean) obj;
-        } else if (String.class.isInstance(obj)) {
-            lowerCase = Boolean.valueOf(obj.toString());
-        } else {
-            throw new RuntimeException("Wrong instance of lowerCase");
-        }
+	public void setLowerCase(Object obj) {
+		boolean lowerCase = true;
+		if (Boolean.class.isInstance(obj)) {
+			lowerCase = (Boolean) obj;
+		} else if (String.class.isInstance(obj)) {
+			lowerCase = Boolean.valueOf(obj.toString());
+		} else {
+			throw new RuntimeException("Wrong instance of lowerCase");
+		}
 
-        slugify = getSlugify().withLowerCase(lowerCase);
-    }
+		slugify = getSlugify().withLowerCase(lowerCase);
+	}
 }
