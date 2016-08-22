@@ -1,24 +1,22 @@
 package com.github.slugify;
 
-import java.io.IOException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 public class InitSlugifyTag extends SimpleTagSupport {
 	private static Slugify slugify = null;
 
-	public InitSlugifyTag() throws IOException {
+	public InitSlugifyTag() {
 		slugify = getSlugify();
 	}
 
-	public static synchronized Slugify getSlugify() throws IOException {
+	public static synchronized Slugify getSlugify() {
 		if (slugify == null) {
 			slugify = new Slugify();
 		}
-
 		return slugify;
 	}
 
-	public void setLowerCase(Object obj) throws IOException {
+	public void setLowerCase(Object obj) {
 		boolean lowerCase = true;
 		if (Boolean.class.isInstance(obj)) {
 			lowerCase = (Boolean) obj;
@@ -28,6 +26,6 @@ public class InitSlugifyTag extends SimpleTagSupport {
 			throw new RuntimeException("Wrong instance of lowerCase");
 		}
 
-		getSlugify().setLowerCase(lowerCase);
+		slugify = getSlugify().withLowerCase(lowerCase);
 	}
 }

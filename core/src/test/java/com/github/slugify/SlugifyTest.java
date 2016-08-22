@@ -1,79 +1,188 @@
 package com.github.slugify;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.IOException;
-import java.util.HashMap;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
+
 public class SlugifyTest {
-	private static Slugify slg1;
-	private static Slugify slg2;
 
-	@BeforeClass
-	@SuppressWarnings("serial")
-	public static void setupSlugify() throws IOException {
-		slg1 = new Slugify();
-		slg2 = new Slugify(false);
+	@Test
+	public void shouldReturnSlugifiedString() {
+		//given
+		String string = "Hello world";
 
-		slg2.setCustomReplacements(new HashMap<String, String>() {{
-			put("leet", "1337");
-		}});
+		//when
+		String result = new Slugify().slugify(string);
+
+		//then
+		assertEquals("hello-world", result);
 	}
 
 	@Test
-	public void testBasic() {
-		String s = "Hello world";
-		assertEquals("hello-world", slg1.slugify(s));
+	public void shouldReplaceSpacesWithSeparator() {
+		//given
+		String string = "Hello world ";
+
+		//when
+		String result = new Slugify().slugify(string);
+
+		//then
+		assertEquals("hello-world", result);
 	}
 
 	@Test
-	public void testSpaces() {
-		String s = "\tHello  \t world ";
-		assertEquals("hello-world", slg1.slugify(s));
+	public void shouldTrimWhiteSpacesOtherThanSpace() {
+		//given
+		String string = "\tHello \tworld \r\t";
+
+		//when
+		String result = new Slugify().slugify(string);
+
+		//then
+		assertEquals("hello-world", result);
+	}
+
+
+	@Test
+	public void shouldSlugifyAnyPrintableASCIICharacter() {
+		//given
+		String string = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
+
+		//when
+		String result = new Slugify().slugify(string);
+
+		//then
+		assertEquals("0123456789-abcdefghijklmnopqrstuvwxyz-_-abcdefghijklmnopqrstuvwxyz", result);
 	}
 
 	@Test
-	public void testPrintableASCII() {
-		String s = " !\"#$%&'()*+,-./0123456789:;<=>?@"
-				+ "ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`"
-				+ "abcdefghijklmnopqrstuvwxyz{|}~";
+	public void shouldSlugifyExtendedASCIICharacters() {
+		//given
+		String string = "€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘”•–—˜™š›œžŸ¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæç"
+				+ "èéêëìíîïðñòóôõö÷øùúûüýþÿĄĆĘŁŃÓŚŹŻąćęłńóśźż";
 
-		String expected = "+-0123456789-"
-				+ "abcdefghijklmnopqrstuvwxyz-_-"
-				+ "abcdefghijklmnopqrstuvwxyz";
+		//when
+		String result = new Slugify().slugify(string);
 
-		assertEquals(expected, slg1.slugify(s));
+		//then
+		assertEquals("sz-tmszy-a-23-1o141234aaaaaeaceeeeiiiinoooooeuuuueyssaaaaaeaceeeeiiiinoooooeuuuueyyacelnoszzacelnoszz", result);
 	}
 
 	@Test
-	public void testExtendedASCII() {
-		String s = "€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘”•–—˜™š›œžŸ¡¢£¤¥¦§¨©ª«¬®¯°±²³´µ¶"
-				+ "·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæç"
-				+ "èéêëìíîïðñòóôõö÷øùúûüýþÿ"
-                                + "ĄĆĘŁŃÓŚŹŻąćęłńóśźż";
+	public void shouldUseBuiltInReplacements() {
+		//given
+		String string = "ÄÖÜäöüß";
 
-		String expected = "sz-tmszy-a-23-1o141234aaaaaeaceeeeiiiinoooooeuuuueyssaaaaaeaceeeeiiiinoooooeuuuueyyacelnoszzacelnoszz";
+		//when
+		String result = new Slugify().slugify(string);
 
-		assertEquals(expected, slg1.slugify(s));
+		//when
+		assertEquals("aeoeueaeoeuess", result);
 	}
 
 	@Test
-	public void testReplacements() {
-		String s = "ÄÖÜäöüß";
-		assertEquals("AeOeUeaeoeuess", slg2.slugify(s));
+	public void shouldReplaceCharactersAccordingToCustomReplacement() {
+		//given
+		String string = "Hello leet!";
+
+		//when
+		String result = new Slugify().withCustomReplacement("leet", "1337").slugify(string);
+
+		//when
+		assertEquals("hello-1337", result);
 	}
 
 	@Test
-	public void testCustomReplacements() {
-		String s = "Hello leet!";
-		assertEquals("Hello-1337", slg2.slugify(s));
+	public void shouldReplaceCharactersAccordingToCustomReplacements() {
+		//given
+		String string = "this is awesome!";
+		HashMap<String, String> customReplacements = new HashMap<String, String>() {{
+			put("this", "that");
+		}};
+
+		//when
+		String result = new Slugify().withCustomReplacements(customReplacements).slugify(string);
+
+		//when
+		assertEquals("that-is-awesome", result);
 	}
 
 	@Test
-	public void testCyrillic() {
-		String s = "Смысловые галлюцинации";
-		assertEquals("smyslovye-gallyutsinatsii", slg1.slugify(s));
+	public void shouldReturnDefinedCustomReplacements() {
+		//given
+		HashMap<String, String> customReplacements = new HashMap<String, String>() {{
+			put("test", "test");
+		}};
+
+		Slugify slugify = new Slugify().withCustomReplacements(customReplacements);
+
+		//when
+		Map<String, String> gotCustomReplacements = slugify.getCustomReplacements();
+
+		//when
+		assertEquals(customReplacements, gotCustomReplacements);
+	}
+
+	@Test
+	public void shouldTransliterateCyrillicProperly() {
+		//given
+		String string = "Смысловые галлюцинации";
+
+		//when
+		String result = new Slugify().slugify(string);
+
+		//then
+		assertEquals("smyslovye-gallyutsinatsii", result);
+	}
+
+	@Test
+	public void shouldTransliteratePolishProperly() {
+		//given
+		String string = "Zażółć gęślą jaźń.";
+
+		//when
+		String result = new Slugify().slugify(string);
+
+		//then
+		assertEquals("zazolc-gesla-jazn", result);
+	}
+
+	@Test
+	public void shouldSlugifyStringWithoutChangingCase() {
+		//given
+		String string = "\tHello \tworld \r\t";
+
+		//when
+		String result = new Slugify().withLowerCase(false).slugify(string);
+
+		//then
+		assertEquals("Hello-world", result);
+	}
+
+	@Test
+	public void shouldReplacePlusSignToSeparator() {
+		//given
+		String string = "\tHello+\tworld \r\t";
+
+		//when
+		String result = new Slugify().slugify(string);
+
+		//then
+		assertEquals("hello-world", result);
+	}
+
+	@Test
+	public void shouldReturnEmptyStringIfNullGiven() {
+		//given
+		String string = null;
+
+		//when
+		String result = new Slugify().slugify(string);
+
+		//then
+		assertEquals("", result);
 	}
 }
