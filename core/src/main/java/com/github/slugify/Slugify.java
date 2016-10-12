@@ -10,11 +10,13 @@ import java.util.Properties;
 public class Slugify {
 	private static final String BUILTIN_REPLACEMENTS_FILENAME = "replacements.properties";
 	private static final Properties replacements = new Properties();
+
 	private final Map<String, String> customReplacements = new HashMap<String, String>();
-	private boolean lowerCase;
+
+	private boolean underscoreSeparator = false;
+	private boolean lowerCase = true;
 
 	public Slugify() {
-		this(true);
 	}
 
 	public Slugify(boolean lowerCase) {
@@ -23,12 +25,17 @@ public class Slugify {
 	}
 
 	public Slugify withCustomReplacement(String from, String to) {
-		this.customReplacements.put(from, to);
+		customReplacements.put(from, to);
 		return this;
 	}
 
 	public Slugify withCustomReplacements(Map<String, String> customReplacements) {
 		this.customReplacements.putAll(customReplacements);
+		return this;
+	}
+
+	public Slugify withUnderscoreSeparator(boolean underscoreSeparator) {
+		this.underscoreSeparator = underscoreSeparator;
 		return this;
 	}
 
@@ -63,6 +70,7 @@ public class Slugify {
 		for (Entry<String, String> entry : customReplacements.entrySet()) {
 			input = input.replace(entry.getKey(), entry.getValue());
 		}
+
 		return input;
 	}
 
@@ -70,11 +78,15 @@ public class Slugify {
 		for (Entry<Object, Object> e : replacements.entrySet()) {
 			input = input.replace(e.getKey().toString(), e.getValue().toString());
 		}
+
 		return input;
 	}
 
 	private Slugify loadReplacements(final String resourceFileName) {
-		if (replacements.size() > 0) return this;
+		if (replacements.size() > 0) {
+			return this;
+		}
+
 		try {
 			InputStream replacementsStream = getClass().getClassLoader().getResourceAsStream(resourceFileName);
 			replacements.load(replacementsStream);
@@ -92,7 +104,7 @@ public class Slugify {
 	private String normalize(String input) {
 		input = Normalizer.normalize(input, Normalizer.Form.NFKD)
 				.replaceAll("[^\\p{ASCII}]+", "")
-				.replaceAll("(?:[^\\w+]|\\s|\\+)+", "-")
+				.replaceAll("(?:[^\\w+]|\\s|\\+)+", underscoreSeparator ? "_" : "-")
 				.replaceAll("^-|-$", "");
 		return input;
 	}
