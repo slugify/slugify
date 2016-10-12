@@ -16,11 +16,13 @@ public class Slugify {
 	private boolean underscoreSeparator = false;
 	private boolean lowerCase = true;
 
-	public Slugify() {
+	public Slugify(boolean lowerCase) {
+		this();
+
+		withLowerCase(lowerCase);
 	}
 
-	public Slugify(boolean lowerCase) {
-		this.lowerCase = lowerCase;
+	public Slugify() {
 		loadReplacements(BUILTIN_REPLACEMENTS_FILENAME);
 	}
 
