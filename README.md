@@ -16,7 +16,7 @@ Here's the dependency information for Maven:
 <dependency>
 	<groupId>com.github.slugify</groupId>
 	<artifactId>slugify</artifactId>
-	<version>2.1.6</version>
+	<version>2.1.7</version>
 </dependency>
 ```
 
@@ -31,21 +31,23 @@ String result = slg.slugify("Hello, world!");
 You can set custom replacements for Slugify:
 
 ```java
-Slugify slg = new Slugify();
-slg.setCustomReplacements(new HashMap<String, String>() {{
-    put("foo", "bar");
+Slugify slg = slg.withCustomReplacement("hello", "world").withCustomReplacement("foo", "bar");
+// or multiple at once
+slg = slg.withCustomReplacements(new HashMap<String, String>() {{
+	put("hello", "world");
+	put("foo", "bar");
 }});
 ```
 
 ```java
 String result = slg.slugify("Hello foo");
-// result: hello-bar
+// result: world-bar
 ```
 
 Or if you want case sensitivity:
 
 ```java
-Slugify slg = new Slugify(false);
+Slugify slg = new Slugify().withLowerCase(false);
 String result = slg.slugify("Hello, World!");
 // result: Hello-World
 ```

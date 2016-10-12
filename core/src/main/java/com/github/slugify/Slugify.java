@@ -16,6 +16,7 @@ public class Slugify {
 	private boolean underscoreSeparator = false;
 	private boolean lowerCase = true;
 
+	@Deprecated
 	public Slugify(boolean lowerCase) {
 		this();
 

@@ -10,7 +10,7 @@ Here's the dependency information for Maven:
 <dependency>
 	<groupId>com.github.slugify</groupId>
 	<artifactId>slugify-integration-jstl</artifactId>
-	<version>2.1.6</version>
+	<version>2.1.7</version>
 </dependency>
 ```
 
@@ -26,13 +26,13 @@ You can configure Slugify this way (JSTL):
 
 ```html
 <%@ taglib prefix="slg" uri="http://github.com/slugify" %>
-<slg:init lowerCase="false" />
-<!-- Result: Hello-world -->
+<slg:init lowerCase="false" underscoreSeparator="true" />
+<!-- Result: Hello_world -->
 ${slg:slugify('Hello, world!')}
 ```
 
 Or this way (Java):
 
 ```java
-InitSlugifyTag.getSlugify().setLowerCase(false);
+InitSlugifyTag.getSlugify().withLowerCase(false).withUnderscoreSeparator(true);
 ```
