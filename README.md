@@ -38,7 +38,7 @@ slg = slg.withCustomReplacements(new HashMap<String, String>() {{
 	put("foo", "bar");
 }});
 
-String result = slg.slugify("Hello foo");
+String result = slg.slugify("hello foo");
 // result: world-bar
 ```
 
