@@ -6,10 +6,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 public class Slugify {
 	private static final String BUILTIN_REPLACEMENTS_FILENAME = "replacements.properties";
 	private static final Properties replacements = new Properties();
+	
+	private final static String EMPTY = "";
+	private final static Pattern PATTERN_NORMALIZE_NON_ASCII = Pattern.compile("[^\\p{ASCII}]+");
+	private final static Pattern PATTERN_NORMALIZE_SEPARATOR = Pattern.compile("(?:[^\\w+]|\\s|\\+)+");
+	private final static Pattern PATTERN_NORMALIZE_TRIM_DASH = Pattern.compile("^-|-$");
 
 	private final Map<String, String> customReplacements = new HashMap<String, String>();
 
@@ -50,7 +56,7 @@ public class Slugify {
 	public String slugify(final String text) {
 		String input = text;
 		if (isNullOrBlank(input)) {
-			return "";
+			return EMPTY;
 		}
 
 		input = input.trim();
@@ -106,10 +112,10 @@ public class Slugify {
 	}
 
 	private String normalize(final String input) {
-		final String text = Normalizer.normalize(input, Normalizer.Form.NFKD)
-				.replaceAll("[^\\p{ASCII}]+", "")
-				.replaceAll("(?:[^\\w+]|\\s|\\+)+", underscoreSeparator ? "_" : "-")
-				.replaceAll("^-|-$", "");
+		String text = Normalizer.normalize(input, Normalizer.Form.NFKD);
+		text = PATTERN_NORMALIZE_NON_ASCII.matcher(text).replaceAll(EMPTY);
+		text = PATTERN_NORMALIZE_SEPARATOR.matcher(text).replaceAll(underscoreSeparator ? "_" : "-");
+		text = PATTERN_NORMALIZE_TRIM_DASH.matcher(text).replaceAll(EMPTY);
 		return text;
 	}
 }
