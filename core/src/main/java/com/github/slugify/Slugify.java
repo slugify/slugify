@@ -48,7 +48,7 @@ public class Slugify {
 	}
 
 	public String slugify(final String text) {
-	    String input = text;
+		String input = text;
 		if (isNullOrBlank(input)) {
 			return "";
 		}
