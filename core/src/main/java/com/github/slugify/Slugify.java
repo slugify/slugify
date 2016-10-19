@@ -102,7 +102,7 @@ public class Slugify {
 	}
 
 	private static boolean isNullOrBlank(final String string) {
-		return string == null || string.trim().length() == 0;
+		return string == null || string.trim().isEmpty();
 	}
 
 	private String normalize(final String input) {
