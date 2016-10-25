@@ -108,7 +108,7 @@ public class Slugify {
 	protected String normalize(final String input) {
 		final String text = Normalizer.normalize(input, Normalizer.Form.NFKD)
 				.replaceAll("[^\\p{ASCII}]+", "")
-				.replaceAll("(?:[^\\w+]|\\s|\\+)+", underscoreSeparator ? "_" : "-")
+				.replaceAll("[\\W\\s+]+", underscoreSeparator ? "_" : "-")
 				.replaceAll("^-|-$", "");
 		return text;
 	}
