@@ -116,6 +116,7 @@ public class Slugify {
 		text = PATTERN_NORMALIZE_NON_ASCII.matcher(text).replaceAll(EMPTY);
 		text = PATTERN_NORMALIZE_SEPARATOR.matcher(text).replaceAll(underscoreSeparator ? "_" : "-");
 		text = PATTERN_NORMALIZE_TRIM_DASH.matcher(text).replaceAll(EMPTY);
+
 		return text;
 	}
 }
