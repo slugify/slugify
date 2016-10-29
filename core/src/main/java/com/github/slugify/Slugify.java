@@ -6,10 +6,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 public class Slugify {
 	private static final String BUILTIN_REPLACEMENTS_FILENAME = "replacements.properties";
 	private static final Properties replacements = new Properties();
+	
+	private final static String EMPTY = "";
+	private final static Pattern PATTERN_NORMALIZE_NON_ASCII = Pattern.compile("[^\\p{ASCII}]+");
+	private final static Pattern PATTERN_NORMALIZE_SEPARATOR = Pattern.compile("(?:[^\\w+]|\\s|\\+)+");
+	private final static Pattern PATTERN_NORMALIZE_TRIM_DASH = Pattern.compile("^-|-$");
 
 	private final Map<String, String> customReplacements = new HashMap<String, String>();
 
@@ -27,29 +33,30 @@ public class Slugify {
 		loadReplacements(BUILTIN_REPLACEMENTS_FILENAME);
 	}
 
-	public Slugify withCustomReplacement(String from, String to) {
+	public Slugify withCustomReplacement(final String from, final String to) {
 		customReplacements.put(from, to);
 		return this;
 	}
 
-	public Slugify withCustomReplacements(Map<String, String> customReplacements) {
+	public Slugify withCustomReplacements(final Map<String, String> customReplacements) {
 		this.customReplacements.putAll(customReplacements);
 		return this;
 	}
 
-	public Slugify withUnderscoreSeparator(boolean underscoreSeparator) {
+	public Slugify withUnderscoreSeparator(final boolean underscoreSeparator) {
 		this.underscoreSeparator = underscoreSeparator;
 		return this;
 	}
 
-	public Slugify withLowerCase(boolean lowerCase) {
+	public Slugify withLowerCase(final boolean lowerCase) {
 		this.lowerCase = lowerCase;
 		return this;
 	}
 
-	public String slugify(String input) {
+	public String slugify(final String text) {
+		String input = text;
 		if (isNullOrBlank(input)) {
-			return "";
+			return EMPTY;
 		}
 
 		input = input.trim();
@@ -86,29 +93,29 @@ public class Slugify {
 	}
 
 	private Slugify loadReplacements(final String resourceFileName) {
-		if (replacements.size() > 0) {
+		if (!replacements.isEmpty()) {
 			return this;
 		}
 
 		try {
-			InputStream replacementsStream = getClass().getClassLoader().getResourceAsStream(resourceFileName);
+			final InputStream replacementsStream = getClass().getClassLoader().getResourceAsStream(resourceFileName);
 			replacements.load(replacementsStream);
 			replacementsStream.close();
 			return this;
 		} catch (Exception e) {
-			throw new RuntimeException("replacements.properties not loaded!", e);
+			throw new RuntimeException(String.format("Resource '%s' not loaded!", resourceFileName), e);
 		}
 	}
 
-	private boolean isNullOrBlank(final String string) {
-		return string == null || string.trim().length() == 0;
+	private static boolean isNullOrBlank(final String string) {
+		return string == null || string.trim().isEmpty();
 	}
 
-	private String normalize(String input) {
-		input = Normalizer.normalize(input, Normalizer.Form.NFKD)
-				.replaceAll("[^\\p{ASCII}]+", "")
-				.replaceAll("(?:[^\\w+]|\\s|\\+)+", underscoreSeparator ? "_" : "-")
-				.replaceAll("^-|-$", "");
-		return input;
+	private String normalize(final String input) {
+		String text = Normalizer.normalize(input, Normalizer.Form.NFKD);
+		text = PATTERN_NORMALIZE_NON_ASCII.matcher(text).replaceAll(EMPTY);
+		text = PATTERN_NORMALIZE_SEPARATOR.matcher(text).replaceAll(underscoreSeparator ? "_" : "-");
+		text = PATTERN_NORMALIZE_TRIM_DASH.matcher(text).replaceAll(EMPTY);
+		return text;
 	}
 }
