@@ -14,7 +14,7 @@ public class Slugify {
 	
 	private final static String EMPTY = "";
 	private final static Pattern PATTERN_NORMALIZE_NON_ASCII = Pattern.compile("[^\\p{ASCII}]+");
-	private final static Pattern PATTERN_NORMALIZE_SEPARATOR = Pattern.compile("(?:[^\\w+]|\\s|\\+)+");
+	private final static Pattern PATTERN_NORMALIZE_SEPARATOR = Pattern.compile("[\\W\\s+]+");
 	private final static Pattern PATTERN_NORMALIZE_TRIM_DASH = Pattern.compile("^-|-$");
 
 	private final Map<String, String> customReplacements = new HashMap<String, String>();
