@@ -66,20 +66,20 @@ public class SlugifyTest {
 		// when
 		String result = new Slugify().slugify(string);
 
-		// then
-		assertEquals("sz-tmszy-a-23-1o141234aaaaaeaceeeeiiiinoooooeuuuueyssaaaaaeaceeeeiiiinoooooeuuuueyyacelnoszzacelnoszz", result);
+		// the		
+		assertEquals("sz-tmszy-a-23-1o141234aaaaaeaaaeceeeeiiiinoooooeoeuuuueyssaaaaaeaaaeceeeeiiiinoooooeoeuuuueyyacelnoszzacelnoszz", result);
 	}
 
 	@Test
 	public void shouldUseBuiltInReplacements() {
 		// given
-		String string = "ÄÖÜäöüß";
+		String string = "ÅÄÆÖØÜåäæöøüß";
 
 		// when
 		String result = new Slugify().slugify(string);
 
 		// then
-		assertEquals("aeoeueaeoeuess", result);
+		assertEquals("aaaeaeoeoeueaaaeaeoeoeuess", result);
 	}
 
 	@Test
