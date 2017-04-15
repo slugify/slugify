@@ -71,6 +71,30 @@ public class SlugifyTest {
 	}
 
 	@Test
+	public void shouldSlugifyGreekCharacters() {
+		// given
+		String capital = "ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ";
+		String small = "αβγδεζηθικλμνξοπρστυφχψω";
+		String tonosCapital = "ΆΈΉΊΌΎΏ";
+		String smallTonos = "άέήίόύώ";
+		String dialytika = "ΪΫϊϋΰΐ";
+
+		// when
+		String result1 = new Slugify().slugify(capital);
+		String result2 = new Slugify().slugify(small);
+		String result3 = new Slugify().slugify(tonosCapital);
+		String result4 = new Slugify().slugify(smallTonos);
+		String result5 = new Slugify().slugify(dialytika);
+
+		// the
+		assertEquals("abgdezhthiklmnksoprstyfxpsw", result1);
+		assertEquals("abgdezhthiklmnksoprstyfxpsw", result2);
+		assertEquals("aehioyw", result3);
+		assertEquals("aehioyw", result4);
+		assertEquals("iyiuui", result5);
+	}
+
+	@Test
 	public void shouldUseBuiltInReplacements() {
 		// given
 		String string = "ÅÄÆÖØÜåäæöøüß";
