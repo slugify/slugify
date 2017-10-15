@@ -1,11 +1,11 @@
 package com.github.slugify;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 public class SlugifyTest {
 	@Test
@@ -219,5 +219,17 @@ public class SlugifyTest {
 
 		// then
 		assertEquals("hello_world", result);
+	}
+
+	@Test
+	public void shouldSlugifyWithTransliterator() {
+		// given
+		String string = "健康管理";
+
+		// when
+		String result = new Slugify().withTransliterator(true).slugify(string);
+
+		// then
+		assertEquals("jian-kang-guan-li", result);
 	}
 }
