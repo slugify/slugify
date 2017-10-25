@@ -18,7 +18,8 @@ public class Slugify {
 	private final static String EMPTY = "";
 
 	private final static Pattern PATTERN_NORMALIZE_NON_ASCII = Pattern.compile("[^\\p{ASCII}]+");
-	private final static Pattern PATTERN_NORMALIZE_SEPARATOR = Pattern.compile("[\\W\\s+]+");
+	private final static Pattern PATTERN_NORMALIZE_HYPHEN_SEPARATOR = Pattern.compile("[\\W\\s+]+");
+	private final static Pattern PATTERN_NORMALIZE_UNDERSCORE_SEPARATOR = Pattern.compile("[[^a-zA-Z0-9\\-]\\s+]+");
 	private final static Pattern PATTERN_NORMALIZE_TRIM_DASH = Pattern.compile("^-|-$");
 
 	private static final Transliterator TRANSLITERATOR = Transliterator.getInstance(ASCII);
@@ -160,7 +161,8 @@ public class Slugify {
 
 	private String matchAndReplace(final String input) {
 		String text = PATTERN_NORMALIZE_NON_ASCII.matcher(input).replaceAll(EMPTY);
-		text = PATTERN_NORMALIZE_SEPARATOR.matcher(text).replaceAll(underscoreSeparator ? "_" : "-");
+		text = underscoreSeparator ? PATTERN_NORMALIZE_UNDERSCORE_SEPARATOR.matcher(text).replaceAll("_") :
+				PATTERN_NORMALIZE_HYPHEN_SEPARATOR.matcher(text).replaceAll("-");
 		text = PATTERN_NORMALIZE_TRIM_DASH.matcher(text).replaceAll(EMPTY);
 
 		return text;
