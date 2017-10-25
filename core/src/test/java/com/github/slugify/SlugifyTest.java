@@ -234,28 +234,26 @@ public class SlugifyTest {
 	}
 
 	@Test
-	public void doesTrimRepeatedHyphensToSingleHyphenWitHyphenSeparator() {
+	public void shouldNormalizeRepeatedHyphensToSingleHyphenWithHyphenSeparator() {
 		//given
-		String string = "a---b";
+		String string = "a---b___c";
 
 		//when
 		String result = new Slugify().slugify(string);
 
 		//then
-		assertEquals("a-b", result);
+		assertEquals("a-b___c", result);
 	}
 
-
 	@Test
-	public void doesNotTrimRepeatedUnderscoresToSingleUnderscoreWithUnderscoreSeparator() {
+	public void shouldNormalizeRepeatedUnderscoresToSingleUnderscoreWithUnderscoreSeparator() {
 		//given
-		String string = "a___b";
+		String string = "a---b___c";
 
 		//when
 		String result = new Slugify().withUnderscoreSeparator(true).slugify(string);
 
 		//then
-		assertEquals("a___b", result);
+		assertEquals("a---b_c", result);
 	}
-
 }
