@@ -232,4 +232,30 @@ public class SlugifyTest {
 		// then
 		assertEquals("jian-kang-guan-li", result);
 	}
+
+	@Test
+	public void doesTrimRepeatedHyphensToSingleHyphenWitHyphenSeparator() {
+		//given
+		String string = "a---b";
+
+		//when
+		String result = new Slugify().slugify(string);
+
+		//then
+		assertEquals("a-b", result);
+	}
+
+
+	@Test
+	public void doesNotTrimRepeatedUnderscoresToSingleUnderscoreWithUnderscoreSeparator() {
+		//given
+		String string = "a___b";
+
+		//when
+		String result = new Slugify().withUnderscoreSeparator(true).slugify(string);
+
+		//then
+		assertEquals("a___b", result);
+	}
+
 }
