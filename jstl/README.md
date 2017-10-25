@@ -10,7 +10,7 @@ Here's the dependency information for Maven:
 <dependency>
 	<groupId>com.github.slugify</groupId>
 	<artifactId>slugify-integration-jstl</artifactId>
-	<version>2.1.11</version>
+	<version>2.1.12</version>
 </dependency>
 ```
 
