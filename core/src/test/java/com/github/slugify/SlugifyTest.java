@@ -2,9 +2,11 @@ package com.github.slugify;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.ibm.icu.text.Transliterator;
 import org.junit.Test;
 
 public class SlugifyTest {
