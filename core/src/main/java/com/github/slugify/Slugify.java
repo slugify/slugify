@@ -1,5 +1,7 @@
 package com.github.slugify;
 
+import com.ibm.icu.text.Transliterator;
+
 import java.io.InputStream;
 import java.text.Normalizer;
 import java.util.HashMap;
@@ -8,14 +10,14 @@ import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.regex.Pattern;
 
-import com.ibm.icu.text.Transliterator;
-
 public class Slugify {
 	private static final String BUILTIN_REPLACEMENTS_FILENAME = "replacements.properties";
 	private static final Properties REPLACEMENTS = new Properties();
 
 	private final static String ASCII = "Cyrillic-Latin; Any-Latin; Latin-ASCII; [^\\p{Print}] Remove; ['\"] Remove; Any-Lower";
 	private final static String EMPTY = "";
+	private static final String UNDERSCORE = "_";
+	private static final String HYPHEN = "-";
 
 	private final static Pattern PATTERN_NORMALIZE_NON_ASCII = Pattern.compile("[^\\p{ASCII}]+");
 	private final static Pattern PATTERN_NORMALIZE_HYPHEN_SEPARATOR = Pattern.compile("[\\W\\s+]+");
@@ -77,7 +79,7 @@ public class Slugify {
 		input = input.trim();
 		input = customReplacements(input);
 		input = builtInReplacements(input);
-		
+
 		if (transliterator) {
 			input = transliterate(input);
 		} else {
@@ -104,17 +106,17 @@ public class Slugify {
 		return input;
 	}
 
-    private String builtInReplacements(String input) {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (char s : input.toCharArray()) {
-            if (builtinReplacements.containsKey(s)) {
-                stringBuilder.append(builtinReplacements.get(s));
-            } else {
-                stringBuilder.append(s);
-            }
-        }
-        return stringBuilder.toString();
-    }
+	private String builtInReplacements(String input) {
+		StringBuilder stringBuilder = new StringBuilder();
+		for (char s : input.toCharArray()) {
+			if (builtinReplacements.containsKey(s)) {
+				stringBuilder.append(builtinReplacements.get(s));
+			} else {
+				stringBuilder.append(s);
+			}
+		}
+		return stringBuilder.toString();
+	}
 
 	private Slugify loadReplacements(final String resourceFileName) {
 		if (!REPLACEMENTS.isEmpty()) {
@@ -131,17 +133,24 @@ public class Slugify {
 		}
 	}
 
-    private void createPatternCache() {
-        if (!builtinReplacements.isEmpty()) {
-            return;
-        }
-        for (Entry<Object, Object> e : REPLACEMENTS.entrySet()) {
-            if (e.getKey().toString().length() > 1) {
-                throw new IllegalArgumentException("Builtin replacements can only be characters");
-            }
-            builtinReplacements.put(e.getKey().toString().charAt(0), e.getValue().toString());
-        }
-    }
+	private void createPatternCache() {
+		if (!builtinReplacements.isEmpty()) {
+			return;
+		}
+
+		REPLACEMENTS.entrySet().forEach(replacement -> addReplacement(replacement));
+	}
+
+	private void addReplacement(Entry<Object, Object> e) {
+		if (isValidReplacement(e)) {
+			throw new IllegalArgumentException("Builtin replacements can only be characters");
+		}
+		builtinReplacements.put(e.getKey().toString().charAt(0), e.getValue().toString());
+	}
+
+	private boolean isValidReplacement(Entry<Object, Object> replacement) {
+		return replacement.getKey().toString().length() > 1;
+	}
 
 	private static boolean isNullOrBlank(final String string) {
 		return string == null || string.trim().isEmpty();
@@ -161,8 +170,8 @@ public class Slugify {
 
 	private String matchAndReplace(final String input) {
 		String text = PATTERN_NORMALIZE_NON_ASCII.matcher(input).replaceAll(EMPTY);
-		text = underscoreSeparator ? PATTERN_NORMALIZE_UNDERSCORE_SEPARATOR.matcher(text).replaceAll("_") :
-				PATTERN_NORMALIZE_HYPHEN_SEPARATOR.matcher(text).replaceAll("-");
+		text = underscoreSeparator ? PATTERN_NORMALIZE_UNDERSCORE_SEPARATOR.matcher(text).replaceAll(UNDERSCORE) :
+				PATTERN_NORMALIZE_HYPHEN_SEPARATOR.matcher(text).replaceAll(HYPHEN);
 		text = PATTERN_NORMALIZE_TRIM_DASH.matcher(text).replaceAll(EMPTY);
 
 		return text;

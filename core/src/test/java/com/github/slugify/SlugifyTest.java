@@ -1,13 +1,11 @@
 package com.github.slugify;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.ibm.icu.text.Transliterator;
-import org.junit.Test;
+import static junit.framework.TestCase.assertEquals;
 
 public class SlugifyTest {
 	@Test
@@ -68,7 +66,7 @@ public class SlugifyTest {
 		// when
 		String result = new Slugify().slugify(string);
 
-		// the		
+		// the
 		assertEquals("sz-tmszy-a-23-1o141234aaaaaeaaaeceeeeiiiinoooooeoeuuuueyssaaaaaeaaaeceeeeiiiinoooooeoeuuuueyyacelnoszzacelnoszz", result);
 	}
 
