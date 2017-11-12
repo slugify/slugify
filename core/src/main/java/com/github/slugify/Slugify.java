@@ -14,7 +14,7 @@ public class Slugify {
 	private static final String BUILTIN_REPLACEMENTS_FILENAME = "replacements.properties";
 	private static final Properties REPLACEMENTS = new Properties();
 
-	private final static String ASCII = "Bulgarian-Latin/BGN; Any-Latin; Latin-ASCII; [^\\p{Print}] Remove; ['\"] Remove; Any-Lower";
+	private final static String ASCII = "Cyrillic-Latin; Any-Latin; Latin-ASCII; [^\\p{Print}] Remove; ['\"] Remove; Any-Lower";
 	private final static String EMPTY = "";
 
 	private final static Pattern PATTERN_NORMALIZE_NON_ASCII = Pattern.compile("[^\\p{ASCII}]+");
