@@ -1,0 +1,29 @@
+plugins {
+    id "me.champeau.gradle.jmh" version "0.4.3"
+    id "com.github.dkorotych.gradle-maven-exec" version "1.2.1"
+}
+apply plugin: 'me.champeau.gradle.jmh'
+apply plugin: 'java'
+
+group 'com.github'
+version '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile files("../core/target/classes") {
+        builtBy "rebuild"
+    }
+    compile fileTree(dir: "../core/target/dependency", include: '*.jar')
+}
+
+task rebuild(type: MavenExec) {
+    workingDir '../core'
+    goals 'clean', 'dependency:copy-dependencies', 'package'
+    quiet true
+}
+
