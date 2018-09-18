@@ -162,6 +162,18 @@ public class SlugifyTest {
 	}
 
 	@Test
+	public void shouldTransliterateArabicProperly() {
+		// given
+		String string = "هذه هي اللغة العربية";
+
+		// when
+		String result = new Slugify().slugify(string);
+
+		// then
+		assertEquals("hthh-hy-llgh-laarby", result);
+	}
+
+	@Test
 	public void shouldTransliteratePolishProperly() {
 		// given
 		String string = "Zażółć gęślą jaźń.";
