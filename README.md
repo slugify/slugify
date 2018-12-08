@@ -16,7 +16,7 @@ Here's the dependency information for Maven:
 <dependency>
 	<groupId>com.github.slugify</groupId>
 	<artifactId>slugify</artifactId>
-	<version>2.2</version>
+	<version>2.3</version>
 </dependency>
 ```
 
