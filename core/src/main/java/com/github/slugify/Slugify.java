@@ -24,8 +24,6 @@ public class Slugify {
 	private final static Pattern PATTERN_NORMALIZE_UNDERSCORE_SEPARATOR = Pattern.compile("[[^a-zA-Z0-9\\-]\\s+]+");
 	private final static Pattern PATTERN_NORMALIZE_TRIM_DASH = Pattern.compile("^-|-$");
 
-	private static final Transliterator TRANSLITERATOR = Transliterator.getInstance(ASCII);
-
 	private final Map<String, String> customReplacements = new HashMap<String, String>();
 	private final Map<Character, String> builtinReplacements = new HashMap<Character, String>();
 
@@ -157,7 +155,7 @@ public class Slugify {
 	}
 
 	private String transliterate(final String input) {
-		String text = TRANSLITERATOR.transliterate(input);
+		String text = Transliterator.getInstance(ASCII).transliterate(input);
 		text = matchAndReplace(text);
 		return text;
 	}
