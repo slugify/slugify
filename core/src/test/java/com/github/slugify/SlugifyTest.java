@@ -268,4 +268,49 @@ public class SlugifyTest {
 		//then
 		assertEquals("a---b_c", result);
 	}
+
+	@Test
+	public void shouldRemoveAllVietnameseAccents() {
+		// given
+		String string = "aáàảãạăắằẳẵặâấầẩẫậbcdđeéèẻẽẹêếềểễệghiíìỉĩịklmnoóòỏõọôốồổỗộơớờởỡợpqrstuúùủũụưứừửữựvxyýỳỷỹỵ";
+
+		// expect
+		String expected = "aaaaaaaaaaaaaaaaaabcddeeeeeeeeeeeeghiiiiiiklmnoooooooooooooooooopqrstuuuuuuuuuuuuvxyyyyyy";
+
+		// when
+		String result = new Slugify().slugify(string);
+
+		// then
+		assertEquals(expected, result);
+	}
+
+	@Test
+	public void shouldRemoveAllVietnameseUppercaseAccents() {
+		// given
+		String string = "AÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬBCDĐEÉÈẺẼẸÊẾỀỂỄỆGHIÍÌỈĨỊKLMNOÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢPQRSTUÚÙỦŨỤƯỨỪỬỮỰVXYÝỲỶỸỴ";
+
+		// expect
+		String expected = "aaaaaaaaaaaaaaaaaabcddeeeeeeeeeeeeghiiiiiiklmnoooooooooooooooooopqrstuuuuuuuuuuuuvxyyyyyy";
+
+		// when
+		String result = new Slugify().slugify(string);
+
+		// then
+		assertEquals(expected, result);
+	}
+
+	@Test
+	public void shouldSlugifyVietnameseCharacters() {
+		// given
+		String string = "Con Đường xưa em đi, vàng lên mái tóc thề, ngõ hồn dâng tái tê.";
+
+		// expect
+		String expected = "con-duong-xua-em-di-vang-len-mai-toc-the-ngo-hon-dang-tai-te";
+
+		// when
+		String result = new Slugify().slugify(string);
+
+		// then
+		assertEquals(expected, result);
+	}
 }
