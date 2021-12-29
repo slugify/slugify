@@ -11,7 +11,7 @@ import java.util.Properties;
 import java.util.regex.Pattern;
 
 public class Slugify {
-	private static final String BUILTIN_REPLACEMENTS_FILENAME = "replacements.properties";
+	private static final String BUILTIN_REPLACEMENTS_FILENAME = "slugify-replacements.properties";
 	private static final Properties REPLACEMENTS = new Properties();
 
 	private final static String ASCII = "Cyrillic-Latin; Any-Latin; Latin-ASCII; [^\\p{Print}] Remove; ['\"] Remove; Any-Lower";
