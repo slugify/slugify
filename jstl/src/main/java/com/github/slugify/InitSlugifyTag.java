@@ -3,15 +3,15 @@ package com.github.slugify;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 public class InitSlugifyTag extends SimpleTagSupport {
-	private static Slugify slugify = null;
+	private static SlugifyLite slugify = null;
 
 	public InitSlugifyTag() {
 		slugify = getSlugify();
 	}
 
-	public static synchronized Slugify getSlugify() {
+	public static synchronized SlugifyLite getSlugify() {
 		if (slugify == null) {
-			slugify = new Slugify();
+			slugify = new SlugifyLite();
 		}
 
 		return slugify;

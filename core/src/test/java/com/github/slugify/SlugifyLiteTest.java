@@ -7,14 +7,14 @@ import java.util.Map;
 
 import static junit.framework.TestCase.assertEquals;
 
-public class SlugifyTest {
+public class SlugifyLiteTest {
 	@Test
 	public void shouldReturnSlugifiedString() {
 		// given
 		String string = "Hello world";
 
 		// when
-		String result = new Slugify().slugify(string);
+		String result = new SlugifyLite().slugify(string);
 
 		// then
 		assertEquals("hello-world", result);
@@ -26,7 +26,7 @@ public class SlugifyTest {
 		String string = "Hello world ";
 
 		// when
-		String result = new Slugify().slugify(string);
+		String result = new SlugifyLite().slugify(string);
 
 		// then
 		assertEquals("hello-world", result);
@@ -38,7 +38,7 @@ public class SlugifyTest {
 		String string = "\tHello \tworld \r\t";
 
 		// when
-		String result = new Slugify().slugify(string);
+		String result = new SlugifyLite().slugify(string);
 
 		// then
 		assertEquals("hello-world", result);
@@ -51,7 +51,7 @@ public class SlugifyTest {
 		String string = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
 
 		// when
-		String result = new Slugify().slugify(string);
+		String result = new SlugifyLite().slugify(string);
 
 		// then
 		assertEquals("0123456789-abcdefghijklmnopqrstuvwxyz-_-abcdefghijklmnopqrstuvwxyz", result);
@@ -64,7 +64,7 @@ public class SlugifyTest {
 				+ "èéêëìíîïðñòóôõö÷øùúûüýþÿĄĆĘŁŃÓŚŹŻąćęłńóśźż";
 
 		// when
-		String result = new Slugify().slugify(string);
+		String result = new SlugifyLite().slugify(string);
 
 		// the
 		assertEquals("sz-tmszy-a-23-1o141234aaaaaeaaaeceeeeiiiinoooooeoeuuuueyssaaaaaeaaaeceeeeiiiinoooooeoeuuuueyyacelnoszzacelnoszz", result);
@@ -80,11 +80,11 @@ public class SlugifyTest {
 		String dialytika = "ΪΫϊϋΰΐ";
 
 		// when
-		String result1 = new Slugify().slugify(capital);
-		String result2 = new Slugify().slugify(small);
-		String result3 = new Slugify().slugify(tonosCapital);
-		String result4 = new Slugify().slugify(smallTonos);
-		String result5 = new Slugify().slugify(dialytika);
+		String result1 = new SlugifyLite().slugify(capital);
+		String result2 = new SlugifyLite().slugify(small);
+		String result3 = new SlugifyLite().slugify(tonosCapital);
+		String result4 = new SlugifyLite().slugify(smallTonos);
+		String result5 = new SlugifyLite().slugify(dialytika);
 
 		// the
 		assertEquals("abgdezhthiklmnksoprstyfxpsw", result1);
@@ -100,7 +100,7 @@ public class SlugifyTest {
 		String string = "ÅÄÆÖØÜåäæöøüß";
 
 		// when
-		String result = new Slugify().slugify(string);
+		String result = new SlugifyLite().slugify(string);
 
 		// then
 		assertEquals("aaaeaeoeoeueaaaeaeoeoeuess", result);
@@ -112,7 +112,7 @@ public class SlugifyTest {
 		String string = "Hello leet!";
 
 		// when
-		String result = new Slugify().withCustomReplacement("leet", "1337").slugify(string);
+		String result = new SlugifyLite().withCustomReplacement("leet", "1337").slugify(string);
 
 		// then
 		assertEquals("hello-1337", result);
@@ -127,7 +127,7 @@ public class SlugifyTest {
 		}};
 
 		// when
-		String result = new Slugify().withCustomReplacements(customReplacements).slugify(string);
+		String result = new SlugifyLite().withCustomReplacements(customReplacements).slugify(string);
 
 		// then
 		assertEquals("that-is-awesome", result);
@@ -140,7 +140,7 @@ public class SlugifyTest {
 			put("this", "that");
 		}};
 
-		Slugify slugify = new Slugify().withCustomReplacements(customReplacements);
+		SlugifyLite slugify = new SlugifyLite().withCustomReplacements(customReplacements);
 
 		// when
 		Map<String, String> gotCustomReplacements = slugify.getCustomReplacements();
@@ -155,7 +155,7 @@ public class SlugifyTest {
 		String string = "Смысловые галлюцинации";
 
 		// when
-		String result = new Slugify().slugify(string);
+		String result = new SlugifyLite().slugify(string);
 
 		// then
 		assertEquals("smyslovye-gallyutsinatsii", result);
@@ -167,7 +167,7 @@ public class SlugifyTest {
 		String string = "هذه هي اللغة العربية";
 
 		// when
-		String result = new Slugify().slugify(string);
+		String result = new SlugifyLite().slugify(string);
 
 		// then
 		assertEquals("hthh-hy-llgh-laarby", result);
@@ -179,7 +179,7 @@ public class SlugifyTest {
 		String string = "Zażółć gęślą jaźń.";
 
 		// when
-		String result = new Slugify().slugify(string);
+		String result = new SlugifyLite().slugify(string);
 
 		// then
 		assertEquals("zazolc-gesla-jazn", result);
@@ -191,7 +191,7 @@ public class SlugifyTest {
 		String string = "\tHello \tworld \r\t";
 
 		// when
-		String result = new Slugify().withLowerCase(false).slugify(string);
+		String result = new SlugifyLite().withLowerCase(false).slugify(string);
 
 		// then
 		assertEquals("Hello-world", result);
@@ -203,7 +203,7 @@ public class SlugifyTest {
 		String string = "\tHello+\tworld \r\t";
 
 		// when
-		String result = new Slugify().slugify(string);
+		String result = new SlugifyLite().slugify(string);
 
 		// then
 		assertEquals("hello-world", result);
@@ -215,7 +215,7 @@ public class SlugifyTest {
 		String string = null;
 
 		// when
-		String result = new Slugify().slugify(string);
+		String result = new SlugifyLite().slugify(string);
 
 		// then
 		assertEquals("", result);
@@ -227,22 +227,10 @@ public class SlugifyTest {
 		String string = "\tHello \tworld \r\t";
 
 		// when
-		String result = new Slugify().withUnderscoreSeparator(true).slugify(string);
+		String result = new SlugifyLite().withUnderscoreSeparator(true).slugify(string);
 
 		// then
 		assertEquals("hello_world", result);
-	}
-
-	@Test
-	public void shouldSlugifyWithTransliterator() {
-		// given
-		String string = "健康管理";
-
-		// when
-		String result = new Slugify().withTransliterator(true).slugify(string);
-
-		// then
-		assertEquals("jian-kang-guan-li", result);
 	}
 
 	@Test
@@ -251,7 +239,7 @@ public class SlugifyTest {
 		String string = "a---b___c";
 
 		//when
-		String result = new Slugify().slugify(string);
+		String result = new SlugifyLite().slugify(string);
 
 		//then
 		assertEquals("a-b___c", result);
@@ -263,7 +251,7 @@ public class SlugifyTest {
 		String string = "a---b___c";
 
 		//when
-		String result = new Slugify().withUnderscoreSeparator(true).slugify(string);
+		String result = new SlugifyLite().withUnderscoreSeparator(true).slugify(string);
 
 		//then
 		assertEquals("a---b_c", result);
@@ -278,7 +266,7 @@ public class SlugifyTest {
 		String expected = "aaaaaaaaaaaaaaaaaabcddeeeeeeeeeeeeghiiiiiiklmnoooooooooooooooooopqrstuuuuuuuuuuuuvxyyyyyy";
 
 		// when
-		String result = new Slugify().slugify(string);
+		String result = new SlugifyLite().slugify(string);
 
 		// then
 		assertEquals(expected, result);
@@ -293,7 +281,7 @@ public class SlugifyTest {
 		String expected = "aaaaaaaaaaaaaaaaaabcddeeeeeeeeeeeeghiiiiiiklmnoooooooooooooooooopqrstuuuuuuuuuuuuvxyyyyyy";
 
 		// when
-		String result = new Slugify().slugify(string);
+		String result = new SlugifyLite().slugify(string);
 
 		// then
 		assertEquals(expected, result);
@@ -308,7 +296,7 @@ public class SlugifyTest {
 		String expected = "con-duong-xua-em-di-vang-len-mai-toc-the-ngo-hon-dang-tai-te";
 
 		// when
-		String result = new Slugify().slugify(string);
+		String result = new SlugifyLite().slugify(string);
 
 		// then
 		assertEquals(expected, result);

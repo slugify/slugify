@@ -20,7 +20,7 @@
 	<licenses>
 		<license>
 			<name>Apache License</name>
-			<url>http://www.apache.org/licenses/</url>
+			<url>https://www.apache.org/licenses/</url>
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
@@ -47,6 +47,11 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>com.github.slugify</groupId>
+				<artifactId>slugify-lite</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>com.github.slugify</groupId>
 				<artifactId>slugify</artifactId>
@@ -80,6 +85,7 @@
 
 	<modules>
 		<module>core</module>
+		<module>transliteration</module>
 		<module>jstl</module>
 	</modules>
 

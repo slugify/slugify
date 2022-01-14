@@ -8,11 +8,20 @@
 		<version>2.6-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>slugify-lite</artifactId>
+	<artifactId>slugify</artifactId>
 
-	<name>Slugify - Core</name>
+	<name>Slugify - Full feature</name>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.github.slugify</groupId>
+			<artifactId>slugify-lite</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.ibm.icu</groupId>
+			<artifactId>icu4j</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

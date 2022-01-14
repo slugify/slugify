@@ -1,7 +1,5 @@
 package com.github.slugify;
 
-import com.ibm.icu.text.Transliterator;
-
 import java.io.InputStream;
 import java.text.Normalizer;
 import java.util.HashMap;
@@ -10,11 +8,10 @@ import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.regex.Pattern;
 
-public class Slugify {
+public class SlugifyLite {
 	private static final String BUILTIN_REPLACEMENTS_FILENAME = "replacements.properties";
 	private static final Properties REPLACEMENTS = new Properties();
 
-	private final static String ASCII = "Cyrillic-Latin; Any-Latin; Latin-ASCII; [^\\p{Print}] Remove; ['\"] Remove; Any-Lower";
 	private final static String EMPTY = "";
 	private static final String UNDERSCORE = "_";
 	private static final String HYPHEN = "-";
@@ -24,46 +21,40 @@ public class Slugify {
 	private final static Pattern PATTERN_NORMALIZE_UNDERSCORE_SEPARATOR = Pattern.compile("[[^a-zA-Z0-9\\-]\\s+]+");
 	private final static Pattern PATTERN_NORMALIZE_TRIM_DASH = Pattern.compile("^-|-$");
 
-	private final Map<String, String> customReplacements = new HashMap<String, String>();
-	private final Map<Character, String> builtinReplacements = new HashMap<Character, String>();
+	private final Map<String, String> customReplacements = new HashMap<>();
+	private final Map<Character, String> builtinReplacements = new HashMap<>();
 
-	private boolean transliterator = false;
 	private boolean underscoreSeparator = false;
 	private boolean lowerCase = true;
 
 	@Deprecated
-	public Slugify(boolean lowerCase) {
+	public SlugifyLite(boolean lowerCase) {
 		this();
 
 		withLowerCase(lowerCase);
 	}
 
-	public Slugify() {
+	public SlugifyLite() {
 		loadReplacements(BUILTIN_REPLACEMENTS_FILENAME);
 		createPatternCache();
 	}
 
-	public Slugify withCustomReplacement(final String from, final String to) {
+	public SlugifyLite withCustomReplacement(final String from, final String to) {
 		customReplacements.put(from, to);
 		return this;
 	}
 
-	public Slugify withCustomReplacements(final Map<String, String> customReplacements) {
+	public SlugifyLite withCustomReplacements(final Map<String, String> customReplacements) {
 		this.customReplacements.putAll(customReplacements);
 		return this;
 	}
 
-	public Slugify withUnderscoreSeparator(final boolean underscoreSeparator) {
+	public SlugifyLite withUnderscoreSeparator(final boolean underscoreSeparator) {
 		this.underscoreSeparator = underscoreSeparator;
 		return this;
 	}
 
-	public Slugify withTransliterator(final boolean transliterator) {
-		this.transliterator = transliterator;
-		return this;
-	}
-
-	public Slugify withLowerCase(final boolean lowerCase) {
+	public SlugifyLite withLowerCase(final boolean lowerCase) {
 		this.lowerCase = lowerCase;
 		return this;
 	}
@@ -78,11 +69,7 @@ public class Slugify {
 		input = customReplacements(input);
 		input = builtInReplacements(input);
 
-		if (transliterator) {
-			input = transliterate(input);
-		} else {
-			input = normalize(input);
-		}
+		input = process(input);
 
 		if (lowerCase) {
 			input = input.toLowerCase();
@@ -116,7 +103,7 @@ public class Slugify {
 		return stringBuilder.toString();
 	}
 
-	private Slugify loadReplacements(final String resourceFileName) {
+	private SlugifyLite loadReplacements(final String resourceFileName) {
 		if (!REPLACEMENTS.isEmpty()) {
 			return this;
 		}
@@ -154,19 +141,17 @@ public class Slugify {
 		return string == null || string.trim().isEmpty();
 	}
 
-	private String transliterate(final String input) {
-		String text = Transliterator.getInstance(ASCII).transliterate(input);
-		text = matchAndReplace(text);
-		return text;
+	protected String process(String input) {
+		return normalize(input);
 	}
 
-	private String normalize(final String input) {
+	protected String normalize(final String input) {
 		String text = Normalizer.normalize(input, Normalizer.Form.NFKD);
 		text = matchAndReplace(text);
 		return text;
 	}
 
-	private String matchAndReplace(final String input) {
+	protected String matchAndReplace(final String input) {
 		String text = PATTERN_NORMALIZE_NON_ASCII.matcher(input).replaceAll(EMPTY);
 		text = underscoreSeparator ? PATTERN_NORMALIZE_UNDERSCORE_SEPARATOR.matcher(text).replaceAll(UNDERSCORE) :
 				PATTERN_NORMALIZE_HYPHEN_SEPARATOR.matcher(text).replaceAll(HYPHEN);
