@@ -1,0 +1,11 @@
+[libraries]
+icu4j = { module = "com.ibm.icu:icu4j", version.ref = "icu4j" }
+junit = { module = "junit:junit", version.ref = "junit" }
+
+[plugins]
+lombok = { id = "io.freefair.lombok", version.ref = "lombokPlugin" }
+
+[versions]
+icu4j = "71.1"
+junit = "4.13.2"
+lombokPlugin = "6.4.3"

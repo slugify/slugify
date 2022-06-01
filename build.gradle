@@ -1,0 +1,20 @@
+plugins {
+    alias(libs.plugins.lombok)
+    id 'java-library'
+}
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    registerFeature('transliterator') {
+        usingSourceSet sourceSets.main
+    }
+}
+
+dependencies {
+    transliteratorImplementation libs.icu4j
+    testImplementation libs.icu4j
+    testImplementation libs.junit
+}
