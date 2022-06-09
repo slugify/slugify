@@ -1,4 +1,5 @@
 plugins {
+    id 'checkstyle'
     id 'java-library'
 
     alias(libs.plugins.lombok)
@@ -8,6 +9,10 @@ plugins {
 
 repositories {
     mavenCentral()
+}
+
+checkstyle {
+    toolVersion = '10.3'
 }
 
 compileJava {
