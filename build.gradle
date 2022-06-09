@@ -1,6 +1,7 @@
 plugins {
     id 'checkstyle'
     id 'java-library'
+    id 'pmd'
 
     alias(libs.plugins.lombok)
     alias(libs.plugins.reckon)
@@ -17,6 +18,13 @@ checkstyle {
 
 compileJava {
     targetCompatibility = JavaVersion.VERSION_11
+}
+
+pmd {
+    consoleOutput = true
+    toolVersion = '6.46.0'
+    ruleSetFiles = fileTree('config/pmd').filter { it.file && it.name.endsWith('.xml') }
+    ruleSets = []
 }
 
 reckon {

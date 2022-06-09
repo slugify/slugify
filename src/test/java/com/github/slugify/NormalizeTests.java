@@ -2,6 +2,7 @@ package com.github.slugify;
 
 import static org.junit.Assert.assertEquals;
 
+import lombok.NoArgsConstructor;
 import org.junit.Test;
 
 /**
@@ -9,6 +10,7 @@ import org.junit.Test;
  *
  * @author Danny Trunk
  */
+@NoArgsConstructor
 public class NormalizeTests {
   private final Slugify slugify = Slugify.builder().build();
 
@@ -21,68 +23,70 @@ public class NormalizeTests {
     final String result = slugify.slugify(text);
 
     // then
-    assertEquals("hello-world", result);
+    assertEquals("Should equals \"hello-world\"", "hello-world", result);
   }
 
   @Test
   public void shouldTrimWhiteSpacesOtherThanSpace() {
     // given
-    String string = "\tHello \tworld \r\t";
+    final String string = "\tHello \tworld \r\t";
 
     // when
-    String result = slugify.slugify(string);
+    final String result = slugify.slugify(string);
 
     // then
-    assertEquals("hello-world", result);
+    assertEquals("Should equals \"hello-world\"", "hello-world", result);
   }
 
 
   @Test
   public void shouldSlugifyAnyPrintableAsciiCharacter() {
     // given
-    String string = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`"
+    final String string = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`"
         + "abcdefghijklmnopqrstuvwxyz{|}~";
 
     // when
-    String result = slugify.slugify(string);
+    final String result = slugify.slugify(string);
 
     // then
-    assertEquals("0123456789-abcdefghijklmnopqrstuvwxyz-_-abcdefghijklmnopqrstuvwxyz", result);
+    assertEquals("Should equals \"0123456789-abcdefghijklmnopqrstuvwxyz-_-"
+        + "abcdefghijklmnopqrstuvwxyz\"", "0123456789-abcdefghijklmnopqrstuvwxyz-_-"
+        + "abcdefghijklmnopqrstuvwxyz", result);
   }
 
   @Test
   public void shouldReplacePlusSignToSeparator() {
     // given
-    String string = "\tHello+\tworld \r\t";
+    final String string = "\tHello+\tworld \r\t";
 
     // when
-    String result = slugify.slugify(string);
+    final String result = slugify.slugify(string);
 
     // then
-    assertEquals("hello-world", result);
+    assertEquals("Should equals \"hello-world\"", "hello-world", result);
   }
 
   @Test
   public void shouldReturnEmptyStringIfNullGiven() {
     // given
-    String string = null;
+    final String string = null;
 
     // when
-    String result = slugify.slugify(string);
+    final String result = slugify.slugify(string);
 
     // then
-    assertEquals("", result);
+    assertEquals("Should equals \"\"", "", result);
   }
 
   @Test
   public void shouldNormalizeRepeatedHyphensToSingleHyphenWithHyphenSeparator() {
     //given
-    String string = "a---b___c";
+    final String string = "a---b___c";
 
     //when
-    String result = slugify.slugify(string);
+    final String result = slugify.slugify(string);
 
     //then
-    assertEquals("a-b___c", result);
+    assertEquals("Should equals \"a-b___c\"", "a-b___c", result);
   }
 }
