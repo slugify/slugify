@@ -1,5 +1,7 @@
 plugins {
     alias(libs.plugins.lombok)
+    alias(libs.plugins.versions)
+
     id 'java-library'
 }
 
