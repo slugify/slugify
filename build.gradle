@@ -24,3 +24,8 @@ dependencies {
     testImplementation libs.icu4j
     testImplementation libs.junit
 }
+
+tasks.named('dependencyUpdates').configure {
+    gradleReleaseChannel = 'current'
+    revision = 'release'
+}
