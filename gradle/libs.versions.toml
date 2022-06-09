@@ -9,5 +9,5 @@ versions = { id = "com.github.ben-manes.versions", version.ref = "versionsPlugin
 [versions]
 icu4j = "71.1"
 junit = "4.13.2"
-lombokPlugin = "6.4.3"
+lombokPlugin = "6.4.3.1"
 versionsPlugin = "0.42.0"
