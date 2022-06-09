@@ -16,6 +16,9 @@
 # AWS User-specific
 .idea/**/aws.xml
 
+# Checkstyle User-specific
+.idea/codeStyles/**
+
 # Generated files
 .idea/**/contentModel.xml
 
