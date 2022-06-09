@@ -7,6 +7,7 @@ import lombok.Singular;
 import java.text.Normalizer;
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -51,7 +52,7 @@ public class Slugify {
                 // remove leading and trailing whitespaces
                 .map(String::trim)
                 // run subsequent calls only if string is not empty
-                .filter(str -> !EMPTY.equals(str))
+                .filter(Predicate.not(EMPTY::equals))
                 // replace all custom replacements
                 .map(str -> replaceAll(str, customReplacements))
                 // replace all built-in replacements
@@ -63,7 +64,7 @@ public class Slugify {
                 // replace remaining chars matching a pattern with underscore/hyphen
                 .map(str -> underscoreSeparator
                         ? PATTERN_NORMALIZE_UNDERSCORE_SEPARATOR.matcher(str).replaceAll(UNDERSCORE)
-                        : PATTERN_NORMALIZE_HYPHEN_SEPARATOR.matcher(text).replaceAll(HYPHEN))
+                        : PATTERN_NORMALIZE_HYPHEN_SEPARATOR.matcher(str).replaceAll(HYPHEN))
                 // remove leading and trailing dashes
                 .map(str -> PATTERN_NORMALIZE_TRIM_DASH.matcher(str).replaceAll(EMPTY))
                 // convert to lower case if needed
