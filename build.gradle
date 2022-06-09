@@ -1,8 +1,9 @@
 plugins {
-    alias(libs.plugins.lombok)
-    alias(libs.plugins.versions)
-
     id 'java-library'
+
+    alias(libs.plugins.lombok)
+    alias(libs.plugins.reckon)
+    alias(libs.plugins.versions)
 }
 
 repositories {
@@ -13,19 +14,24 @@ compileJava {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
+reckon {
+    scopeFromProp()
+    stageFromProp('rc', 'final')
+}
+
 java {
     registerFeature('transliterator') {
         usingSourceSet sourceSets.main
     }
 }
 
+tasks.named('dependencyUpdates').configure {
+    gradleReleaseChannel = 'current'
+    revision = 'release'
+}
+
 dependencies {
     transliteratorImplementation libs.icu4j
     testImplementation libs.icu4j
     testImplementation libs.junit
-}
-
-tasks.named('dependencyUpdates').configure {
-    gradleReleaseChannel = 'current'
-    revision = 'release'
 }
