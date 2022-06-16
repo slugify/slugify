@@ -3,6 +3,7 @@ plugins {
     id 'java-library'
     id 'pmd'
 
+    alias(libs.plugins.jmh)
     alias(libs.plugins.lombok)
     alias(libs.plugins.reckon)
     alias(libs.plugins.versions)

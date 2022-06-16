@@ -3,12 +3,14 @@ icu4j = { module = "com.ibm.icu:icu4j", version.ref = "icu4j" }
 junit = { module = "junit:junit", version.ref = "junit" }
 
 [plugins]
+jmh = { id = "me.champeau.jmh", version.ref = "jmhPlugin" }
 lombok = { id = "io.freefair.lombok", version.ref = "lombokPlugin" }
 reckon = { id = "org.ajoberstar.reckon", version.ref = "reckonPlugin" }
 versions = { id = "com.github.ben-manes.versions", version.ref = "versionsPlugin" }
 
 [versions]
 icu4j = "71.1"
+jmhPlugin = "0.6.6"
 junit = "4.13.2"
 lombokPlugin = "6.4.3.1"
 reckonPlugin = "0.13.1"
