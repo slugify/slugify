@@ -21,9 +21,10 @@ import lombok.Singular;
  * @since 1.0
  */
 public class Slugify {
+  protected static final String BUNDLE_BASE_NAME = "slugify";
+
   private static final String ASCII =
       "Cyrillic-Latin; Any-Latin; Latin-ASCII; [^\\p{Print}] Remove; ['\"] Remove; Any-Lower";
-  private static final String BUNDLE_BASE_NAME = "slugify";
   private static final String EMPTY = "";
   private static final String UNDERSCORE = "_";
   private static final String HYPHEN = "-";
@@ -56,7 +57,9 @@ public class Slugify {
     this.customReplacements = Optional.ofNullable(customReplacements)
         .orElseGet(Collections::emptyMap);
 
-    final ResourceBundle replacementsBundle = ResourceBundle.getBundle(BUNDLE_BASE_NAME, this.locale);
+    final ResourceBundle replacementsBundle = ResourceBundle.getBundle(BUNDLE_BASE_NAME,
+        this.locale);
+
     this.replacements = replacementsBundle.keySet().stream()
         .collect(Collectors.toMap(Function.identity(), replacementsBundle::getString));
   }
