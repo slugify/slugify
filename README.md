@@ -26,7 +26,7 @@ Slugify slg = Slugify.builder().customReplacement("hello", "world").customReplac
 slg = Slugify.builder().customReplacements(new HashMap<String, String>() {{
 	put("hello", "world");
 	put("foo", "bar");
-}});
+}}).build();
 
 String result = slg.slugify("hello foo");
 // result: world-bar
