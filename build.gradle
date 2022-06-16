@@ -1,7 +1,9 @@
 plugins {
     id 'checkstyle'
     id 'java-library'
+    id 'maven-publish'
     id 'pmd'
+    id 'signing'
 
     alias(libs.plugins.jmh)
     alias(libs.plugins.lombok)
@@ -37,6 +39,67 @@ java {
     registerFeature('transliterator') {
         usingSourceSet sourceSets.main
     }
+
+    withJavadocJar()
+    withSourcesJar()
+}
+
+javadoc {
+    options.addBooleanOption('html5', true)
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            groupId = 'com.github.slugify'
+
+            pom {
+                name = 'Slugify'
+                description = 'SEO-friendly URLs with Slugify'
+                url = 'https://github.com/slugify/slugify'
+
+                developers {
+                    developer {
+                        id = 'dtrunk90'
+                        name = 'Danny Trunk'
+                        email = 'dtrunk90@gmail.com'
+                    }
+                }
+
+                issueManagement {
+                    system = 'GitHub'
+                    url = 'https://github.com/slugify/slugify/issues'
+                }
+
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                scm {
+                    connection = 'scm:git:git://github.com/slugify/slugify.git'
+                    developerConnection = 'scm:git:ssh://github.com/slugify/slugify.git'
+                    url = 'https://github.com/slugify/slugify'
+                }
+            }
+
+            repositories {
+                maven {
+                    def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2"
+                    def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots"
+                    url = version.contains('rc') ? snapshotsRepoUrl : releasesRepoUrl
+                }
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.mavenJava
 }
 
 tasks.named('dependencyUpdates').configure {
