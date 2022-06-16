@@ -49,3 +49,5 @@ dependencies {
     testImplementation libs.icu4j
     testImplementation libs.junit
 }
+
+reckonTagCreate.dependsOn check
