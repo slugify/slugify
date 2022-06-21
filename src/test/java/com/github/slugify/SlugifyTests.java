@@ -1,37 +1,29 @@
 package com.github.slugify;
 
 import static java.lang.String.format;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.List;
 import java.util.Locale;
-import java.util.Optional;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * Class for unit testing.
  */
 @NoArgsConstructor
-@SuppressWarnings("PMD.AvoidDuplicateLiterals")
-public class SlugifyTests {
+class SlugifyTests {
+  private static final String ASSERT_EQUALS_MESSAGE_FORMAT = "[%s] \"%s\" equals \"%s\"";
   private static final Locale DEFAULT_LOCALE = Locale.ENGLISH;
 
-  private static final List<Locale> LOCALES = Stream.of("ar", "da", "de", "el", "no", "pl", "ru",
-          "sv", "tr", "vi", "wa")
-      .map(Locale::forLanguageTag)
-      .collect(Collectors.toList());
-
   @Test
-  @SuppressWarnings("PMD.JUnitAssertionsShouldIncludeMessage")
-  public void givenStringWhenNormalizerIsUsedThenSlugify() {
+  /* default */ void givenStringWhenNormalizerIsUsedThenSlugify() {
     final Slugify slugify = Slugify.builder()
         .transliterator(false)
         .locale(DEFAULT_LOCALE)
@@ -40,12 +32,12 @@ public class SlugifyTests {
     final String expected = "a";
     final String actual = slugify.slugify("ä");
 
-    assertEquals(expected, actual);
+    assertEquals(expected, actual,
+        format(ASSERT_EQUALS_MESSAGE_FORMAT, DEFAULT_LOCALE, expected, actual));
   }
 
   @Test
-  @SuppressWarnings("PMD.JUnitAssertionsShouldIncludeMessage")
-  public void givenStringWhenTransliteratorIsUsedThenSlugify() {
+  /* default */ void givenStringWhenTransliteratorIsUsedThenSlugify() {
     final Slugify slugify = Slugify.builder()
         .transliterator(true)
         .locale(DEFAULT_LOCALE)
@@ -54,12 +46,12 @@ public class SlugifyTests {
     final String expected = "b";
     final String actual = slugify.slugify("Б");
 
-    assertEquals(expected, actual);
+    assertEquals(expected, actual,
+        format(ASSERT_EQUALS_MESSAGE_FORMAT, DEFAULT_LOCALE, expected, actual));
   }
 
   @Test
-  @SuppressWarnings("PMD.JUnitAssertionsShouldIncludeMessage")
-  public void givenStringWhenHyphenIsUsedThenSlugify() {
+  /* default */ void givenStringWhenHyphenIsUsedThenSlugify() {
     final Slugify slugify = Slugify.builder()
         .underscoreSeparator(false)
         .locale(DEFAULT_LOCALE)
@@ -68,12 +60,12 @@ public class SlugifyTests {
     final String expected = "foo-bar";
     final String actual = slugify.slugify("foo bar");
 
-    assertEquals(expected, actual);
+    assertEquals(expected, actual,
+        format(ASSERT_EQUALS_MESSAGE_FORMAT, DEFAULT_LOCALE, expected, actual));
   }
 
   @Test
-  @SuppressWarnings("PMD.JUnitAssertionsShouldIncludeMessage")
-  public void givenStringWhenUnderscoreIsUsedThenSlugify() {
+  /* default */ void givenStringWhenUnderscoreIsUsedThenSlugify() {
     final Slugify slugify = Slugify.builder()
         .underscoreSeparator(true)
         .locale(DEFAULT_LOCALE)
@@ -82,12 +74,12 @@ public class SlugifyTests {
     final String expected = "foo_bar";
     final String actual = slugify.slugify("foo bar");
 
-    assertEquals(expected, actual);
+    assertEquals(expected, actual,
+        format(ASSERT_EQUALS_MESSAGE_FORMAT, DEFAULT_LOCALE, expected, actual));
   }
 
   @Test
-  @SuppressWarnings("PMD.JUnitAssertionsShouldIncludeMessage")
-  public void givenStringWhenLetterCaseIsUsedThenSlugify() {
+  /* default */ void givenStringWhenLetterCaseIsUsedThenSlugify() {
     final Slugify slugify = Slugify.builder()
         .lowerCase(false)
         .locale(DEFAULT_LOCALE)
@@ -96,12 +88,12 @@ public class SlugifyTests {
     final String expected = "Foo";
     final String actual = slugify.slugify("Foo");
 
-    assertEquals(expected, actual);
+    assertEquals(expected, actual,
+        format(ASSERT_EQUALS_MESSAGE_FORMAT, DEFAULT_LOCALE, expected, actual));
   }
 
   @Test
-  @SuppressWarnings("PMD.JUnitAssertionsShouldIncludeMessage")
-  public void givenStringWhenLowerCaseIsUsedThenSlugify() {
+  /* default */ void givenStringWhenLowerCaseIsUsedThenSlugify() {
     final Slugify slugify = Slugify.builder()
         .lowerCase(true)
         .locale(DEFAULT_LOCALE)
@@ -110,44 +102,45 @@ public class SlugifyTests {
     final String expected = "foo";
     final String actual = slugify.slugify("Foo");
 
-    assertEquals(expected, actual);
+    assertEquals(expected, actual,
+        format(ASSERT_EQUALS_MESSAGE_FORMAT, DEFAULT_LOCALE, expected, actual));
   }
 
-  @Test
   @SneakyThrows
-  @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops",
-      "PMD.JUnitAssertionsShouldIncludeMessage", "PMD.JUnitTestsShouldIncludeAssert"})
-  public void givenStringWhenStringContainsReplacementsThenSlugify() {
-    for (final Locale locale : LOCALES) {
-      try (InputStream resourceBundleInputStream = Thread.currentThread().getContextClassLoader()
-          .getResourceAsStream(Slugify.BUNDLE_BASE_NAME + "_" + locale.getLanguage()
-              + ".properties")) {
-        if (resourceBundleInputStream == null) {
-          throw new FileNotFoundException(Slugify.BUNDLE_BASE_NAME + "_" + locale.getLanguage()
-              + ".properties");
-        }
+  @ParameterizedTest
+  @ValueSource(strings = {"ar", "da", "de", "el", "no", "pl", "ru", "sv", "tr", "vi", "wa"})
+  /* default */ void givenStringWhenStringContainsReplacementsThenSlugify(
+      final String languageTag) {
+    final Locale locale = Locale.forLanguageTag(languageTag);
 
-        final ResourceBundle replacementsBundle =
-            new PropertyResourceBundle(resourceBundleInputStream);
-
-        final Slugify slugify = Slugify.builder()
-            .lowerCase(false)
-            .locale(locale)
-            .build();
-
-        replacementsBundle.keySet().forEach(key -> {
-          final String expected = replacementsBundle.getString(key);
-          final String actual = slugify.slugify(key);
-
-          assertEquals(expected, actual, locale.toString());
-        });
+    try (InputStream resourceBundleInputStream = Thread.currentThread().getContextClassLoader()
+        .getResourceAsStream(Slugify.BUNDLE_BASE_NAME + "_" + locale.getLanguage()
+            + ".properties")) {
+      if (resourceBundleInputStream == null) {
+        throw new FileNotFoundException(Slugify.BUNDLE_BASE_NAME + "_" + locale.getLanguage()
+            + ".properties");
       }
+
+      final ResourceBundle replacementsBundle =
+          new PropertyResourceBundle(resourceBundleInputStream);
+
+      final Slugify slugify = Slugify.builder()
+          .lowerCase(false)
+          .locale(locale)
+          .build();
+
+      replacementsBundle.keySet().forEach(key -> {
+        final String expected = replacementsBundle.getString(key);
+        final String actual = slugify.slugify(key);
+
+        assertEquals(expected, actual,
+            format(ASSERT_EQUALS_MESSAGE_FORMAT, locale, expected, actual));
+      });
     }
   }
 
   @Test
-  @SuppressWarnings("PMD.JUnitAssertionsShouldIncludeMessage")
-  public void givenStringWhenStringContainsCustomReplacementsThenSlugify() {
+  /* default */ void givenStringWhenStringContainsCustomReplacementsThenSlugify() {
     final String given = "ä";
     final String expected = "foo";
 
@@ -158,20 +151,7 @@ public class SlugifyTests {
 
     final String actual = slugify.slugify(given);
 
-    assertEquals(expected, actual);
-  }
-
-  private void assertEquals(final String expected, final String actual) {
-    assertEquals(expected, actual, null);
-  }
-
-  private void assertEquals(final String expected, final String actual, final String comment) {
-    assertEquals("\"%s\" equals \"%s\"" + Optional.ofNullable(comment).map(s -> " (%s)")
-        .orElse(""), expected, actual, comment);
-  }
-
-  private void assertEquals(final String format, final String expected, final String actual,
-                            final String comment) {
-    Assert.assertEquals(format(format, expected, actual, comment), expected, actual);
+    assertEquals(expected, actual,
+        format(ASSERT_EQUALS_MESSAGE_FORMAT, DEFAULT_LOCALE, expected, actual));
   }
 }

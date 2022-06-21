@@ -1,6 +1,6 @@
 [libraries]
 icu4j = { module = "com.ibm.icu:icu4j", version.ref = "icu4j" }
-junit = { module = "junit:junit", version.ref = "junit" }
+junit = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
 
 [plugins]
 jmh = { id = "me.champeau.jmh", version.ref = "jmhPlugin" }
@@ -11,7 +11,7 @@ versions = { id = "com.github.ben-manes.versions", version.ref = "versionsPlugin
 [versions]
 icu4j = "71.1"
 jmhPlugin = "0.6.6"
-junit = "4.13.2"
+junit = "5.8.2"
 lombokPlugin = "6.5.0.2"
 reckonPlugin = "0.16.1"
 versionsPlugin = "0.42.0"
