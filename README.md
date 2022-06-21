@@ -8,7 +8,13 @@ Usage
 Add Slugify as a dependency to your project:
 
 ```
-implementation 'com.github.slugify:slugify:3.0.0'
+implementation 'com.github.slugify:slugify:3.0.1'
+// additionally required if you want to use transliterator
+implementation('com.github.slugify:slugify:3.0.1') {
+    capabilities {
+        requireCapability('com.github.slugify:slugify-transliterator')
+    }
+}
 ```
 
 Now you're able to use it:
