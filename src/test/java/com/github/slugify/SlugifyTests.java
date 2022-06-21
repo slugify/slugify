@@ -2,13 +2,17 @@ package com.github.slugify;
 
 import static java.lang.String.format;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.NoArgsConstructor;
+import lombok.SneakyThrows;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -110,25 +114,35 @@ public class SlugifyTests {
   }
 
   @Test
-  @SuppressWarnings({"PMD.JUnitAssertionsShouldIncludeMessage",
-      "PMD.JUnitTestsShouldIncludeAssert"})
+  @SneakyThrows
+  @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops",
+      "PMD.JUnitAssertionsShouldIncludeMessage", "PMD.JUnitTestsShouldIncludeAssert"})
   public void givenStringWhenStringContainsReplacementsThenSlugify() {
-    LOCALES.forEach(locale -> {
-      final ResourceBundle replacementsBundle = ResourceBundle.getBundle(Slugify.BUNDLE_BASE_NAME,
-          locale);
+    for (final Locale locale : LOCALES) {
+      try (InputStream resourceBundleInputStream = Thread.currentThread().getContextClassLoader()
+          .getResourceAsStream(Slugify.BUNDLE_BASE_NAME + "_" + locale.getLanguage()
+              + ".properties")) {
+        if (resourceBundleInputStream == null) {
+          throw new FileNotFoundException(Slugify.BUNDLE_BASE_NAME + "_" + locale.getLanguage()
+              + ".properties");
+        }
 
-      final Slugify slugify = Slugify.builder()
-          .lowerCase(false)
-          .locale(locale)
-          .build();
+        final ResourceBundle replacementsBundle =
+            new PropertyResourceBundle(resourceBundleInputStream);
 
-      replacementsBundle.keySet().forEach(key -> {
-        final String expected = replacementsBundle.getString(key);
-        final String actual = slugify.slugify(key);
+        final Slugify slugify = Slugify.builder()
+            .lowerCase(false)
+            .locale(locale)
+            .build();
 
-        assertEquals(expected, actual, locale.toString());
-      });
-    });
+        replacementsBundle.keySet().forEach(key -> {
+          final String expected = replacementsBundle.getString(key);
+          final String actual = slugify.slugify(key);
+
+          assertEquals(expected, actual, locale.toString());
+        });
+      }
+    }
   }
 
   @Test

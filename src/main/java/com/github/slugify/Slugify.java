@@ -1,11 +1,14 @@
 package com.github.slugify;
 
 import com.ibm.icu.text.Transliterator;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.Normalizer;
 import java.util.Collections;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -57,11 +60,20 @@ public class Slugify {
     this.customReplacements = Optional.ofNullable(customReplacements)
         .orElseGet(Collections::emptyMap);
 
-    final ResourceBundle replacementsBundle = ResourceBundle.getBundle(BUNDLE_BASE_NAME,
-        this.locale);
+    Map<String, String> builtinReplacements = null;
+    try (InputStream resourceBundleInputStream = Thread.currentThread().getContextClassLoader()
+        .getResourceAsStream(BUNDLE_BASE_NAME + "_" + this.locale.getLanguage() + ".properties")) {
+      if (resourceBundleInputStream != null) {
+        final ResourceBundle replacementsBundle =
+            new PropertyResourceBundle(resourceBundleInputStream);
+        builtinReplacements = replacementsBundle.keySet().stream()
+            .collect(Collectors.toMap(Function.identity(), replacementsBundle::getString));
+      }
+    } catch (IOException ignored) {
+      // Ignored since no language specific bundle file exists.
+    }
 
-    this.replacements = replacementsBundle.keySet().stream()
-        .collect(Collectors.toMap(Function.identity(), replacementsBundle::getString));
+    this.replacements = Optional.ofNullable(builtinReplacements).orElseGet(Collections::emptyMap);
   }
 
   /**
