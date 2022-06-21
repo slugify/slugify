@@ -15,6 +15,8 @@ repositories {
     mavenCentral()
 }
 
+group = 'com.github.slugify'
+
 checkstyle {
     toolVersion = '10.3'
 }
@@ -60,8 +62,6 @@ publishing {
         mavenJava(MavenPublication) {
             from components.java
 
-            groupId = 'com.github.slugify'
-
             pom {
                 name = 'Slugify'
                 description = 'SEO-friendly URLs with Slugify'
@@ -96,8 +96,8 @@ publishing {
 
             repositories {
                 maven {
-                    def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
-                    def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots"
+                    def releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
+                    def snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots'
                     url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
 
                     credentials {
