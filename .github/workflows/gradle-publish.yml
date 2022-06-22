@@ -1,7 +1,7 @@
 name: Publish
 
 on:
-  create:
+  push:
     tags:
       - '*'
 
@@ -9,6 +9,9 @@ jobs:
 
   publish:
     runs-on: ubuntu-latest
+    env:
+      ORG_GRADLE_PROJECT_ossrhUsername: ${{ secrets.OSSRH_USERAME }}
+      ORG_GRADLE_PROJECT_ossrhPassword: ${{ secrets.OSSRH_PASSWORD }}
     steps:
       - uses: actions/checkout@v3
 
@@ -16,14 +19,9 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: 11
-
           gpg-private-key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
           gpg-passphrase: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
-
-          server-id: maven
-          server-username: ${{ secrets.OSSRH_USERAME }}
-          server-password: ${{ secrets.OSSRH_PASSWORD }}
+          java-version: 11
 
       - name: Set up Gradle
         uses: gradle/gradle-build-action@v2
