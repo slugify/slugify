@@ -11,10 +11,8 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     env:
-      ORG_GRADLE_PROJECT_ossrhUsername: ${{ secrets.OSSRH_USERAME }}
+      ORG_GRADLE_PROJECT_ossrhUsername: ${{ secrets.OSSRH_USERNAME }}
       ORG_GRADLE_PROJECT_ossrhPassword: ${{ secrets.OSSRH_PASSWORD }}
-      ORG_GRADLE_PROJECT_signing_keyId: ${{ secrets.OSSHR_GPG_SECRET_KEY_ID }}
-      ORG_GRADLE_PROJECT_signing_password: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
     steps:
       - uses: actions/checkout@v3
 
@@ -37,4 +35,7 @@ jobs:
       - name: Publish
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: publish
+          arguments: |
+              publish
+              -Psigning.keyId=${{ secrets.OSSHR_GPG_SECRET_KEY_ID }}
+              -Psigning.password=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
