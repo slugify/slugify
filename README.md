@@ -1,47 +1,70 @@
-Slugify [![Build Status](https://secure.travis-ci.org/slugify/slugify.svg?branch=master)](http://travis-ci.org/slugify/slugify)
-=======
+# Slugify
+[![GitHub license](https://img.shields.io/github/license/slugify/slugify.svg)](https://github.com/slugify/slugify/blob/master/LICENSE)
+[![javadoc](https://javadoc.io/badge2/com.github.slugify/slugify/javadoc.svg)](https://javadoc.io/doc/com.github.slugify/slugify)
 
-SEO-friendly URLs with Slugify
+## Description
+Small utility library for generating speaking URLs.
 
-Usage
------
-Add Slugify as a dependency to your project:
+## Transliteration
+In order to use transliteration instead of normalization you have to add the optional dependency `com.ibm.icu:icu4j` to your project and set the `transliterator` flag to `true` (see example below).
 
-```
-implementation 'com.github.slugify:slugify:3.0.1'
-// additionally required if you want to use transliterator
-implementation('com.github.slugify:slugify:3.0.1') {
+For Gradle 6+ users there's a feature variant which can be used as follows:
+```groovy
+implementation('com.github.slugify:slugify') {
     capabilities {
         requireCapability('com.github.slugify:slugify-transliterator')
     }
 }
 ```
+For more information about feature variants please check the section [Modeling feature variants and optional dependencies of gradle's user guide](https://docs.gradle.org/current/userguide/feature_variants.html).
 
-Now you're able to use it:
+## Examples
 
+### Basic
 ```java
-String result = Slugify.builder().build().slugify("Hello, world!");
+final Slugify slg = Slugify.builder().build();
+final String result = slg.slugify("Hello, world!");
 // result: hello-world
 ```
 
-You can set custom replacements for Slugify:
-
+### Underscore Separator
 ```java
-Slugify slg = Slugify.builder().customReplacement("hello", "world").customReplacement("foo", "bar").build();
-// or provided as a java.util.Map
-slg = Slugify.builder().customReplacements(new HashMap<String, String>() {{
-	put("hello", "world");
-	put("foo", "bar");
-}}).build();
-
-String result = slg.slugify("hello foo");
-// result: world-bar
+final Slugify slg = Slugify.builder().underscoreSeparator(true).build();
+final String result = slg.slugify("Hello, world!");
+// result: hello_world
 ```
 
-Or if you want case sensitivity:
-
+### Case Sensitive
 ```java
-Slugify slg = Slugify.builder().lowerCase(false).build();
-String result = slg.slugify("Hello, World!");
-// result: Hello-World
+final Slugify slg = Slugify.builder().lowerCase(false).build();
+final String result = slg.slugify("Hello, world!");
+// result: Hello-world
+```
+
+### Specifying a Locale
+```java
+final Slugify slg = Slugify.builder().locale(Locale.GERMAN).build();
+final String result = slg.slugify("ä");
+// result: ae
+```
+
+### Custom Replacements
+```java
+final Slugify slg = Slugify.builder()
+    // provided as a map
+    .customReplacements(Map.of("Foo", "Hello", "bar", "world"))
+    // provided as single key-value
+    .customReplacement("Foo", "Hello")
+    .customReplacement("bar", "world")
+    .build();
+
+final String result = slg.slugify("Foo, bar!");
+// result: hello-world
+```
+
+### Transliteration
+```java
+final Slugify slg = Slugify.builder().transliterator(true).build();
+final String result = slg.slugify("Б");
+// result: b
 ```
