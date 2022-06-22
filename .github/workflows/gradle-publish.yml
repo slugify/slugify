@@ -13,6 +13,7 @@ jobs:
     env:
       ORG_GRADLE_PROJECT_ossrhUsername: ${{ secrets.OSSRH_USERAME }}
       ORG_GRADLE_PROJECT_ossrhPassword: ${{ secrets.OSSRH_PASSWORD }}
+      ORG_GRADLE_PROJECT_signing_keyId: ${{ secrets.OSSHR_GPG_SECRET_KEY_ID }}
     steps:
       - uses: actions/checkout@v3
 
