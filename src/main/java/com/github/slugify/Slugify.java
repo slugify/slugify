@@ -64,7 +64,7 @@ public class Slugify {
    *                           should be applied.
    */
   @Builder
-  protected Slugify(final Boolean transliterator, final Boolean underscoreSeparator,
+  private Slugify(final Boolean transliterator, final Boolean underscoreSeparator,
                  final Boolean lowerCase, final Locale locale,
                  @Singular final Map<String, String> customReplacements) {
     this.transliterator = Optional.ofNullable(transliterator).orElse(false);
