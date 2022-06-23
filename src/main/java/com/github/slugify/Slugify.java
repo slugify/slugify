@@ -18,7 +18,7 @@ import lombok.Builder;
 import lombok.Singular;
 
 /**
- * Class for generating SEO-friendly URLs.
+ * Class for generating speaking URLs.
  *
  * @author Danny Trunk
  * @since 1.0
@@ -47,6 +47,22 @@ public class Slugify {
   private final Map<String, String> customReplacements;
   private final Map<String, String> replacements;
 
+  /**
+   * Sole constructor only used by the builder class.
+   *
+   * @param transliterator Sets the transliterator property which is a boolean to determine whether
+   *                       slugs should be transliterated instead of normalized.
+   * @param underscoreSeparator Sets the underscoreSeparator property which is a boolean to
+   *                            determine whether slugs should contain underscores instead of
+   *                            hyphens as separators.
+   * @param lowerCase Sets the lowerCase property which is a boolean to determine whether slugs
+   *                  should be converted to lower case.
+   * @param locale Sets the locale property which is a {@link java.util.Locale Locale} to determine
+   *               which locale should be used to generate slugs.
+   * @param customReplacements Sets the customReplacements property which is a
+   *                           {@link java.util.Map Map} to determine which custom replacements
+   *                           should be applied.
+   */
   @Builder
   protected Slugify(final Boolean transliterator, final Boolean underscoreSeparator,
                  final Boolean lowerCase, final Locale locale,
