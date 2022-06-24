@@ -5,20 +5,7 @@
 ## Description
 Small utility library for generating speaking URLs.
 
-## Transliteration
-In order to use transliteration instead of normalization you have to add the optional dependency `com.ibm.icu:icu4j` to your project and set the `transliterator` flag to `true` (see example below).
-
-For Gradle 6+ users there's a feature variant which can be used as follows:
-```groovy
-implementation('com.github.slugify:slugify') {
-    capabilities {
-        requireCapability('com.github.slugify:slugify-transliterator')
-    }
-}
-```
-For more information about feature variants please check the section [Modeling feature variants and optional dependencies of gradle's user guide](https://docs.gradle.org/current/userguide/feature_variants.html).
-
-## Examples
+## Usage Examples
 
 ### Basic
 ```java
@@ -63,6 +50,24 @@ final String result = slg.slugify("Foo, bar!");
 ```
 
 ### Transliteration
+
+#### Requirements
+
+###### Gradle 6+
+For Gradle 6+ users there's a feature variant which can be used as follows:
+```groovy
+implementation('com.github.slugify:slugify') {
+    capabilities {
+        requireCapability('com.github.slugify:slugify-transliterator')
+    }
+}
+```
+For more information about feature variants please check the section [Modeling feature variants and optional dependencies of gradle's user guide](https://docs.gradle.org/current/userguide/feature_variants.html).
+
+###### Other
+In order to use transliteration instead of normalization you have to add the optional dependency `com.ibm.icu:icu4j` to your project and set the `transliterator` flag to `true`.
+
+#### Example
 ```java
 final Slugify slg = Slugify.builder().transliterator(true).build();
 final String result = slg.slugify("Б");
