@@ -63,9 +63,9 @@ capabilities {
 For more information about feature variants please check the section [Modeling feature variants and optional dependencies of gradle's user guide](https://docs.gradle.org/current/userguide/feature_variants.html).
 
 ###### Other
-In order to use transliteration instead of normalization you have to add the optional dependency `com.ibm.icu:icu4j` to your project and set the `transliterator` flag to `true`.
+Manually add the optional dependency `com.ibm.icu:icu4j` to your project.
 
-#### Example
+#### Usage Example
 ```java
 final Slugify slg = Slugify.builder().transliterator(true).build();
 final String result = slg.slugify("Б");
