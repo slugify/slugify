@@ -27,6 +27,7 @@ compileJava {
 
 jmh {
     jmhVersion = '1.35'
+    resultFormat = 'JSON'
 }
 
 pmd {
