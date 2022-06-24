@@ -56,10 +56,8 @@ final String result = slg.slugify("Foo, bar!");
 ###### Gradle 6+
 For Gradle 6+ users there's a feature variant which can be used as follows:
 ```groovy
-implementation('com.github.slugify:slugify') {
-    capabilities {
-        requireCapability('com.github.slugify:slugify-transliterator')
-    }
+capabilities {
+    requireCapability('com.github.slugify:slugify-transliterator')
 }
 ```
 For more information about feature variants please check the section [Modeling feature variants and optional dependencies of gradle's user guide](https://docs.gradle.org/current/userguide/feature_variants.html).
