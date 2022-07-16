@@ -108,7 +108,7 @@ class SlugifyTests {
 
   @SneakyThrows
   @ParameterizedTest
-  @ValueSource(strings = {"ar", "da", "de", "el", "no", "pl", "ru", "sv", "tr", "vi", "wa"})
+  @ValueSource(strings = {"ar", "da", "de", "el", "is", "no", "pl", "ru", "sv", "tr", "vi", "wa"})
   /* default */ void givenStringWhenStringContainsReplacementsThenSlugify(
       final String languageTag) {
     final Locale locale = Locale.forLanguageTag(languageTag);
