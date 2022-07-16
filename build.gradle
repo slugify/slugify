@@ -122,6 +122,10 @@ signing {
     }
 }
 
+test {
+    useJUnitPlatform()
+}
+
 tasks.named('dependencyUpdates').configure {
     gradleReleaseChannel = 'current'
     revision = 'release'
