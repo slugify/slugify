@@ -9,7 +9,7 @@ reckon = { id = "org.ajoberstar.reckon", version.ref = "reckonPlugin" }
 versions = { id = "com.github.ben-manes.versions", version.ref = "versionsPlugin" }
 
 [versions]
-icu4j = "71.1"
+icu4j = "72.1"
 jmhPlugin = "0.6.8"
 junit = "5.9.1"
 lombokPlugin = "6.5.1"
