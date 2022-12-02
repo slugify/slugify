@@ -12,6 +12,6 @@ versions = { id = "com.github.ben-manes.versions", version.ref = "versionsPlugin
 icu4j = "72.1"
 jmhPlugin = "0.6.8"
 junit = "5.9.1"
-lombokPlugin = "6.5.1"
+lombokPlugin = "6.6"
 reckonPlugin = "0.16.1"
 versionsPlugin = "0.44.0"
