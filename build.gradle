@@ -32,7 +32,7 @@ jmh {
 
 pmd {
     consoleOutput = true
-    toolVersion = '6.53.0'
+    toolVersion = '6.54.0'
     ruleSetFiles = fileTree('config/pmd').filter { it.file && it.name.endsWith('.xml') }
     ruleSets = []
 }
