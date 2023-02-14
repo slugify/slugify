@@ -108,6 +108,7 @@ class SlugifyTests {
 
   @SneakyThrows
   @ParameterizedTest
+  @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
   @ValueSource(strings = {"ar", "da", "de", "el", "is", "no", "pl", "ru", "sv", "tr", "vi", "wa"})
   /* default */ void givenStringWhenStringContainsReplacementsThenSlugify(
       final String languageTag) {

@@ -12,9 +12,7 @@
     </rule>
 
     <!-- ERROR PRONE -->
-    <rule ref="category/java/errorprone.xml">
-        <exclude name="BeanMembersShouldSerialize" />
-    </rule>
+    <rule ref="category/java/errorprone.xml" />
 
     <!-- BEST PRACTICE -->
     <rule ref="category/java/bestpractices.xml" />
