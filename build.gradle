@@ -128,7 +128,12 @@ test {
 
 tasks.named('dependencyUpdates').configure {
     gradleReleaseChannel = 'current'
-    revision = 'release'
+    rejectVersionIf {
+        def version = it.candidate.version
+        def stableKeyword = ['RELEASE', 'FINAL', 'GA'].any { keyword -> version.toUpperCase().contains(keyword) }
+        def regex = /^[0-9,.v-]+(-r)?$/
+        return !stableKeyword && !(version ==~ regex)
+    }
 }
 
 dependencies {
