@@ -18,7 +18,7 @@ repositories {
 group = 'com.github.slugify'
 
 checkstyle {
-    toolVersion = '10.8.0'
+    toolVersion = '10.8.1'
 }
 
 compileJava {
