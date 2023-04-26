@@ -7,7 +7,6 @@ plugins {
 
     alias(libs.plugins.jmh)
     alias(libs.plugins.lombok)
-    alias(libs.plugins.reckon)
     alias(libs.plugins.versions)
 }
 
@@ -35,14 +34,6 @@ pmd {
     toolVersion = '6.55.0'
     ruleSetFiles = fileTree('config/pmd').filter { it.file && it.name.endsWith('.xml') }
     ruleSets = []
-}
-
-reckon {
-    stages('milestone', 'rc', 'final')
-    snapshots()
-
-    scopeCalc = calcScopeFromProp()
-    stageCalc = calcStageFromProp()
 }
 
 java {

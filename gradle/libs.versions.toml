@@ -5,7 +5,6 @@ junit = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
 [plugins]
 jmh = { id = "me.champeau.jmh", version.ref = "jmhPlugin" }
 lombok = { id = "io.freefair.lombok", version.ref = "lombokPlugin" }
-reckon = { id = "org.ajoberstar.reckon", version.ref = "reckonPlugin" }
 versions = { id = "com.github.ben-manes.versions", version.ref = "versionsPlugin" }
 
 [versions]
@@ -13,5 +12,4 @@ icu4j = "73.1"
 jmhPlugin = "0.7.1"
 junit = "5.9.3"
 lombokPlugin = "8.0.1"
-reckonPlugin = "0.18.0"
 versionsPlugin = "0.46.0"

@@ -1,1 +1,12 @@
+plugins {
+    id 'org.ajoberstar.reckon.settings' version '0.18.0'
+}
+
+reckon {
+    defaultInferredScope = 'patch'
+    stages 'beta', 'rc', 'final'
+    scopeCalc = calcScopeFromProp().or(calcScopeFromCommitMessages())
+    stageCalc = calcStageFromProp()
+}
+
 rootProject.name = 'slugify'
