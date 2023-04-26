@@ -7,7 +7,6 @@ plugins {
 
     alias(libs.plugins.jmh)
     alias(libs.plugins.lombok)
-    alias(libs.plugins.nexusStaging)
     alias(libs.plugins.reckon)
     alias(libs.plugins.versions)
 }
