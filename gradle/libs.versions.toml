@@ -12,7 +12,7 @@ versions = { id = "com.github.ben-manes.versions", version.ref = "versionsPlugin
 [versions]
 icu4j = "73.1"
 jmhPlugin = "0.7.1"
-junit = "5.9.2"
+junit = "5.9.3"
 lombokPlugin = "8.0.1"
 nexusStagingPlugin = "0.30.0"
 reckonPlugin = "0.18.0"
