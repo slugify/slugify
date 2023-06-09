@@ -133,4 +133,8 @@ dependencies {
     testImplementation libs.junit
 }
 
+delombok {
+    modulePath = sourceSets.main.compileClasspath
+}
+
 reckonTagCreate.dependsOn check
