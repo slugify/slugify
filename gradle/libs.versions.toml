@@ -3,11 +3,13 @@ icu4j = { module = "com.ibm.icu:icu4j", version.ref = "icu4j" }
 junit = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
 
 [plugins]
+dependencyCheck = { id = "org.owasp.dependencycheck", version.ref = "dependencyCheckPlugin" }
 jmh = { id = "me.champeau.jmh", version.ref = "jmhPlugin" }
 lombok = { id = "io.freefair.lombok", version.ref = "lombokPlugin" }
 versions = { id = "com.github.ben-manes.versions", version.ref = "versionsPlugin" }
 
 [versions]
+dependencyCheckPlugin = "8.2.1"
 icu4j = "73.1"
 jmhPlugin = "0.7.1"
 junit = "5.9.3"
