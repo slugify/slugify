@@ -29,6 +29,10 @@ jmh {
     resultFormat = 'JSON'
 }
 
+lombok {
+    version = '1.18.26'
+}
+
 pmd {
     consoleOutput = true
     toolVersion = '6.55.0'
