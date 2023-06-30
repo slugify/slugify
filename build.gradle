@@ -118,8 +118,16 @@ signing {
     }
 }
 
-test {
-    useJUnitPlatform()
+testing {
+    suites {
+        test {
+            dependencies {
+                implementation libs.icu4j
+            }
+
+            useJUnitJupiter()
+        }
+    }
 }
 
 tasks.named('dependencyUpdates').configure {
@@ -134,8 +142,6 @@ tasks.named('dependencyUpdates').configure {
 
 dependencies {
     transliteratorImplementation libs.icu4j
-    testImplementation libs.icu4j
-    testImplementation libs.junit
 }
 
 delombok {

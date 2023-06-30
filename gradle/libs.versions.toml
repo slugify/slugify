@@ -1,6 +1,5 @@
 [libraries]
 icu4j = { module = "com.ibm.icu:icu4j", version.ref = "icu4j" }
-junit = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
 
 [plugins]
 dependencyCheck = { id = "org.owasp.dependencycheck", version.ref = "dependencyCheckPlugin" }
@@ -12,6 +11,5 @@ versions = { id = "com.github.ben-manes.versions", version.ref = "versionsPlugin
 dependencyCheckPlugin = "8.3.1"
 icu4j = "73.2"
 jmhPlugin = "0.7.1"
-junit = "5.9.3"
 lombokPlugin = "8.1.0"
 versionsPlugin = "0.47.0"
