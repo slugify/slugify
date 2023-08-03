@@ -26,7 +26,7 @@ compileJava {
 }
 
 jmh {
-    jmhVersion = '1.36'
+    jmhVersion = '1.37'
     resultFormat = 'JSON'
 }
 
