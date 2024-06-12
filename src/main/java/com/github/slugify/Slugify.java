@@ -27,7 +27,7 @@ public class Slugify {
   protected static final String BUNDLE_BASE_NAME = "slugify";
 
   private static final String ASCII =
-      "Cyrillic-Latin; Any-Latin; Latin-ASCII; [^\\p{Print}] Remove; ['\"] Remove; Any-Lower";
+      "Cyrillic-Latin; Any-Latin; Latin-ASCII; [^\\p{Print}] Remove; ['\"] Remove";
   private static final String EMPTY = "";
   private static final String UNDERSCORE = "_";
   private static final String HYPHEN = "-";

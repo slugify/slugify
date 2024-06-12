@@ -43,8 +43,23 @@ class SlugifyTests {
         .locale(DEFAULT_LOCALE)
         .build();
 
-    final String expected = "b";
-    final String actual = slugify.slugify("Б");
+    final String expected = "swieze-mleko";
+    final String actual = slugify.slugify("Świeże Mleko");
+
+    assertEquals(expected, actual,
+        format(ASSERT_EQUALS_MESSAGE_FORMAT, DEFAULT_LOCALE, expected, actual));
+  }
+
+  @Test
+  /* default */ void givenStringWhenLetterCaseAndTransliteratorIsUsedThenSlugify() {
+    final Slugify slugify = Slugify.builder()
+        .lowerCase(false)
+        .transliterator(true)
+        .locale(DEFAULT_LOCALE)
+        .build();
+
+    final String expected = "Swieze-Mleko";
+    final String actual = slugify.slugify("Świeże Mleko");
 
     assertEquals(expected, actual,
         format(ASSERT_EQUALS_MESSAGE_FORMAT, DEFAULT_LOCALE, expected, actual));
