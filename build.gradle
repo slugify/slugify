@@ -41,9 +41,13 @@ pmd {
     ruleSets = []
 }
 
+sourceSets {
+    transliterator
+}
+
 java {
     registerFeature('transliterator') {
-        usingSourceSet sourceSets.main
+        usingSourceSet sourceSets.transliterator
     }
 
     withJavadocJar()
