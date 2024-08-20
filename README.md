@@ -7,6 +7,9 @@ Small utility library for generating speaking URLs.
 
 ## Usage Examples
 
+Slugify is published in the Maven Central Repository:
+[Click here](https://central.sonatype.com/artifact/com.github.slugify/slugify)
+
 ### Basic
 ```java
 final Slugify slg = Slugify.builder().build();
