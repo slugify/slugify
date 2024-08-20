@@ -26,17 +26,13 @@ jobs:
           java-version: 11
 
       - name: Set up Gradle
-        uses: gradle/gradle-build-action@v3
+        uses: gradle/actions/setup-gradle@v4
 
       - name: Check
-        uses: gradle/gradle-build-action@v3
-        with:
-          arguments: check
+        run: ./gradlew check
 
       - name: Publish
-        uses: gradle/gradle-build-action@v3
-        with:
-          arguments: publish
+        run: ./gradlew publish
         env:
           ORG_GRADLE_PROJECT_signingKey: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
           ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
