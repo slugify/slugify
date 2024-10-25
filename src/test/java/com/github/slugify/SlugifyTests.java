@@ -123,7 +123,7 @@ class SlugifyTests {
 
   @SneakyThrows
   @ParameterizedTest
-  @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
+  @SuppressWarnings("PMD.UnitTestShouldIncludeAssert")
   @ValueSource(strings = {"ar", "da", "de", "el", "is", "no", "pl", "ru", "sv", "tr", "uk", "vi",
       "wa"})
   /* default */ void givenStringWhenStringContainsReplacementsThenSlugify(
