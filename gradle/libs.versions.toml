@@ -9,7 +9,7 @@ versions = { id = "com.github.ben-manes.versions", version.ref = "versionsPlugin
 
 [versions]
 dependencyCheckPlugin = "11.0.0"
-icu4j = "75.1"
+icu4j = "76.1"
 jmhPlugin = "0.7.2"
 lombokPlugin = "8.10.2"
 versionsPlugin = "0.51.0"
