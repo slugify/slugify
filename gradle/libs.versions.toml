@@ -8,7 +8,7 @@ lombok = { id = "io.freefair.lombok", version.ref = "lombokPlugin" }
 versions = { id = "com.github.ben-manes.versions", version.ref = "versionsPlugin" }
 
 [versions]
-dependencyCheckPlugin = "12.0.2"
+dependencyCheckPlugin = "12.1.0"
 icu4j = "76.1"
 jmhPlugin = "0.7.3"
 lombokPlugin = "8.12.1"
