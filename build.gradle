@@ -22,12 +22,12 @@ checkstyle {
 }
 
 jmh {
-    jmhVersion = '1.37'
+    jmhVersion = libs.versions.jmh.get()
     resultFormat = 'JSON'
 }
 
 lombok {
-    version = '1.18.46'
+    version = libs.versions.lombok.get()
 }
 
 pmd {
