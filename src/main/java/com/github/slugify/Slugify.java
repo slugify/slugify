@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
  * @author Danny Trunk
  * @since 1.0
  */
-public class Slugify {
+public final class Slugify {
   /* default */ static final String BUNDLE_BASE_NAME = "slugify";
 
   private static final Logger LOGGER = LoggerFactory.getLogger(Slugify.class);
