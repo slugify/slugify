@@ -132,8 +132,9 @@ public final class Slugify {
   }
 
   private String replaceAll(final String input, final Map<String, String> replacements) {
-    return replacements.keySet().stream()
-        .map(key -> (Function<String, String>) str -> str.replace(key, replacements.get(key)))
+    return replacements.entrySet().stream()
+        .map(entry -> (Function<String, String>) str ->
+            str.replace(entry.getKey(), entry.getValue()))
         .reduce(Function.identity(), Function::andThen)
         .apply(input);
   }
