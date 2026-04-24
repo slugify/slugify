@@ -41,12 +41,15 @@ final String result = slg.slugify("ä");
 
 ### Custom Replacements
 ```java
+// provided as single key-value pairs
 final Slugify slg = Slugify.builder()
-    // provided as a map
-    .customReplacements(Map.of("Foo", "Hello", "bar", "world"))
-    // provided as single key-value
     .customReplacement("Foo", "Hello")
     .customReplacement("bar", "world")
+    .build();
+
+// alternatively provided as a map
+final Slugify slg = Slugify.builder()
+    .customReplacements(Map.of("Foo", "Hello", "bar", "world"))
     .build();
 
 final String result = slg.slugify("Foo, bar!");
