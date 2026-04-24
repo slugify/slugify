@@ -33,7 +33,7 @@ lombok {
 pmd {
     consoleOutput = true
     toolVersion = libs.versions.pmd.get()
-    ruleSetFiles = fileTree('config/pmd').filter { it.file && it.name.endsWith('.xml') }
+    ruleSetFiles = files('config/pmd/ruleset.xml')
     ruleSets = []
 }
 
