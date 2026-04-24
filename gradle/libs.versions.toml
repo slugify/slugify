@@ -1,5 +1,6 @@
 [libraries]
 icu4j = { module = "com.ibm.icu:icu4j", version.ref = "icu4j" }
+slf4j = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
 
 [plugins]
 dependencyCheck = { id = "org.owasp.dependencycheck", version.ref = "dependencyCheckPlugin" }
@@ -10,6 +11,7 @@ versions = { id = "com.github.ben-manes.versions", version.ref = "versionsPlugin
 [versions]
 dependencyCheckPlugin = "12.2.1"
 icu4j = "78.3"
+slf4j = "2.0.17"
 jmhPlugin = "0.7.3"
 lombokPlugin = "9.4.0"
 versionsPlugin = "0.54.0"

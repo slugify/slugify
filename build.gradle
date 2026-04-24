@@ -145,6 +145,7 @@ tasks.named('dependencyUpdates').configure {
 
 dependencies {
     transliteratorImplementation libs.icu4j
+    implementation libs.slf4j
     compileOnly libs.icu4j
 }
 

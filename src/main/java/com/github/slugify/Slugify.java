@@ -16,6 +16,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import lombok.Builder;
 import lombok.Singular;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class for generating speaking URLs.
@@ -25,6 +27,8 @@ import lombok.Singular;
  */
 public class Slugify {
   protected static final String BUNDLE_BASE_NAME = "slugify";
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(Slugify.class);
 
   private static final String ASCII =
       "Cyrillic-Latin; Any-Latin; Latin-ASCII; [^\\p{Print}] Remove; ['\"] Remove";
@@ -85,8 +89,11 @@ public class Slugify {
         builtinReplacements = replacementsBundle.keySet().stream()
             .collect(Collectors.toMap(Function.identity(), replacementsBundle::getString));
       }
-    } catch (IOException ignored) {
-      // Ignored since no language specific bundle file exists.
+    } catch (IOException e) {
+      LOGGER.atError()
+          .addArgument(this.locale::getLanguage)
+          .setCause(e)
+          .log("Failed to load language bundle for locale: {}");
     }
 
     this.replacements = Optional.ofNullable(builtinReplacements).orElseGet(Collections::emptyMap);
