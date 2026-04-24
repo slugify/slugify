@@ -1,5 +1,6 @@
 # Slugify
 [![GitHub license](https://img.shields.io/github/license/slugify/slugify.svg)](https://github.com/slugify/slugify/blob/master/LICENSE)
+[![Check](https://github.com/slugify/slugify/actions/workflows/gradle-check.yml/badge.svg)](https://github.com/slugify/slugify/actions/workflows/gradle-check.yml)
 [![javadoc](https://javadoc.io/badge2/com.github.slugify/slugify/javadoc.svg)](https://javadoc.io/doc/com.github.slugify/slugify)
 
 ## Description
