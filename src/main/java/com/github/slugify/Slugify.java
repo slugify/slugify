@@ -77,8 +77,7 @@ public final class Slugify {
 
     this.locale = Optional.ofNullable(locale).orElseGet(Locale::getDefault);
 
-    this.customReplacements = Optional.ofNullable(customReplacements)
-        .orElseGet(Collections::emptyMap);
+    this.customReplacements = customReplacements;
 
     Map<String, String> builtinReplacements = null;
     try (InputStream resourceBundleInputStream = Thread.currentThread().getContextClassLoader()
