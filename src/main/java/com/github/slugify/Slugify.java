@@ -110,7 +110,7 @@ public final class Slugify {
         // remove leading and trailing whitespaces
         .map(String::trim)
         // run subsequent calls only if string is not empty
-        .filter(Predicate.not(EMPTY::equals))
+        .filter(Predicate.not(String::isEmpty))
         // replace all custom replacements
         .map(str -> replaceAll(str, customReplacements))
         // replace all built-in replacements
