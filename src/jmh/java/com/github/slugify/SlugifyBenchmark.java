@@ -10,6 +10,7 @@ import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.OutputTimeUnit;
 import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
+import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
 import org.openjdk.jmh.runner.Runner;
@@ -116,14 +117,21 @@ public class SlugifyBenchmark {
           + "ą"})
   public String lengthVarySpecialString;
 
+  private Slugify slugify;
+
+  @Setup
+  public void setup() {
+    slugify = Slugify.builder().build();
+  }
+
   @Benchmark
   public void stringLengthPerformance() {
-    Slugify.builder().build().slugify(lengthVarySimpleString);
+    slugify.slugify(lengthVarySimpleString);
   }
 
   @Benchmark
   public void specialStringLengthPerformance() {
-    Slugify.builder().build().slugify(lengthVarySpecialString);
+    slugify.slugify(lengthVarySpecialString);
   }
 
   /**
