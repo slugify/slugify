@@ -67,7 +67,7 @@ capabilities {
     requireCapability('com.github.slugify:slugify-transliterator')
 }
 ```
-For more information about feature variants please check the section [Modeling feature variants and optional dependencies of gradle's user guide](https://docs.gradle.org/current/userguide/feature_variants.html).
+For more information about feature variants please check the section [How to Create Feature Variants for a Library in Gradle](https://docs.gradle.org/current/userguide/how_to_create_feature_variants_of_a_library.html).
 
 ###### Other
 Manually add the optional dependency `com.ibm.icu:icu4j` to your project.
