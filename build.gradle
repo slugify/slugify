@@ -18,7 +18,7 @@ repositories {
 group = 'com.github.slugify'
 
 checkstyle {
-    toolVersion = '13.4.0'
+    toolVersion = libs.versions.checkstyle.get()
 }
 
 jmh {
@@ -32,7 +32,7 @@ lombok {
 
 pmd {
     consoleOutput = true
-    toolVersion = '7.24.0'
+    toolVersion = libs.versions.pmd.get()
     ruleSetFiles = fileTree('config/pmd').filter { it.file && it.name.endsWith('.xml') }
     ruleSets = []
 }
