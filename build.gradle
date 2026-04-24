@@ -21,10 +21,6 @@ checkstyle {
     toolVersion = '13.4.0'
 }
 
-compileJava {
-    targetCompatibility = JavaVersion.VERSION_21
-}
-
 jmh {
     jmhVersion = '1.37'
     resultFormat = 'JSON'
@@ -46,6 +42,10 @@ sourceSets {
 }
 
 java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+
     registerFeature('transliterator') {
         usingSourceSet sourceSets.transliterator
     }
