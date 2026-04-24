@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 /**
@@ -116,6 +117,21 @@ class SlugifyTests {
 
     final String expected = "foo";
     final String actual = slugify.slugify("Foo");
+
+    assertEquals(expected, actual,
+        format(ASSERT_EQUALS_MESSAGE_FORMAT, DEFAULT_LOCALE, expected, actual));
+  }
+
+  @ParameterizedTest
+  @NullAndEmptySource
+  @ValueSource(strings = {" "})
+  /* default */ void givenNullOrBlankStringWhenSlugifyThenReturnEmpty(final String input) {
+    final Slugify slugify = Slugify.builder()
+        .locale(DEFAULT_LOCALE)
+        .build();
+
+    final String expected = "";
+    final String actual = slugify.slugify(input);
 
     assertEquals(expected, actual,
         format(ASSERT_EQUALS_MESSAGE_FORMAT, DEFAULT_LOCALE, expected, actual));
