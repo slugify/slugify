@@ -117,12 +117,12 @@ public class SlugifyBenchmark {
   public String lengthVarySpecialString;
 
   @Benchmark
-  public void stringLenghtPerformance() {
+  public void stringLengthPerformance() {
     Slugify.builder().build().slugify(lengthVarySimpleString);
   }
 
   @Benchmark
-  public void specialStringLenghtPerformance() {
+  public void specialStringLengthPerformance() {
     Slugify.builder().build().slugify(lengthVarySpecialString);
   }
 
