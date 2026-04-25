@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.0.0] - 2026-04-25
+
 ### Added
 - SLF4J error logging when an `IOException` occurs while loading a language bundle
 - Javadoc step in the CI check workflow to enforce `-Xdoclint:all` at build time
