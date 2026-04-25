@@ -23,7 +23,6 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
  *
  * @author Bartosz Galek
  */
-@State(Scope.Benchmark)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 @Warmup(iterations = 5, time = 1)
@@ -32,106 +31,134 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 @NoArgsConstructor
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class SlugifyBenchmark {
-  @Param({"simple string",
-      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-          + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-          + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-          + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-          + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-          + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-          + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-          + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-          + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-          + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-          + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"})
-  public String lengthVarySimpleString;
 
-  @Param({"some ą letters ^ are % strange *",
-      "ąąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąą",
-      "ąąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąą",
-      "ąąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąą",
-      "ąąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąą",
-      "ąąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąą",
-      "ąąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ąąąąąąąąąąąą"
-          + "ą"})
-  public String lengthVarySpecialString;
+  /**
+   * State for benchmarks varying the length of simple ASCII strings.
+   */
+  @State(Scope.Benchmark)
+  @NoArgsConstructor
+  public static class SimpleStringState {
+    @Param({"simple string",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"})
+    public String input;
 
-  private Slugify slugify;
+    private Slugify slugify;
 
-  @Setup
-  public void setup() {
-    slugify = Slugify.builder().build();
+    /**
+     * Set up the Slugify instance.
+     */
+    @Setup
+    public void setup() {
+      slugify = Slugify.builder().build();
+    }
+  }
+
+  /**
+   * State for benchmarks varying the length of strings with special characters.
+   */
+  @State(Scope.Benchmark)
+  @NoArgsConstructor
+  public static class SpecialStringState {
+    @Param({"some ą letters ^ are % strange *",
+        "ąąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąą",
+        "ąąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąą",
+        "ąąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąą",
+        "ąąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąą",
+        "ąąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąą",
+        "ąąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ą"})
+    public String input;
+
+    private Slugify slugify;
+
+    /**
+     * Set up the Slugify instance.
+     */
+    @Setup
+    public void setup() {
+      slugify = Slugify.builder().build();
+    }
   }
 
   @Benchmark
-  public void stringLengthPerformance() {
-    slugify.slugify(lengthVarySimpleString);
+  public void stringLengthPerformance(final SimpleStringState state) {
+    state.slugify.slugify(state.input);
   }
 
   @Benchmark
-  public void specialStringLengthPerformance() {
-    slugify.slugify(lengthVarySpecialString);
+  public void specialStringLengthPerformance(final SpecialStringState state) {
+    state.slugify.slugify(state.input);
   }
 
   /**
