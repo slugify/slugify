@@ -11,6 +11,11 @@
         <exclude name="LongVariable" />
     </rule>
 
+    <!-- DESIGN -->
+    <rule ref="category/java/design.xml">
+        <exclude name="LoosePackageCoupling" />
+    </rule>
+
     <!-- ERROR PRONE -->
     <rule ref="category/java/errorprone.xml" />
 
