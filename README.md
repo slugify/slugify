@@ -25,7 +25,7 @@ final String result = slg.slugify("Hello, world!");
 // result: hello_world
 ```
 
-### Case Sensitive
+### Preserve Case
 ```java
 final Slugify slg = Slugify.builder().lowerCase(false).build();
 final String result = slg.slugify("Hello, world!");
