@@ -204,6 +204,22 @@ class SlugifyTests {
   }
 
   @Test
+  /* default */ void givenStringWithMultipleCustomReplacementsThenAllApplied() {
+    final Slugify slugify = Slugify.builder()
+        .locale(DEFAULT_LOCALE)
+        .customReplacement("ä", "ae")
+        .customReplacement("ö", "oe")
+        .customReplacement("ü", "ue")
+        .build();
+
+    final String expected = "ae-oe-ue";
+    final String actual = slugify.slugify("ä ö ü");
+
+    assertEquals(expected, actual,
+        format(ASSERT_EQUALS_MESSAGE_FORMAT, DEFAULT_LOCALE, expected, actual));
+  }
+
+  @Test
   /* default */ void givenCustomReplacementForBuiltinKeyThenCustomTakesPrecedence() {
     final Locale locale = Locale.GERMAN;
 
