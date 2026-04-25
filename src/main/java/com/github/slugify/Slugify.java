@@ -30,7 +30,7 @@ public final class Slugify {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(Slugify.class);
 
-  private static final String ASCII =
+  private static final String TRANSLITERATOR_ID =
       "Cyrillic-Latin; Any-Latin; Latin-ASCII; [^\\p{Print}] Remove; ['\"] Remove";
   private static final String EMPTY = "";
   private static final String UNDERSCORE = "_";
@@ -74,7 +74,7 @@ public final class Slugify {
                  final Boolean lowerCase, final Locale locale,
                  @Singular final Map<String, String> customReplacements) {
     this.transliterator = Boolean.TRUE.equals(transliterator)
-        ? Transliterator.getInstance(ASCII) : null;
+        ? Transliterator.getInstance(TRANSLITERATOR_ID) : null;
     this.underscoreSeparator = Optional.ofNullable(underscoreSeparator).orElse(false);
     this.lowerCase = Optional.ofNullable(lowerCase).orElse(true);
 
