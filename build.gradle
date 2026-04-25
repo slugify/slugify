@@ -5,7 +5,6 @@ plugins {
     id 'pmd'
     id 'signing'
 
-    alias(libs.plugins.dependencyCheck)
     alias(libs.plugins.jmh)
     alias(libs.plugins.lombok)
 }
