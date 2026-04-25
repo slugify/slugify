@@ -45,7 +45,7 @@ class SlugifySeparatorTests {
         format(ASSERT_EQUALS_MESSAGE_FORMAT, DEFAULT_LOCALE, expected, actual));
   }
 
-  @ParameterizedTest
+  @ParameterizedTest(name = "input=\"{0}\"")
   @NullAndEmptySource
   @ValueSource(strings = {" "})
   /* default */ void givenNullOrBlankStringWhenSlugifyThenReturnEmpty(final String input) {
@@ -60,7 +60,7 @@ class SlugifySeparatorTests {
         format(ASSERT_EQUALS_MESSAGE_FORMAT, DEFAULT_LOCALE, expected, actual));
   }
 
-  @ParameterizedTest(name = "underscoreSeparator={0}")
+  @ParameterizedTest(name = "underscoreSeparator=\"{0}\"")
   @ValueSource(booleans = {false, true})
   /* default */ void givenStringWithLeadingAndTrailingSpecialCharsWhenSlugifyThenTrimmed(
       final boolean underscoreSeparator) {

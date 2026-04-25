@@ -23,7 +23,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 class SlugifyReplacementsTests {
 
   @SneakyThrows
-  @ParameterizedTest
+  @ParameterizedTest(name = "languageTag=\"{0}\"")
   @ValueSource(strings = {"ar", "da", "de", "el", "is", "no", "pl", "ru", "sv", "tr", "uk", "vi",
       "wa"})
   /* default */ void givenStringWhenBuiltinReplacementsAppliedThenConverted(
