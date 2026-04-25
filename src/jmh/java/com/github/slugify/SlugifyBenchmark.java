@@ -151,6 +151,89 @@ public class SlugifyBenchmark {
     }
   }
 
+  /**
+   * State for benchmarks measuring the transliterator code path with varying string lengths.
+   */
+  @State(Scope.Benchmark)
+  @NoArgsConstructor
+  public static class TransliteratorStringState {
+    @Param({"some ą letters ^ are % strange *",
+        "ąąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąą",
+        "ąąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąą",
+        "ąąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąą",
+        "ąąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąą",
+        "ąąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąą",
+        "ąąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ąąąąąąąąąąąą"
+            + "ą"})
+    public String input;
+
+    private Slugify slugify;
+
+    /**
+     * Set up the Slugify instance with transliterator enabled.
+     */
+    @Setup
+    public void setup() {
+      slugify = Slugify.builder().transliterator(true).build();
+    }
+  }
+
   @Benchmark
   public void stringLengthPerformance(final SimpleStringState state) {
     state.slugify.slugify(state.input);
@@ -158,6 +241,11 @@ public class SlugifyBenchmark {
 
   @Benchmark
   public void specialStringLengthPerformance(final SpecialStringState state) {
+    state.slugify.slugify(state.input);
+  }
+
+  @Benchmark
+  public void transliteratorPerformance(final TransliteratorStringState state) {
     state.slugify.slugify(state.input);
   }
 
