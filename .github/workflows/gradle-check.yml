@@ -20,7 +20,7 @@ on:
 
 jobs:
 
-  build:
+  check:
     runs-on: ubuntu-latest
     steps:
       - name: Check out
