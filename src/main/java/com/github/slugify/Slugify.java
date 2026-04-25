@@ -56,9 +56,9 @@ public final class Slugify {
   /**
    * Sole constructor only used by the builder class.
    *
-   * @param transliterator Sets the transliterator property which is a
-   *                       {@link com.ibm.icu.text.Transliterator Transliterator} to determine
-   *                       whether slugs should be transliterated via ICU4J instead of normalized.
+   * @param transliterator Sets whether to use
+   *                       {@link com.ibm.icu.text.Transliterator Transliterator}-based
+   *                       transliteration via ICU4J instead of normalization.
    * @param underscoreSeparator Sets the underscoreSeparator property which is a boolean to
    *                            determine whether slugs should contain underscores instead of
    *                            hyphens as separators.
