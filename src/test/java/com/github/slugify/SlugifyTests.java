@@ -145,8 +145,8 @@ class SlugifyTests {
       final String languageTag) {
     final Locale locale = Locale.forLanguageTag(languageTag);
 
-    try (InputStream resourceBundleInputStream = Thread.currentThread().getContextClassLoader()
-        .getResourceAsStream(Slugify.BUNDLE_BASE_NAME + "_" + locale.getLanguage()
+    try (InputStream resourceBundleInputStream = SlugifyTests.class
+        .getResourceAsStream("/" + Slugify.BUNDLE_BASE_NAME + "_" + locale.getLanguage()
             + ".properties")) {
       if (resourceBundleInputStream == null) {
         throw new FileNotFoundException(Slugify.BUNDLE_BASE_NAME + "_" + locale.getLanguage()
