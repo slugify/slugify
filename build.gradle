@@ -8,7 +8,6 @@ plugins {
     alias(libs.plugins.dependencyCheck)
     alias(libs.plugins.jmh)
     alias(libs.plugins.lombok)
-    alias(libs.plugins.versions)
 }
 
 repositories {
@@ -130,16 +129,6 @@ testing {
 
             useJUnitJupiter()
         }
-    }
-}
-
-tasks.named('dependencyUpdates').configure {
-    gradleReleaseChannel = 'current'
-    rejectVersionIf {
-        def version = it.candidate.version
-        def stableKeyword = ['RELEASE', 'FINAL', 'GA'].any { keyword -> version.toUpperCase().contains(keyword) }
-        def regex = /^[0-9,.v-]+(-r)?$/
-        return !stableKeyword && !(version ==~ regex)
     }
 }
 

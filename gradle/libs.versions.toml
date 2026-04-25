@@ -7,7 +7,6 @@ slf4jNop = { module = "org.slf4j:slf4j-nop", version.ref = "slf4j" }
 dependencyCheck = { id = "org.owasp.dependencycheck", version.ref = "dependencyCheckPlugin" }
 jmh = { id = "me.champeau.jmh", version.ref = "jmhPlugin" }
 lombok = { id = "io.freefair.lombok", version.ref = "lombokPlugin" }
-versions = { id = "com.github.ben-manes.versions", version.ref = "versionsPlugin" }
 
 [versions]
 checkstyle = "13.4.0"
@@ -19,4 +18,3 @@ lombok = "1.18.46"
 lombokPlugin = "9.4.0"
 pmd = "7.24.0"
 slf4j = "2.0.17"
-versionsPlugin = "0.54.0"
