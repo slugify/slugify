@@ -22,6 +22,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
  * Class for benchmarking.
  *
  * @author Bartosz Galek
+ * @author Danny Trunk
  */
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
