@@ -83,8 +83,9 @@ public final class Slugify {
     this.customReplacements = customReplacements;
 
     Map<String, String> builtinReplacements = null;
-    try (InputStream resourceBundleInputStream = Thread.currentThread().getContextClassLoader()
-        .getResourceAsStream(BUNDLE_BASE_NAME + "_" + this.locale.getLanguage() + ".properties")) {
+    try (InputStream resourceBundleInputStream = Slugify.class
+        .getResourceAsStream("/" + BUNDLE_BASE_NAME + "_" + this.locale.getLanguage()
+            + ".properties")) {
       if (resourceBundleInputStream != null) {
         final ResourceBundle replacementsBundle =
             new PropertyResourceBundle(resourceBundleInputStream);
