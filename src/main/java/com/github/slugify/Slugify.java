@@ -107,7 +107,8 @@ public final class Slugify {
    * Creates a slug from the specified text.
    *
    * @param text Text to create a slug from.
-   * @return A string representing the slug.
+   * @return A string representing the slug, or an empty string if {@code text} is
+   *         {@code null}, empty, or blank.
    */
   public String slugify(final String text) {
     return Optional.ofNullable(text)
