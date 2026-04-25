@@ -60,7 +60,7 @@ class SlugifySeparatorTests {
         format(ASSERT_EQUALS_MESSAGE_FORMAT, DEFAULT_LOCALE, expected, actual));
   }
 
-  @ParameterizedTest
+  @ParameterizedTest(name = "underscoreSeparator={0}")
   @ValueSource(booleans = {false, true})
   /* default */ void givenStringWithLeadingAndTrailingSpecialCharsWhenSlugifyThenTrimmed(
       final boolean underscoreSeparator) {
