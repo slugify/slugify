@@ -29,6 +29,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dropped versions plugin (replaced by Renovate; was also incompatible with Gradle
   configuration cache, see
   [gradle-versions-plugin#666](https://github.com/ben-manes/gradle-versions-plugin/issues/666))
+- Switched to Gradle Java Toolchain for explicit JDK version pinning
+- Migrated publishing to OSSRH Staging API
+- Addressed Gradle 10.0 deprecations for forward compatibility
 
 ### Fixed
 - Leading and trailing underscores are now trimmed when using underscore separator mode
