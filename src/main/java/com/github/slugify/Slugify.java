@@ -43,7 +43,8 @@ public final class Slugify {
   private static final Pattern PATTERN_TRIM_DASH = Pattern.compile("(^-)|(-$)");
   private static final Pattern PATTERN_TRIM_UNDERSCORE = Pattern.compile("(^_)|(_$)");
 
-  private final boolean transliterator;
+  private final Transliterator transliterator;
+
   private final boolean underscoreSeparator;
   private final boolean lowerCase;
 
@@ -56,7 +57,7 @@ public final class Slugify {
    * Sole constructor only used by the builder class.
    *
    * @param transliterator Sets the transliterator property which is a boolean to determine whether
-   *                       slugs should be transliterated instead of normalized.
+   *                       slugs should be transliterated via ICU4J instead of normalized.
    * @param underscoreSeparator Sets the underscoreSeparator property which is a boolean to
    *                            determine whether slugs should contain underscores instead of
    *                            hyphens as separators.
@@ -72,7 +73,8 @@ public final class Slugify {
   private Slugify(final Boolean transliterator, final Boolean underscoreSeparator,
                  final Boolean lowerCase, final Locale locale,
                  @Singular final Map<String, String> customReplacements) {
-    this.transliterator = Optional.ofNullable(transliterator).orElse(false);
+    this.transliterator = Boolean.TRUE.equals(transliterator)
+        ? Transliterator.getInstance(ASCII) : null;
     this.underscoreSeparator = Optional.ofNullable(underscoreSeparator).orElse(false);
     this.lowerCase = Optional.ofNullable(lowerCase).orElse(true);
 
@@ -116,7 +118,7 @@ public final class Slugify {
         // replace all built-in replacements
         .map(str -> replaceAll(str, replacements))
         // transliterate or normalize
-        .map(str -> transliterator ? transliterate(str) : normalize(str))
+        .map(str -> transliterator != null ? transliterate(str) : normalize(str))
         // remove all remaining non ascii chars
         .map(str -> PATTERN_NON_ASCII.matcher(str).replaceAll(EMPTY))
         // replace remaining chars matching a pattern with underscore/hyphen
@@ -142,7 +144,7 @@ public final class Slugify {
   }
 
   private String transliterate(final String input) {
-    return Transliterator.getInstance(ASCII).transliterate(input);
+    return transliterator != null ? transliterator.transliterate(input) : input;
   }
 
   private String normalize(final String input) {
