@@ -2,8 +2,20 @@ name: Check
 
 on:
   pull_request:
+    paths-ignore:
+      - '.github/workflows/gradle-publish.yml'
+      - '.gitignore'
+      - 'LICENSE'
+      - 'README.md'
+      - 'renovate.json'
   push:
     branches: [ master ]
+    paths-ignore:
+      - '.github/workflows/gradle-publish.yml'
+      - '.gitignore'
+      - 'LICENSE'
+      - 'README.md'
+      - 'renovate.json'
   workflow_dispatch:
 
 jobs:
