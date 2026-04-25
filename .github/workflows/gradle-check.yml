@@ -39,3 +39,6 @@ jobs:
 
       - name: Check
         run: ./gradlew check
+
+      - name: Javadoc
+        run: ./gradlew javadoc
