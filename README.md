@@ -60,6 +60,8 @@ final String result = slg.slugify("Foo, bar!");
 // result: hello-world
 ```
 
+Custom replacements take precedence over built-in locale replacements and are applied first.
+
 ### Transliteration
 
 #### Requirements
