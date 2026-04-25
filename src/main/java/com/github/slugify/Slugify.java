@@ -59,16 +59,13 @@ public final class Slugify {
    * @param transliterator Sets whether to use
    *                       {@link com.ibm.icu.text.Transliterator Transliterator}-based
    *                       transliteration via ICU4J instead of normalization.
-   * @param underscoreSeparator Sets the underscoreSeparator property which is a boolean to
-   *                            determine whether slugs should contain underscores instead of
-   *                            hyphens as separators.
-   * @param lowerCase Sets the lowerCase property which is a boolean to determine whether slugs
-   *                  should be converted to lower case.
-   * @param locale Sets the locale property which is a {@link java.util.Locale Locale} to determine
-   *               which locale should be used to generate slugs.
-   * @param customReplacements Sets the customReplacements property which is a
-   *                           {@link java.util.Map Map} to determine which custom replacements
-   *                           should be applied.
+   * @param underscoreSeparator Sets whether to use underscores instead of hyphens as the
+   *                            word separator.
+   * @param lowerCase Sets whether to convert the slug to lower case.
+   * @param locale Sets the {@link java.util.Locale Locale} used for built-in character
+   *               replacements and lower-case conversion.
+   * @param customReplacements Sets custom character replacements applied before built-in
+   *                           locale replacements.
    */
   @Builder
   private Slugify(final Boolean transliterator, final Boolean underscoreSeparator,
