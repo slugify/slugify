@@ -145,7 +145,7 @@ public final class Slugify {
   }
 
   private String transliterate(final String input) {
-    return transliterator != null ? transliterator.transliterate(input) : input;
+    return transliterator.transliterate(input);
   }
 
   private String normalize(final String input) {
