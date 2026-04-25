@@ -15,6 +15,16 @@ import org.junit.jupiter.api.Test;
 class SlugifyNormalizationTests {
 
   @Test
+  /* default */ void givenStringWhenDefaultBuilderUsedThenLowerCasedWithHyphens() {
+    final Slugify slugify = Slugify.builder().build();
+
+    final String expected = "hello-world";
+    final String actual = slugify.slugify("Hello, world!");
+
+    assertEquals(expected, actual);
+  }
+
+  @Test
   /* default */ void givenStringWhenNormalizerUsedThenNormalizesToAscii() {
     final Slugify slugify = Slugify.builder()
         .transliterator(false)
