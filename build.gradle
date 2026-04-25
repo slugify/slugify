@@ -147,6 +147,7 @@ dependencies {
     implementation libs.slf4j
     compileOnly libs.icu4j
     transliteratorImplementation libs.icu4j
+    jmhRuntimeOnly libs.slf4jNop
 }
 
 // "module not found: org.slf4j" is a known non-fatal delombok limitation: Lombok does not

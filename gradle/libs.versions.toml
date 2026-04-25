@@ -1,6 +1,7 @@
 [libraries]
 icu4j = { module = "com.ibm.icu:icu4j", version.ref = "icu4j" }
 slf4j = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+slf4jNop = { module = "org.slf4j:slf4j-nop", version.ref = "slf4j" }
 
 [plugins]
 dependencyCheck = { id = "org.owasp.dependencycheck", version.ref = "dependencyCheckPlugin" }
