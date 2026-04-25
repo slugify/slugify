@@ -39,7 +39,7 @@ public final class Slugify {
   private static final Pattern PATTERN_NON_ASCII = Pattern.compile("[^\\p{ASCII}]+");
   private static final Pattern PATTERN_HYPHEN_SEPARATOR = Pattern.compile("\\W+");
   private static final Pattern PATTERN_UNDERSCORE_SEPARATOR =
-      Pattern.compile("[^a-zA-Z0-9\\-]+");
+      Pattern.compile("[^a-zA-Z0-9-]+");
   private static final Pattern PATTERN_TRIM_DASH = Pattern.compile("(^-)|(-$)");
   private static final Pattern PATTERN_TRIM_UNDERSCORE = Pattern.compile("(^_)|(_$)");
 
