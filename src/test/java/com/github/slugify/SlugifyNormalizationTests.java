@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 class SlugifyNormalizationTests {
 
   @Test
-  /* default */ void givenStringWhenNormalizerIsUsedThenSlugify() {
+  /* default */ void givenStringWhenNormalizerUsedThenNormalizesToAscii() {
     final Slugify slugify = Slugify.builder()
         .transliterator(false)
         .locale(DEFAULT_LOCALE)
@@ -29,7 +29,7 @@ class SlugifyNormalizationTests {
   }
 
   @Test
-  /* default */ void givenStringWhenTransliteratorIsUsedThenSlugify() {
+  /* default */ void givenStringWhenTransliteratorUsedThenTransliteratesToAscii() {
     final Slugify slugify = Slugify.builder()
         .transliterator(true)
         .locale(DEFAULT_LOCALE)
@@ -43,7 +43,7 @@ class SlugifyNormalizationTests {
   }
 
   @Test
-  /* default */ void givenStringWhenLetterCaseAndTransliteratorIsUsedThenSlugify() {
+  /* default */ void givenStringWhenTransliteratorAndPreserveCaseUsedThenCasePreserved() {
     final Slugify slugify = Slugify.builder()
         .lowerCase(false)
         .transliterator(true)
@@ -58,7 +58,7 @@ class SlugifyNormalizationTests {
   }
 
   @Test
-  /* default */ void givenStringWhenLetterCaseIsUsedThenSlugify() {
+  /* default */ void givenStringWhenPreserveCaseUsedThenCasePreserved() {
     final Slugify slugify = Slugify.builder()
         .lowerCase(false)
         .locale(DEFAULT_LOCALE)
@@ -72,7 +72,7 @@ class SlugifyNormalizationTests {
   }
 
   @Test
-  /* default */ void givenStringWhenLowerCaseIsUsedThenSlugify() {
+  /* default */ void givenStringWhenLowerCaseUsedThenConvertsToLowerCase() {
     final Slugify slugify = Slugify.builder()
         .lowerCase(true)
         .locale(DEFAULT_LOCALE)

@@ -18,7 +18,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 class SlugifySeparatorTests {
 
   @Test
-  /* default */ void givenStringWhenHyphenIsUsedThenSlugify() {
+  /* default */ void givenStringWhenHyphenSeparatorUsedThenJoinsWithHyphen() {
     final Slugify slugify = Slugify.builder()
         .underscoreSeparator(false)
         .locale(DEFAULT_LOCALE)
@@ -32,7 +32,7 @@ class SlugifySeparatorTests {
   }
 
   @Test
-  /* default */ void givenStringWhenUnderscoreIsUsedThenSlugify() {
+  /* default */ void givenStringWhenUnderscoreSeparatorUsedThenJoinsWithUnderscore() {
     final Slugify slugify = Slugify.builder()
         .underscoreSeparator(true)
         .locale(DEFAULT_LOCALE)

@@ -26,7 +26,7 @@ class SlugifyReplacementsTests {
   @ParameterizedTest
   @ValueSource(strings = {"ar", "da", "de", "el", "is", "no", "pl", "ru", "sv", "tr", "uk", "vi",
       "wa"})
-  /* default */ void givenStringWhenStringContainsReplacementsThenSlugify(
+  /* default */ void givenStringWhenBuiltinReplacementsAppliedThenConverted(
       final String languageTag) {
     final Locale locale = Locale.forLanguageTag(languageTag);
 
@@ -57,7 +57,7 @@ class SlugifyReplacementsTests {
   }
 
   @Test
-  /* default */ void givenStringWhenStringContainsCustomReplacementsThenSlugify() {
+  /* default */ void givenStringWhenCustomReplacementConfiguredThenReplaced() {
     final String given = "ä";
     final String expected = "foo";
 
