@@ -150,7 +150,6 @@ dependencies {
 }
 
 delombok {
-    modulePath = sourceSets.main.compileClasspath
     sourcepath.from(sourceSets.main.java.srcDirs)
 }
 
