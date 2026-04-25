@@ -152,6 +152,30 @@ public class SlugifyBenchmark {
   }
 
   /**
+   * State for benchmarks measuring the custom replacements code path.
+   */
+  @State(Scope.Benchmark)
+  @NoArgsConstructor
+  public static class CustomReplacementsState {
+    @Param({"ä ö ü", "ä ä ä ö ö ö ü ü ü", "ä ä ä ä ä ä ö ö ö ö ö ö ü ü ü ü ü ü"})
+    public String input;
+
+    private Slugify slugify;
+
+    /**
+     * Set up the Slugify instance with custom replacements.
+     */
+    @Setup
+    public void setup() {
+      slugify = Slugify.builder()
+          .customReplacement("ä", "ae")
+          .customReplacement("ö", "oe")
+          .customReplacement("ü", "ue")
+          .build();
+    }
+  }
+
+  /**
    * State for benchmarks measuring the transliterator code path with varying string lengths.
    */
   @State(Scope.Benchmark)
@@ -241,6 +265,11 @@ public class SlugifyBenchmark {
 
   @Benchmark
   public void specialStringLengthPerformance(final SpecialStringState state) {
+    state.slugify.slugify(state.input);
+  }
+
+  @Benchmark
+  public void customReplacementsPerformance(final CustomReplacementsState state) {
     state.slugify.slugify(state.input);
   }
 
