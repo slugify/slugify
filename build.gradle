@@ -109,8 +109,8 @@ nmcp {
 signing {
     sign publishing.publications.mavenJava
 
-    def signingKey = findProperty("signingKey")
-    def signingPassword = findProperty("signingPassword")
+    def signingKey = providers.gradleProperty('signingKey').getOrNull()
+    def signingPassword = providers.gradleProperty('signingPassword').getOrNull()
     if (signingKey && signingPassword) {
         useInMemoryPgpKeys(signingKey, signingPassword)
     }
