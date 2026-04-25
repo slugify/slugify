@@ -21,7 +21,8 @@ class SlugifyNormalizationTests {
     final String expected = "hello-world";
     final String actual = slugify.slugify("Hello, world!");
 
-    assertEquals(expected, actual);
+    assertEquals(expected, actual,
+        format(ASSERT_EQUALS_MESSAGE_FORMAT, "default", expected, actual));
   }
 
   @Test
