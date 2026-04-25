@@ -1,3 +1,6 @@
+/**
+ * Slugify – a Java library for generating SEO-friendly URL slugs.
+ */
 module slugify {
     exports com.github.slugify;
 
