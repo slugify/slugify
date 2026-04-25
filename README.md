@@ -39,6 +39,10 @@ final String result = slg.slugify("ä");
 // result: ae
 ```
 
+Built-in character replacements exist for a subset of locales (see `src/main/resources/slugify_*.properties`).
+For all other locales, no built-in replacements are applied — custom replacements or transliteration
+can be used instead.
+
 ### Custom Replacements
 ```java
 // provided as single key-value pairs
