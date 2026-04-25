@@ -171,6 +171,22 @@ class SlugifyTests {
     }
   }
 
+  @ParameterizedTest
+  @ValueSource(booleans = {false, true})
+  /* default */ void givenStringWithLeadingAndTrailingSpecialCharsWhenSlugifyThenTrimmed(
+      final boolean underscoreSeparator) {
+    final Slugify slugify = Slugify.builder()
+        .underscoreSeparator(underscoreSeparator)
+        .locale(DEFAULT_LOCALE)
+        .build();
+
+    final String expected = "foo";
+    final String actual = slugify.slugify("!foo!");
+
+    assertEquals(expected, actual,
+        format(ASSERT_EQUALS_MESSAGE_FORMAT, DEFAULT_LOCALE, expected, actual));
+  }
+
   @Test
   /* default */ void givenStringWhenStringContainsCustomReplacementsThenSlugify() {
     final String given = "ä";

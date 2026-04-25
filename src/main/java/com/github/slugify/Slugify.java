@@ -41,6 +41,7 @@ public final class Slugify {
   private static final Pattern PATTERN_UNDERSCORE_SEPARATOR =
       Pattern.compile("[^a-zA-Z0-9\\-]+");
   private static final Pattern PATTERN_TRIM_DASH = Pattern.compile("(^-)|(-$)");
+  private static final Pattern PATTERN_TRIM_UNDERSCORE = Pattern.compile("(^_)|(_$)");
 
   private final boolean transliterator;
   private final boolean underscoreSeparator;
@@ -122,8 +123,10 @@ public final class Slugify {
         .map(str -> underscoreSeparator
             ? PATTERN_UNDERSCORE_SEPARATOR.matcher(str).replaceAll(UNDERSCORE)
             : PATTERN_HYPHEN_SEPARATOR.matcher(str).replaceAll(HYPHEN))
-        // remove leading and trailing dashes
-        .map(str -> PATTERN_TRIM_DASH.matcher(str).replaceAll(EMPTY))
+        // remove leading and trailing separator chars
+        .map(str -> underscoreSeparator
+            ? PATTERN_TRIM_UNDERSCORE.matcher(str).replaceAll(EMPTY)
+            : PATTERN_TRIM_DASH.matcher(str).replaceAll(EMPTY))
         // convert to lower case if needed
         .map(str -> lowerCase ? str.toLowerCase(locale) : str)
         // return empty string if input is null or empty
