@@ -5,6 +5,7 @@ jmh = "1.37"
 jmhPlugin = "0.7.3"
 lombok = "1.18.46"
 lombokPlugin = "9.4.0"
+nmcp = "1.4.4"
 pmd = "7.24.0"
 slf4j = "2.0.17"
 
@@ -16,3 +17,4 @@ slf4jNop = { module = "org.slf4j:slf4j-nop", version.ref = "slf4j" }
 [plugins]
 jmh = { id = "me.champeau.jmh", version.ref = "jmhPlugin" }
 lombok = { id = "io.freefair.lombok", version.ref = "lombokPlugin" }
+nmcp = { id = "com.gradleup.nmcp", version.ref = "nmcp" }
