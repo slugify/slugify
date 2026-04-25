@@ -186,4 +186,33 @@ class SlugifyTests {
     assertEquals(expected, actual,
         format(ASSERT_EQUALS_MESSAGE_FORMAT, DEFAULT_LOCALE, expected, actual));
   }
+
+  @Test
+  /* default */ void givenCustomReplacementForBuiltinKeyThenCustomTakesPrecedence() {
+    final Locale locale = Locale.GERMAN;
+
+    final Slugify slugify = Slugify.builder()
+        .locale(locale)
+        .lowerCase(false)
+        .customReplacement("ä", "x")
+        .build();
+
+    final String actual = slugify.slugify("ä");
+
+    assertEquals("x", actual, format(ASSERT_EQUALS_MESSAGE_FORMAT, locale, "x", actual));
+  }
+
+  @Test
+  /* default */ void givenCustomReplacementResultMatchingBuiltinKeyThenBuiltinAlsoApplied() {
+    final Locale locale = Locale.GERMAN;
+
+    final Slugify slugify = Slugify.builder()
+        .locale(locale)
+        .customReplacement("X", "ü")
+        .build();
+
+    final String actual = slugify.slugify("X");
+
+    assertEquals("ue", actual, format(ASSERT_EQUALS_MESSAGE_FORMAT, locale, "ue", actual));
+  }
 }
