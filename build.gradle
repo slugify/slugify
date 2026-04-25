@@ -149,7 +149,13 @@ dependencies {
     transliteratorImplementation libs.icu4j
 }
 
+// "module not found: org.slf4j" is a known non-fatal delombok limitation: Lombok does not
+// enable multi-release JAR support when invoking javac internally, so SLF4J 2.x (whose
+// module-info.class lives only in META-INF/versions/9/) is not recognized as module org.slf4j.
+// Tracked in https://github.com/projectlombok/lombok/issues/3389 (fix pending in PR #3392).
 delombok {
+    // required to avoid "file should be on source path" errors in module mode;
+    // can be removed once https://github.com/freefair/gradle-plugins/pull/1754 is merged and released
     sourcepath.from(sourceSets.main.java.srcDirs)
 }
 
