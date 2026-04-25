@@ -136,11 +136,11 @@ public final class Slugify {
   }
 
   private String replaceAll(final String input, final Map<String, String> replacements) {
-    return replacements.entrySet().stream()
-        .map(entry -> (Function<String, String>) str ->
-            str.replace(entry.getKey(), entry.getValue()))
-        .reduce(Function.identity(), Function::andThen)
-        .apply(input);
+    String result = input;
+    for (final Map.Entry<String, String> entry : replacements.entrySet()) {
+      result = result.replace(entry.getKey(), entry.getValue());
+    }
+    return result;
   }
 
   private String transliterate(final String input) {
