@@ -30,6 +30,9 @@ jobs:
       - name: Check
         run: ./gradlew check
 
+      - name: Javadoc
+        run: ./gradlew javadoc
+
       - name: Publish
         run: ./gradlew publishAllPublicationsToCentralPortal
         env:
