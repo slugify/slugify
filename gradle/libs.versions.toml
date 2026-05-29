@@ -6,7 +6,7 @@ jmhPlugin = "0.7.3"
 lombok = "1.18.46"
 lombokPlugin = "9.5.0"
 nmcp = "1.5.0"
-pmd = "7.24.0"
+pmd = "7.25.0"
 slf4j = "2.0.18"
 
 [libraries]
