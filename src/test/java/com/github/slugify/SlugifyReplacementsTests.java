@@ -24,7 +24,7 @@ class SlugifyReplacementsTests {
 
   @SneakyThrows
   @ParameterizedTest(name = "languageTag=\"{0}\"")
-  @ValueSource(strings = {"ar", "da", "de", "el", "is", "no", "pl", "ru", "sv", "tr", "uk", "vi",
+  @ValueSource(strings = {"ar", "bn", "da", "de", "el", "is", "no", "pl", "ru", "sv", "tr", "uk", "vi",
       "wa"})
   /* default */ void givenStringWhenBuiltinReplacementsAppliedThenConverted(
       final String languageTag) {
