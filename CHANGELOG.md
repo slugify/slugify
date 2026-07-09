@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.0.1] - 2026-07-09
+
+### Added
+- Built-in character replacements for Bengali (`bn`)
+
+### Fixed
+- `transliterator` field is now typed as `Function<String, String>` instead of
+  `com.ibm.icu.text.Transliterator`, so reflective bean introspection (e.g. Spring's
+  `CommonAnnotationBeanPostProcessor`, which scans every bean's declared fields) no longer
+  forces the optional ICU4J dependency to be loaded when transliteration is disabled,
+  fixing a `NoClassDefFoundError` when registering `Slugify` as a Spring bean without ICU4J
+  on the classpath ([#390](https://github.com/slugify/slugify/issues/390))
+
 ## [4.0.0] - 2026-04-25
 
 ### Added
