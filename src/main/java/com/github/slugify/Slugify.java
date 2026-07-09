@@ -43,7 +43,7 @@ public final class Slugify {
   private static final Pattern PATTERN_TRIM_DASH = Pattern.compile("(^-)|(-$)");
   private static final Pattern PATTERN_TRIM_UNDERSCORE = Pattern.compile("(^_)|(_$)");
 
-  private final Transliterator transliterator;
+  private final Function<String, String> transliterator;
 
   private final boolean underscoreSeparator;
   private final boolean lowerCase;
@@ -72,7 +72,7 @@ public final class Slugify {
                  final Boolean lowerCase, final Locale locale,
                  @Singular final Map<String, String> customReplacements) {
     this.transliterator = Boolean.TRUE.equals(transliterator)
-        ? Transliterator.getInstance(TRANSLITERATOR_ID) : null;
+        ? Transliterator.getInstance(TRANSLITERATOR_ID)::transliterate : null;
     this.underscoreSeparator = Optional.ofNullable(underscoreSeparator).orElse(false);
     this.lowerCase = Optional.ofNullable(lowerCase).orElse(true);
 
@@ -144,7 +144,7 @@ public final class Slugify {
   }
 
   private String transliterate(final String input) {
-    return transliterator.transliterate(input);
+    return transliterator.apply(input);
   }
 
   private String normalize(final String input) {
