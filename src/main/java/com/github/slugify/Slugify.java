@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
@@ -42,7 +43,7 @@ public final class Slugify {
       Pattern.compile("[^a-zA-Z0-9-]+");
   private static final Pattern PATTERN_TRIM_DASH = Pattern.compile("(^-)|(-$)");
   private static final Pattern PATTERN_TRIM_UNDERSCORE = Pattern.compile("(^_)|(_$)");
-
+  private static final Map<String, Map<String, String>> REPLACEMENTS_CACHE = new ConcurrentHashMap<>();
   private final Function<String, String> transliterator;
 
   private final boolean underscoreSeparator;
@@ -72,33 +73,46 @@ public final class Slugify {
                  final Boolean lowerCase, final Locale locale,
                  @Singular final Map<String, String> customReplacements) {
     this.transliterator = Boolean.TRUE.equals(transliterator)
-        ? Transliterator.getInstance(TRANSLITERATOR_ID)::transliterate : null;
+            ? Transliterator.getInstance(TRANSLITERATOR_ID)::transliterate : null;
     this.underscoreSeparator = Optional.ofNullable(underscoreSeparator).orElse(false);
     this.lowerCase = Optional.ofNullable(lowerCase).orElse(true);
 
     this.locale = Optional.ofNullable(locale).orElseGet(Locale::getDefault);
 
     this.customReplacements = customReplacements;
-
-    Map<String, String> builtinReplacements = null;
-    try (InputStream resourceBundleInputStream = Slugify.class
-        .getResourceAsStream("/" + BUNDLE_BASE_NAME + "_" + this.locale.getLanguage()
-            + ".properties")) {
-      if (resourceBundleInputStream != null) {
-        final ResourceBundle replacementsBundle =
-            new PropertyResourceBundle(resourceBundleInputStream);
-        builtinReplacements = replacementsBundle.keySet().stream()
-            .collect(Collectors.toMap(Function.identity(), replacementsBundle::getString));
-      }
-    } catch (IOException e) {
-      LOGGER.atError()
-          .addArgument(this.locale::getLanguage)
-          .setCause(e)
-          .log("Failed to load language bundle for locale: {}");
-    }
-
-    this.replacements = Optional.ofNullable(builtinReplacements).orElseGet(Collections::emptyMap);
+    this.replacements = loadReplacementsForLocale(this.locale);
   }
+    /**
+     * Loads (and caches) the built-in character replacements for the given locale.
+     * Results are cached per locale language so the underlying resource bundle is
+     * read from the classpath only once per language, instead of on every
+     * {@code Slugify} instantiation.
+     *
+     * @param locale Locale to load built-in replacements for.
+     * @return An unmodifiable map of replacements, or an empty map if none exist or
+     *         loading failed.
+     */
+    private static Map<String, String> loadReplacementsForLocale(final Locale locale) {
+      return REPLACEMENTS_CACHE.computeIfAbsent(locale.getLanguage(),
+              language -> {
+                Map<String, String> builtinReplacements = null;
+                try (InputStream resourceBundleInputStream = Slugify.class
+                        .getResourceAsStream("/" + BUNDLE_BASE_NAME + "_" + language + ".properties")) {
+                  if (resourceBundleInputStream != null) {
+                    final ResourceBundle replacementsBundle =
+                            new PropertyResourceBundle(resourceBundleInputStream);
+                    builtinReplacements = replacementsBundle.keySet().stream()
+                            .collect(Collectors.toMap(Function.identity(), replacementsBundle::getString));
+                  }
+                } catch (IOException e) {
+                  LOGGER.atError()
+                          .addArgument(() -> language)
+                          .setCause(e)
+                          .log("Failed to load language bundle for locale: {}");
+                }
+                return Optional.ofNullable(builtinReplacements).orElseGet(Collections::emptyMap);
+              });
+    }
 
   /**
    * Creates a slug from the specified text.
