@@ -1,5 +1,5 @@
 [versions]
-checkstyle = "14.0.0"
+checkstyle = "14.1.0"
 icu4j = "78.3"
 jmh = "1.37"
 jmhPlugin = "0.7.3"
