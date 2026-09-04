@@ -7,7 +7,7 @@ lombok = "1.18.48"
 lombokPlugin = "9.5.0"
 nmcp = "1.6.2"
 pmd = "7.27.0"
-slf4j = "2.0.18"
+slf4j = "2.0.19"
 
 [libraries]
 icu4j = { module = "com.ibm.icu:icu4j", version.ref = "icu4j" }
