@@ -10,26 +10,12 @@ Small utility library for generating speaking URLs.
 
 Slugify is published in the [Maven Central Repository](https://central.sonatype.com/artifact/com.github.slugify/slugify).
 
-### Maven
-```xml
-<dependency>
-    <groupId>com.github.slugify</groupId>
-    <artifactId>slugify</artifactId>
-    <version>4.0.1</version>
-</dependency>
-```
+Use the following coordinates:
 
-### Gradle (Groovy)
-```groovy
-implementation 'com.github.slugify:slugify:4.0.1'
-```
+- **Group ID**: `com.github.slugify`
+- **Artifact ID**: `slugify`
 
-### Gradle (Kotlin DSL)
-```kotlin
-implementation("com.github.slugify:slugify:4.0.1")
-```
-
-> Check [Maven Central](https://central.sonatype.com/artifact/com.github.slugify/slugify) for the latest version.
+See [Maven Central](https://central.sonatype.com/artifact/com.github.slugify/slugify) for the latest version and copy-paste ready snippets for Maven, Gradle, and other build tools.
 
 ## Usage Examples
 
