@@ -2,7 +2,7 @@
 checkstyle = "14.3.0"
 icu4j = "79.1"
 jmh = "1.37"
-jmhPlugin = "0.7.3"
+jmhPlugin = "0.7.4"
 lombok = "1.18.48"
 lombokPlugin = "9.8.2"
 nmcp = "1.6.2"
