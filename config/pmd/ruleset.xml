@@ -8,6 +8,7 @@
 
     <!-- CODE STYLE -->
     <rule ref="category/java/codestyle.xml">
+        <exclude name="LocalVariableDeclarationShouldBeAtStartOfBlock" />
         <exclude name="LongVariable" />
     </rule>
 
