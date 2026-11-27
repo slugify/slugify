@@ -2,7 +2,6 @@ package com.github.slugify;
 
 import static com.github.slugify.SlugifyTestConstants.ASSERT_EQUALS_MESSAGE_FORMAT;
 import static com.github.slugify.SlugifyTestConstants.DEFAULT_LOCALE;
-import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.FileNotFoundException;
@@ -52,7 +51,7 @@ class SlugifyReplacementsTests {
         final String actual = slugify.slugify(key);
 
         assertEquals(expected, actual,
-            format(ASSERT_EQUALS_MESSAGE_FORMAT, locale, expected, actual));
+            ASSERT_EQUALS_MESSAGE_FORMAT.formatted(locale, expected, actual));
       });
     }
   }
@@ -70,7 +69,7 @@ class SlugifyReplacementsTests {
     final String actual = slugify.slugify(given);
 
     assertEquals(expected, actual,
-        format(ASSERT_EQUALS_MESSAGE_FORMAT, DEFAULT_LOCALE, expected, actual));
+        ASSERT_EQUALS_MESSAGE_FORMAT.formatted(DEFAULT_LOCALE, expected, actual));
   }
 
   @Test
@@ -86,7 +85,7 @@ class SlugifyReplacementsTests {
     final String actual = slugify.slugify("ä ö ü");
 
     assertEquals(expected, actual,
-        format(ASSERT_EQUALS_MESSAGE_FORMAT, DEFAULT_LOCALE, expected, actual));
+        ASSERT_EQUALS_MESSAGE_FORMAT.formatted(DEFAULT_LOCALE, expected, actual));
   }
 
   @Test
@@ -101,7 +100,7 @@ class SlugifyReplacementsTests {
 
     final String actual = slugify.slugify("ä");
 
-    assertEquals("x", actual, format(ASSERT_EQUALS_MESSAGE_FORMAT, locale, "x", actual));
+    assertEquals("x", actual, ASSERT_EQUALS_MESSAGE_FORMAT.formatted(locale, "x", actual));
   }
 
   @Test
@@ -115,6 +114,6 @@ class SlugifyReplacementsTests {
 
     final String actual = slugify.slugify("X");
 
-    assertEquals("ue", actual, format(ASSERT_EQUALS_MESSAGE_FORMAT, locale, "ue", actual));
+    assertEquals("ue", actual, ASSERT_EQUALS_MESSAGE_FORMAT.formatted(locale, "ue", actual));
   }
 }

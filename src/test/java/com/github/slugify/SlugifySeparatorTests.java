@@ -2,7 +2,6 @@ package com.github.slugify;
 
 import static com.github.slugify.SlugifyTestConstants.ASSERT_EQUALS_MESSAGE_FORMAT;
 import static com.github.slugify.SlugifyTestConstants.DEFAULT_LOCALE;
-import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import lombok.NoArgsConstructor;
@@ -28,7 +27,7 @@ class SlugifySeparatorTests {
     final String actual = slugify.slugify("foo bar");
 
     assertEquals(expected, actual,
-        format(ASSERT_EQUALS_MESSAGE_FORMAT, DEFAULT_LOCALE, expected, actual));
+        ASSERT_EQUALS_MESSAGE_FORMAT.formatted(DEFAULT_LOCALE, expected, actual));
   }
 
   @Test
@@ -42,7 +41,7 @@ class SlugifySeparatorTests {
     final String actual = slugify.slugify("foo bar");
 
     assertEquals(expected, actual,
-        format(ASSERT_EQUALS_MESSAGE_FORMAT, DEFAULT_LOCALE, expected, actual));
+        ASSERT_EQUALS_MESSAGE_FORMAT.formatted(DEFAULT_LOCALE, expected, actual));
   }
 
   @ParameterizedTest(name = "input=\"{0}\"")
@@ -57,7 +56,7 @@ class SlugifySeparatorTests {
     final String actual = slugify.slugify(input);
 
     assertEquals(expected, actual,
-        format(ASSERT_EQUALS_MESSAGE_FORMAT, DEFAULT_LOCALE, expected, actual));
+        ASSERT_EQUALS_MESSAGE_FORMAT.formatted(DEFAULT_LOCALE, expected, actual));
   }
 
   @ParameterizedTest(name = "underscoreSeparator=\"{0}\"")
@@ -73,6 +72,6 @@ class SlugifySeparatorTests {
     final String actual = slugify.slugify("!foo!");
 
     assertEquals(expected, actual,
-        format(ASSERT_EQUALS_MESSAGE_FORMAT, DEFAULT_LOCALE, expected, actual));
+        ASSERT_EQUALS_MESSAGE_FORMAT.formatted(DEFAULT_LOCALE, expected, actual));
   }
 }

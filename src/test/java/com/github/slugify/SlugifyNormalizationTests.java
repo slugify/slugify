@@ -2,7 +2,6 @@ package com.github.slugify;
 
 import static com.github.slugify.SlugifyTestConstants.ASSERT_EQUALS_MESSAGE_FORMAT;
 import static com.github.slugify.SlugifyTestConstants.DEFAULT_LOCALE;
-import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import lombok.NoArgsConstructor;
@@ -22,7 +21,7 @@ class SlugifyNormalizationTests {
     final String actual = slugify.slugify("Hello, world!");
 
     assertEquals(expected, actual,
-        format(ASSERT_EQUALS_MESSAGE_FORMAT, "default", expected, actual));
+        ASSERT_EQUALS_MESSAGE_FORMAT.formatted("default", expected, actual));
   }
 
   @Test
@@ -36,7 +35,7 @@ class SlugifyNormalizationTests {
     final String actual = slugify.slugify("ä");
 
     assertEquals(expected, actual,
-        format(ASSERT_EQUALS_MESSAGE_FORMAT, DEFAULT_LOCALE, expected, actual));
+        ASSERT_EQUALS_MESSAGE_FORMAT.formatted(DEFAULT_LOCALE, expected, actual));
   }
 
   @Test
@@ -50,7 +49,7 @@ class SlugifyNormalizationTests {
     final String actual = slugify.slugify("Świeże Mleko");
 
     assertEquals(expected, actual,
-        format(ASSERT_EQUALS_MESSAGE_FORMAT, DEFAULT_LOCALE, expected, actual));
+        ASSERT_EQUALS_MESSAGE_FORMAT.formatted(DEFAULT_LOCALE, expected, actual));
   }
 
   @Test
@@ -65,7 +64,7 @@ class SlugifyNormalizationTests {
     final String actual = slugify.slugify("Świeże Mleko");
 
     assertEquals(expected, actual,
-        format(ASSERT_EQUALS_MESSAGE_FORMAT, DEFAULT_LOCALE, expected, actual));
+        ASSERT_EQUALS_MESSAGE_FORMAT.formatted(DEFAULT_LOCALE, expected, actual));
   }
 
   @Test
@@ -79,7 +78,7 @@ class SlugifyNormalizationTests {
     final String actual = slugify.slugify("Foo");
 
     assertEquals(expected, actual,
-        format(ASSERT_EQUALS_MESSAGE_FORMAT, DEFAULT_LOCALE, expected, actual));
+        ASSERT_EQUALS_MESSAGE_FORMAT.formatted(DEFAULT_LOCALE, expected, actual));
   }
 
   @Test
@@ -93,6 +92,6 @@ class SlugifyNormalizationTests {
     final String actual = slugify.slugify("Foo");
 
     assertEquals(expected, actual,
-        format(ASSERT_EQUALS_MESSAGE_FORMAT, DEFAULT_LOCALE, expected, actual));
+        ASSERT_EQUALS_MESSAGE_FORMAT.formatted(DEFAULT_LOCALE, expected, actual));
   }
 }
