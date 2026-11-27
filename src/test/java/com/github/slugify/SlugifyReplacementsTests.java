@@ -3,8 +3,8 @@ package com.github.slugify;
 import static com.github.slugify.SlugifyTestConstants.ASSERT_EQUALS_MESSAGE_FORMAT;
 import static com.github.slugify.SlugifyTestConstants.DEFAULT_LOCALE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Locale;
 import java.util.PropertyResourceBundle;
@@ -29,14 +29,12 @@ class SlugifyReplacementsTests {
   /* default */ void givenStringWhenBuiltinReplacementsAppliedThenConverted(
       final String languageTag) {
     final Locale locale = Locale.forLanguageTag(languageTag);
+    final String bundleResourceName =
+        Slugify.BUNDLE_BASE_NAME + "_" + locale.getLanguage() + ".properties";
 
     try (InputStream resourceBundleInputStream = SlugifyReplacementsTests.class
-        .getResourceAsStream("/" + Slugify.BUNDLE_BASE_NAME + "_" + locale.getLanguage()
-            + ".properties")) {
-      if (resourceBundleInputStream == null) {
-        throw new FileNotFoundException(Slugify.BUNDLE_BASE_NAME + "_" + locale.getLanguage()
-            + ".properties");
-      }
+        .getResourceAsStream("/" + bundleResourceName)) {
+      assertNotNull(resourceBundleInputStream, bundleResourceName + " not found");
 
       final ResourceBundle replacementsBundle =
           new PropertyResourceBundle(resourceBundleInputStream);
