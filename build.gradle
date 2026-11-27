@@ -133,6 +133,13 @@ dependencies {
     compileOnly libs.icu4j
     transliteratorImplementation libs.icu4j
     jmhRuntimeOnly libs.slf4jNop
+
+    // Provide the toolchain's jrt-fs.jar so PMD resolves platform classes for the
+    // configured Java version instead of the running JVM.
+    // See https://docs.pmd-code.org/latest/pmd_userdocs_tools_gradle.html#aux-classpath
+    pmdAux javaToolchains.launcherFor(java.toolchain)
+            .map { it.metadata.installationPath }
+            .map { it.files('lib/jrt-fs.jar') }
 }
 
 // "module not found: org.slf4j" is a known non-fatal delombok limitation: Lombok does not
